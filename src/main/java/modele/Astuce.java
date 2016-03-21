@@ -50,7 +50,7 @@ public class Astuce {
 		this.date = date;
 	}
 	
-	
+	// NBLBLBLLBLBLBL
 	
 
 	
