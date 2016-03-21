@@ -1,13 +1,15 @@
 package modele;
 
 import java.sql.Date;
-import modele.CompteInscrit;
+
 public class Astuce {
+
 	int idAstuce;
 	Categorie categorie;
 	String astuce;
 	CompteInscrit Auteur;
 	Date date;
+	
 	public int getIdAstuce() {
 		return idAstuce;
 	}
@@ -50,4 +52,9 @@ public class Astuce {
 	
 	
 	
+
+	
+	// je suis une pomme de terre
+
+
 }
