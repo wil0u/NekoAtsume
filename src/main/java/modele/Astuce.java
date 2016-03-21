@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class Astuce {
 
+	// Jesus Fucking Christ
 	int idAstuce;
 	Categorie categorie;
 	String astuce;
