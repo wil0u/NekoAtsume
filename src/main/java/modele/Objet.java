@@ -1,10 +1,29 @@
 package modele;
 
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Objet {
+	@Id 	@GeneratedValue(strategy=GenerationType.AUTO)
 	int idObjet;
 	String nomObjet;
 	String cheminPhotoObjet;
-	MonnaiePrix mp;
+	@OneToOne
+	Monnaie monnaie;
+	int prix;
+	
+	public int getPrix() {
+		return prix;
+	}
+	public void setPrix(int prix) {
+		this.prix = prix;
+	}
+	//MonnaiePrix mp;
 	public int getIdObjet() {
 		return idObjet;
 	}
@@ -23,19 +42,9 @@ public class Objet {
 	public void setCheminPhotoObjet(String cheminPhotoObjet) {
 		this.cheminPhotoObjet = cheminPhotoObjet;
 	}
-	public MonnaiePrix getMp() {
-		return mp;
+	public Objet() {
+		// TODO Auto-generated constructor stub
 	}
-	public void setMp(MonnaiePrix mp) {
-		this.mp = mp;
-	}
-	public Objet(int idObjet, String nomObjet, String cheminPhotoObjet,
-			MonnaiePrix mp) {
-		super();
-		this.idObjet = idObjet;
-		this.nomObjet = nomObjet;
-		this.cheminPhotoObjet = cheminPhotoObjet;
-		this.mp = mp;
-	}
+	
 	
 }

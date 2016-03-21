@@ -1,6 +1,15 @@
 package modele;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Monnaie {
+	@Id 
+	@GeneratedValue
 	int idMonnaie;
 	String nomMonnaie;
 	String cheminPhotoMonnaie;
@@ -28,6 +37,6 @@ public class Monnaie {
 		this.nomMonnaie = nomMonnaie;
 		this.cheminPhotoMonnaie = cheminPhotoMonnaie;
 	}
-
+	public Monnaie(){}
 	
 }

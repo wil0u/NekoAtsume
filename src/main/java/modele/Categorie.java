@@ -1,6 +1,12 @@
 package modele;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Categorie {
+	@Id @GeneratedValue
 	int idCategorie;
 	String nomCategorie;
 	String descriptionCategorie;
@@ -22,13 +28,6 @@ public class Categorie {
 	public void setDescriptionCategorie(String descriptionCategorie) {
 		this.descriptionCategorie = descriptionCategorie;
 	}
-	public Categorie(int idCategorie, String nomCategorie,
-			String descriptionCategorie) {
-		super();
-		this.idCategorie = idCategorie;
-		this.nomCategorie = nomCategorie;
-		this.descriptionCategorie = descriptionCategorie;
-	}
 	
-	
+	public Categorie(){}
 }
