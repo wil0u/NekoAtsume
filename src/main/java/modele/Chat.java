@@ -38,6 +38,16 @@ public class Chat {
 	public void setNomJaponnaisChat(String nomJaponnaisChat) {
 		this.nomJaponnaisChat = nomJaponnaisChat;
 	}
+	public Chat(String nomChat, String cheminPhotoChat, String couleurChat,
+			String caractereChat, String nomJaponnaisChat, String memorialChat) {
+		super();
+		this.nomChat = nomChat;
+		this.cheminPhotoChat = cheminPhotoChat;
+		this.couleurChat = couleurChat;
+		this.caractereChat = caractereChat;
+		this.nomJaponnaisChat = nomJaponnaisChat;
+		this.memorialChat = memorialChat;
+	}
 	
 	
 }

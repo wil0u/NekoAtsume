@@ -22,6 +22,12 @@ public class Monnaie {
 	public void setCheminPhotoMonnaie(String cheminPhotoMonnaie) {
 		this.cheminPhotoMonnaie = cheminPhotoMonnaie;
 	}
+	public Monnaie(int idMonnaie, String nomMonnaie, String cheminPhotoMonnaie) {
+		super();
+		this.idMonnaie = idMonnaie;
+		this.nomMonnaie = nomMonnaie;
+		this.cheminPhotoMonnaie = cheminPhotoMonnaie;
+	}
 
 	
 }

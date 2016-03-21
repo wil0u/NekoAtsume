@@ -18,5 +18,10 @@ public class MonnaiePrix {
 	public void setCout(int cout) {
 		this.prix = cout;
 	}
+	public MonnaiePrix(Monnaie monnaie, int prix) {
+		super();
+		this.monnaie = monnaie;
+		this.prix = prix;
+	}
 	
 }

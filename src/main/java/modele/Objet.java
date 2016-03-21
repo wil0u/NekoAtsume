@@ -29,5 +29,13 @@ public class Objet {
 	public void setMp(MonnaiePrix mp) {
 		this.mp = mp;
 	}
+	public Objet(int idObjet, String nomObjet, String cheminPhotoObjet,
+			MonnaiePrix mp) {
+		super();
+		this.idObjet = idObjet;
+		this.nomObjet = nomObjet;
+		this.cheminPhotoObjet = cheminPhotoObjet;
+		this.mp = mp;
+	}
 	
 }

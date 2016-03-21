@@ -37,6 +37,15 @@ public class CompteInscrit {
 	public void setBanned(boolean banned) {
 		this.banned = banned;
 	}
+	public CompteInscrit(String pseudo, String mdp, String cheminPhoto,
+			String email, boolean banned) {
+		super();
+		this.pseudo = pseudo;
+		this.mdp = mdp;
+		this.cheminPhoto = cheminPhoto;
+		this.email = email;
+		this.banned = banned;
+	}
 	
 
 }
