@@ -1,7 +1,7 @@
 package modele;
 
 public class Chat {
-	
+	// CLASSE DE CHAT 
 	String nomChat;
 	String cheminPhotoChat;
 	String couleurChat;
