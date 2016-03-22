@@ -2,10 +2,13 @@ package run;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Order;
 
 import modele.Astuce;
 import modele.Categorie;
@@ -19,14 +22,20 @@ public class HibernateTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Chat chat = new Chat();
-		chat.setNomChat("salut");
-		chat.setCouleurChat("yo");
 		
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.save(chat);
+		Chat chat;
+		for (int i = 1; i <= 20;i++){
+			chat = new Chat();
+			chat.setCaractereChat("CaractereChat"+i);
+			chat.setCheminPhotoChat("CheminPhotoChat"+i);
+			chat.setCouleurChat("CouleurChat"+i);
+			chat.setNomChat("NomChat"+i);
+			chat.setNomJaponnaisChat("Nom JaponnaisChat"+i);
+			session.save(chat);
+		}
 		session.getTransaction().commit();
 		session.close();
 		chat = null;
@@ -42,8 +51,22 @@ public class HibernateTest {
 		c.setNomCategorie("Général");
 		Objet obj1 = new Objet();
 		obj1.setNomObjet("Ballon de foot");
+		obj1.setPrix(15);
 		Objet obj2 = new Objet();
 		obj2.setNomObjet("Ballon de basket");
+		obj2.setPrix(17);
+		Objet obj3 = new Objet();
+		obj3.setNomObjet("Ballon de foot");
+		obj3.setPrix(8);
+		Objet obj4 = new Objet();
+		obj4.setNomObjet("Ballon de basket");
+		obj4.setPrix(100);
+		Objet obj5= new Objet();
+		obj5.setNomObjet("Ballon de foot");
+		obj5.setPrix(35);
+		Objet obj6 = new Objet();
+		obj6.setNomObjet("Ballon de basket");
+		obj6.setPrix(19);
 		
 		Collection<Objet> listObjet = new ArrayList<Objet>();
 		listObjet.add(obj1);
@@ -73,12 +96,30 @@ public class HibernateTest {
 		session.save(c);
 		session.save(obj1);
 		session.save(obj2);
+		session.save(obj3);
+		session.save(obj4);
+		session.save(obj5);
+		session.save(obj6);
 		session.save(ci);
 		session.save(as);
 		session.save(as2);
 		session.save(ca);
 		session.getTransaction().commit();
 		session.close();
+		
+		
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		
+		
+		// POUR OPHELIE faire du order by reported
+		Criteria criteria = session.createCriteria(Objet.class);
+		criteria.addOrder(Order.asc("prix"));
+		List<Objet> objets = (List<Objet>)criteria.list();
+		for (int i = 0; i<objets.size();i++){
+			System.out.println("Objet"+objets.get(i).getIdObjet()+" a pour prix : "+ objets.get(i).getPrix());
+		}
 		
 	}
 

@@ -15,6 +15,7 @@ public class Objet {
 	String cheminPhotoObjet;
 	@OneToOne
 	Monnaie monnaie;
+	@javax.persistence.OrderBy("prix asc")
 	int prix;
 	
 	public int getPrix() {
