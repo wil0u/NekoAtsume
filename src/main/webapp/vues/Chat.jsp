@@ -31,7 +31,7 @@ th, td {
 			</li>
 		
 			<li>
-				${Chat.cheminPhotoChat }
+				<img src="${Chat.cheminPhotoChat}" />
 			</li>
 				<li>
 				${Chat.couleurChat }

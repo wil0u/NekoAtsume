@@ -13,18 +13,19 @@ th, td {
 </style>
 </head>
 <body>		
+   <h2>Liste des chats : </h2>
  <table style="width:100%">
   <tr>
     <th>Nom chat</th>
     <th>Image chat</th>
-    <th>Couleur chat</th>
+    <th>Power Lv.</th>
 	<th>Lien</th>
   </tr>
   <c:forEach var="chat" items="${listChat}">
   <tr>
     <td>${chat.nomChat}</td>
-    <td>${chat.cheminPhotoChat}</td>
-    <td>${chat.couleurChat}</td>
+    <td><img src="${chat.cheminPhotoChat}" /></td>
+    <td	>${chat.lvlChat}</td>
     <td><a href="http://localhost:8080/NekoAtsume/chat/${chat.idChat}">Détail</a></td>
   </tr>
   </c:forEach>

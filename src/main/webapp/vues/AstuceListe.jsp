@@ -23,8 +23,8 @@ th, td {
   </tr>
   <c:forEach var="astuce" items="${ListeAstuce}">
   <tr>
-    <td>${astuce.titre}</td>
-    <td>${astuce.chat.nomChat}</td>
+    <td>${astuce.titre}</td>  
+    <td><a href="http://localhost:8080/NekoAtsume/chat/${astuce.chat.idChat}">${astuce.chat.nomChat}</a></td>
     <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}">Détail</a></td>
   </tr>
   </c:forEach>

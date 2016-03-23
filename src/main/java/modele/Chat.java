@@ -15,6 +15,13 @@ public class Chat {
 	String caractereChat;
 	String nomJaponnaisChat;
 	String memorialChat;
+	int lvlChat;
+	public int getLvlChat() {
+		return lvlChat;
+	}
+	public void setLvlChat(int lvlChat) {
+		this.lvlChat = lvlChat;
+	}
 	public String getNomChat() {
 		return nomChat;
 	}

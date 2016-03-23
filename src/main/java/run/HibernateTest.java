@@ -26,24 +26,78 @@ public class HibernateTest {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		Chat chat;
-		for (int i = 1; i <= 20;i++){
-			chat = new Chat();
-			chat.setCaractereChat("CaractereChat"+i);
-			chat.setCheminPhotoChat("CheminPhotoChat"+i);
-			chat.setCouleurChat("CouleurChat"+i);
-			chat.setNomChat("NomChat"+i);
-			chat.setNomJaponnaisChat("Nom JaponnaisChat"+i);
-			session.save(chat);
-		}
+		Chat chat = new Chat();
+		
+		chat.setNomChat("Snowball");
+		chat.setCaractereChat("Mellow");
+		chat.setLvlChat(80);
+		chat.setCheminPhotoChat("/NekoAtsume/resources/imagesChat/Snowball.png");
+		chat.setCouleurChat("Solid White");
+		chat.setMemorialChat("Flowered collar");
+		chat.setNomJaponnaisChat("Pas encore supporté");
+		session.save(chat);
+		
+		chat = new Chat();
+		chat.setNomChat("Smokey");
+		chat.setCaractereChat("Hot and Cold");
+		chat.setLvlChat(140);
+		chat.setCheminPhotoChat("/NekoAtsume/resources/imagesChat/Snowball.png");
+		chat.setCouleurChat("Solid Black");
+		chat.setMemorialChat("Soft brush");
+		chat.setNomJaponnaisChat("Pas encore supporté");
+		session.save(chat);
+		
+		chat = new Chat();
+		chat.setNomChat("Spots");
+		chat.setCaractereChat("Joker");
+		chat.setLvlChat(75);
+		chat.setCheminPhotoChat("/NekoAtsume/resources/imagesChat/Spots.png");
+		chat.setCouleurChat("Black and white");
+		chat.setMemorialChat("Glow Bracelet");
+		chat.setNomJaponnaisChat("Pas encore supporté");
+		session.save(chat);
+		
+		chat.setNomChat("Shadow");
+		chat.setCaractereChat("Peculiar");
+		chat.setLvlChat(50);
+		chat.setCheminPhotoChat("/NekoAtsume/resources/imagesChat/Shadow.png");
+		chat.setCouleurChat("Solid Grey");
+		chat.setMemorialChat("Cicada Skin");
+		chat.setNomJaponnaisChat("Pas encore supporté");
+		session.save(chat);
+		
+		chat = new Chat();
+		chat.setNomChat("Sunny");
+		chat.setCaractereChat("Mischievous");
+		chat.setLvlChat(120);
+		chat.setCheminPhotoChat("/NekoAtsume/resources/imagesChat/Sunny.png");
+		chat.setCouleurChat("Turkish Calico");
+		chat.setMemorialChat("Shiny Acom");
+		chat.setNomJaponnaisChat("Pas encore supporté");
+		session.save(chat);
+		
+		chat.setNomChat("Pumpkin");
+		chat.setCaractereChat("Spacey");
+		chat.setLvlChat(90);
+		chat.setCheminPhotoChat("/NekoAtsume/resources/imagesChat/Pumpkin.png");
+		chat.setCouleurChat("Orange and White Tabby");
+		chat.setMemorialChat("Aluminium Pins");
+		chat.setNomJaponnaisChat("Pas encore supporté");
+		session.save(chat);
+		
+		chat = new Chat();
+		chat.setNomChat("Tabitha");
+		chat.setCaractereChat("Leisurely");
+		chat.setLvlChat(40);
+		chat.setCheminPhotoChat("/NekoAtsume/resources/imagesChat/Tabitha.png");
+		chat.setCouleurChat("Calico Tabby");
+		chat.setMemorialChat("Random Seeds");
+		chat.setNomJaponnaisChat("Pas encore supporté");
+		session.save(chat);
+		
 		session.getTransaction().commit();
 		session.close();
-		chat = null;
-		session = sessionFactory.openSession();
-		session.beginTransaction();
-		chat = (Chat) session.get(Chat.class, 1);
-		System.out.println("La couleur du chat est : "+chat.getCouleurChat());
-		session.close();
+
 		
 		
 		

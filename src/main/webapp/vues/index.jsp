@@ -16,5 +16,6 @@
 				<a href="http://localhost:8080/NekoAtsume/astuces">Afficher la liste de toutes les astuces</a>
 			</li>
 		</ul>
+	
 </body>
 </html>
