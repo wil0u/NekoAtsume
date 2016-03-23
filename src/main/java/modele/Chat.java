@@ -18,6 +18,18 @@ public class Chat {
 	public String getNomChat() {
 		return nomChat;
 	}
+	public int getIdChat() {
+		return idChat;
+	}
+	public void setIdChat(int idChat) {
+		this.idChat = idChat;
+	}
+	public String getMemorialChat() {
+		return memorialChat;
+	}
+	public void setMemorialChat(String memorialChat) {
+		this.memorialChat = memorialChat;
+	}
 	public void setNomChat(String nomChat) {
 		this.nomChat = nomChat;
 	}

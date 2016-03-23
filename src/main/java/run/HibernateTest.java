@@ -79,7 +79,9 @@ public class HibernateTest {
 		as.setAstuce("Snowball vient facilement avec un ballon de foot et un ballon de basket");
 		as.setListObjet(listObjet);
 		as.setAuteur(ci);
+		as.setTitre("La fourberie de snowball !");
 		as.setCategorie(c);
+		as.setChat(chat);
 		
 		CompteAdmin ca = new CompteAdmin();
 		ca.setEmail("willeme.verdeaux@gmail.com");
@@ -89,8 +91,10 @@ public class HibernateTest {
 		Astuce as2 = new Astuce();
 		as2.setAuteur(ci);
 		as2.setCategorie(c);
+		as2.setTitre("Attirer jean michel");
 		as2.setAstuce("Jean michel le chat vient facilement avec un ballon de foot et un ballon de basket lol c'est pas énorme ça ? ");
 		as2.setListObjet(listObjet);
+		as2.setChat(chat);
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		session.save(c);

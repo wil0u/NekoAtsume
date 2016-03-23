@@ -29,7 +29,14 @@ public class Astuce {
 	Collection<Objet> listObjet = new ArrayList();
 	@ManyToOne
 	Chat chat;
+	String titre;
 	
+	public String getTitre() {
+		return titre;
+	}
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
 	public Chat getChat() {
 		return chat;
 	}
