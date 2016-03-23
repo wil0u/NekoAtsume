@@ -52,7 +52,6 @@ public class ChatControleur {
 		List<Astuce> astuces = (List<Astuce>)criteria.list();
 		for (int i = 1 ; i < astuces.size(); i++)
 			System.out.println("Astuce :"+astuces.get(i).getAstuce());
-		
 		modelAndView.addObject("Chat",chat);
 		modelAndView.addObject("ListeAstuces",astuces);
 		return modelAndView;

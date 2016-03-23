@@ -15,7 +15,10 @@
 <body>
  <div class="container">
     <div class="page-header">
-      <h1>Guys my name is ankush gorav and I welcome you to my new website</h1>
+<blockquote>
+  <h1>At the moment I'm riding my elephant and I'm eating badum dooh</h1>
+  <footer>Ankush Gorav<cite title="Source Title"> Gontu Series</cite></footer>
+</blockquote>
     </div>
 		<ul>
 			<li>
