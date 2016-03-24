@@ -1,23 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
- <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<%@ include file="headerTag.jsp" %>
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<jsp:include page="/vues/header.jsp" >	
+   <jsp:param name="pageHeader" value="Detail de l'astuce : ${Astuce.titre } " />
+   <jsp:param name="pageTitle" value="Detail astuce" />
+</jsp:include>
 
-<!-- Latest compiled JavaScript -->
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</head>
-<body>
- <div class="container">
-    <div class="page-header">
-      <h1>Detail de l'astuce : ${Astuce.titre }</h1>
-    </div>
 
 		<ul>
 			<li>
@@ -52,6 +39,6 @@
 				</li>	
 			</c:if>		
 		</ul>
- </div>
-</body>
-</html>
+		
+		
+<%@ include file="footer.jsp" %>

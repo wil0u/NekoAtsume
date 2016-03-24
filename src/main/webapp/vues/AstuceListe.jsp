@@ -1,20 +1,11 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
- <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<%@ include file="headerTag.jsp" %>
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<jsp:include page="/vues/header.jsp" >	
+   <jsp:param name="pageHeader" value="Liste de toutes les astues" />
+   <jsp:param name="pageTitle" value="Liste astuces" />
+</jsp:include>
 
-<!-- Latest compiled JavaScript -->
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</head>
-<body>
- <div class="container">
-    <div class="page-header">
-      <h1>Liste de toutes les astuces</h1>
-    </div>
+
 <table class="table table-hover">
   <tr>
     <th>Titre</th>
@@ -29,6 +20,6 @@
   </tr>
   </c:forEach>
 </table>
-  </div> 
-</body>
-</html>
+
+
+<%@ include file="footer.jsp" %>
