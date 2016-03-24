@@ -7,53 +7,50 @@
 
 
 
-		<ul >
-			<li>
+		<ul class="list-group" >
+		
+			<li class="list-group-item" >
+			<span class="label label-default">Identifiant</span>
 				${Chat.idChat }
 			</li>
 		
-			<li>
+			<li class="list-group-item">
+			<span class="label label-default">Nom</span>
 				${Chat.nomChat }
 			</li>
 		
-			<li>
+			<li class="list-group-item">
+			<span class="label label-default">Image</span>
 				<img src="${Chat.cheminPhotoChat}" />
 			</li>
-				<li>
+				<li class="list-group-item">
+				<span class="label label-default">Couleur</span>
 				${Chat.couleurChat }
-			</li>
+			</li >
 		
-			<li>
+			<li class="list-group-item">
+			<span class="label label-default">Caractère</span>
 				${Chat.caractereChat }
 			</li>
 		
-			<li>
+			<li class="list-group-item">
+			<span class="label label-default">Momento</span>
 				${Chat.memorialChat }
 			</li>
 			
-			<li>
+			<li class="list-group-item">
+			<span class="label label-default">Nom japonnais</span>
 				${Chat.nomJaponnaisChat }
 			</li>			
 		</ul>
-
+		
 <c:choose>
     <c:when test="${empty ListeAstuces}">
          <h2>${Chat.nomChat } n'a pas d'astuce. </h2>
     </c:when>
     <c:otherwise>
-       <h2>Liste des astuces associées a ${Chat.nomChat } : </h2>
-<table class="table table-hover">
-  <tr>
-    <th>Titre</th>
-    <th>Lien</th>
-  </tr>
-  <c:forEach var="astuce" items="${ListeAstuces}">
-  <tr>
-    <td>${astuce.titre}</td>
-    <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}">Détail</a></td>
-  </tr>
-  </c:forEach>
-</table> 
+       <a href="http://localhost:8080/NekoAtsume/chat/${Chat.idChat}/astuces">Voir astuce(s) sur ce chat</a>
+
     </c:otherwise>
 </c:choose>
 
