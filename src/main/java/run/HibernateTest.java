@@ -34,7 +34,7 @@ public class HibernateTest {
 		chat.setCheminPhotoChat("/NekoAtsume/resources/imagesChat/Snowball.png");
 		chat.setCouleurChat("Solid White");
 		chat.setMemorialChat("Flowered collar");
-		chat.setNomJaponnaisChat("Pas encore support�");
+		chat.setNomJaponnaisChat("しろねこさん");
 		session.save(chat);
 		
 		chat = new Chat();
@@ -44,7 +44,7 @@ public class HibernateTest {
 		chat.setCheminPhotoChat("/NekoAtsume/resources/imagesChat/Snowball.png");
 		chat.setCouleurChat("Solid Black");
 		chat.setMemorialChat("Soft brush");
-		chat.setNomJaponnaisChat("Pas encore support�");
+		chat.setNomJaponnaisChat("くろねこさん");
 		session.save(chat);
 		
 		chat = new Chat();
@@ -54,7 +54,7 @@ public class HibernateTest {
 		chat.setCheminPhotoChat("/NekoAtsume/resources/imagesChat/Spots.png");
 		chat.setCouleurChat("Black and white");
 		chat.setMemorialChat("Glow Bracelet");
-		chat.setNomJaponnaisChat("Pas encore support�");
+		chat.setNomJaponnaisChat("しろくろさん");
 		session.save(chat);
 		
 		chat.setNomChat("Shadow");
@@ -63,7 +63,7 @@ public class HibernateTest {
 		chat.setCheminPhotoChat("/NekoAtsume/resources/imagesChat/Shadow.png");
 		chat.setCouleurChat("Solid Grey");
 		chat.setMemorialChat("Cicada Skin");
-		chat.setNomJaponnaisChat("Pas encore support�");
+		chat.setNomJaponnaisChat("はいいろさん");
 		session.save(chat);
 		
 		chat = new Chat();
@@ -73,7 +73,7 @@ public class HibernateTest {
 		chat.setCheminPhotoChat("/NekoAtsume/resources/imagesChat/Sunny.png");
 		chat.setCouleurChat("Turkish Calico");
 		chat.setMemorialChat("Shiny Acom");
-		chat.setNomJaponnaisChat("Pas encore support�");
+		chat.setNomJaponnaisChat("とびみけさん");
 		session.save(chat);
 		
 		chat.setNomChat("Pumpkin");
@@ -82,7 +82,7 @@ public class HibernateTest {
 		chat.setCheminPhotoChat("/NekoAtsume/resources/imagesChat/Pumpkin.png");
 		chat.setCouleurChat("Orange and White Tabby");
 		chat.setMemorialChat("Aluminium Pins");
-		chat.setNomJaponnaisChat("Pas encore support�");
+		chat.setNomJaponnaisChat("しろちゃとらさん");
 		session.save(chat);
 		
 		chat = new Chat();
@@ -92,7 +92,7 @@ public class HibernateTest {
 		chat.setCheminPhotoChat("/NekoAtsume/resources/imagesChat/Tabitha.png");
 		chat.setCouleurChat("Calico Tabby");
 		chat.setMemorialChat("Random Seeds");
-		chat.setNomJaponnaisChat("Pas encore support�");
+		chat.setNomJaponnaisChat(" しまみけさん");
 		session.save(chat);
 		
 		session.getTransaction().commit();
@@ -102,7 +102,7 @@ public class HibernateTest {
 		
 		
 		Categorie c = new Categorie();
-		c.setNomCategorie("G�n�ral");
+		c.setNomCategorie("Général");
 		Objet obj1 = new Objet();
 		obj1.setNomObjet("Ballon de foot");
 		obj1.setPrix(15);
@@ -146,7 +146,7 @@ public class HibernateTest {
 		as2.setAuteur(ci);
 		as2.setCategorie(c);
 		as2.setTitre("Attirer jean michel");
-		as2.setAstuce("Jean michel le chat vient facilement avec un ballon de foot et un ballon de basket lol c'est pas �norme �a ? ");
+		as2.setAstuce("Jean michel le chat vient facilement avec un ballon de foot et un ballon de basket lol c'est pas énorme ça ? ");
 		as2.setListObjet(listObjet);
 		as2.setChat(chat);
 		session = sessionFactory.openSession();

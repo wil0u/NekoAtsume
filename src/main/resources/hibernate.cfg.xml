@@ -31,7 +31,7 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
 
-        
+        <property name="hibernate.connection.characterEncoding">UTF-8</property>
 		<mapping class="modele.Categorie"/>
 		<mapping class="modele.Chat"/>
 		<mapping class="modele.Objet"/>

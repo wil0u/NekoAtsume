@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" pageEncoding="UTF-8" contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
  <!-- Latest compiled and minified CSS -->
@@ -28,7 +29,7 @@
     <td>${chat.nomChat}</td>
     <td><img src="${chat.cheminPhotoChat}" class="img-rounded" /></td>
     <td	>${chat.lvlChat}</td>
-    <td><a href="http://localhost:8080/NekoAtsume/chat/${chat.idChat}">Détail</a></td>
+    <td><a href="http://localhost:8080/NekoAtsume/chat/${chat.idChat}">DÃ©tail</a></td>
   </tr>
   </c:forEach>
 </table> 
