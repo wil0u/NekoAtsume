@@ -11,7 +11,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Order;
 
 import modele.Astuce;
-import modele.Categorie;
+import modele.CategorieAstuce;
+import modele.CategorieObjet;
 import modele.Chat;
 import modele.CompteAdmin;
 import modele.CompteInscrit;
@@ -589,89 +590,1190 @@ public class HibernateTest {
 		chat.setNomJaponnaisChat("Non référencié");
 		session.save(chat);
 		
+		CategorieObjet categorieObjet = new CategorieObjet();
+		categorieObjet.setNomCategorieObjet("Balls");
+		session.save(categorieObjet);
+		
+		CategorieObjet categorieObjet2 = new CategorieObjet();
+		categorieObjet2.setNomCategorieObjet("Boxes");
+		session.save(categorieObjet2);
+		
+		CategorieObjet categorieObjet3 = new CategorieObjet();
+		categorieObjet3.setNomCategorieObjet("Beds");
+		session.save(categorieObjet3);
+		
+		CategorieObjet categorieObjet4 = new CategorieObjet();
+		categorieObjet4.setNomCategorieObjet("Furniture");
+		session.save(categorieObjet4);
+		
+		CategorieObjet categorieObjet5 = new CategorieObjet();
+		categorieObjet5.setNomCategorieObjet("Tunnels");
+		session.save(categorieObjet5);
+		
+		CategorieObjet categorieObjet6 = new CategorieObjet();
+		categorieObjet6.setNomCategorieObjet("Toys");
+		session.save(categorieObjet6);
+		
+		CategorieObjet categorieObjet7 = new CategorieObjet();
+		categorieObjet7.setNomCategorieObjet("Heating");
+		session.save(categorieObjet7);		
+		
+		CategorieObjet categorieObjet8 = new CategorieObjet();
+		categorieObjet8.setNomCategorieObjet("Bags/Hiding");
+		session.save(categorieObjet8);
+		
+		CategorieObjet categorieObjet9 = new CategorieObjet();
+		categorieObjet9.setNomCategorieObjet("Scratching");
+		session.save(categorieObjet9);
+		
+		CategorieObjet categorieObjet10 = new CategorieObjet();
+		categorieObjet10.setNomCategorieObjet("Baskets");
+		session.save(categorieObjet10);
+		
+		CategorieObjet categorieObjet11 = new CategorieObjet();
+		categorieObjet11.setNomCategorieObjet("Food");
+		session.save(categorieObjet11);
+		
+		Monnaie monnaie1 = new Monnaie();
+		monnaie1.setNomMonnaie("Poisson d'argent");
+		monnaie1.setCheminPhotoMonnaie("/NekoAtsume/resources/imagesObjet/Argent.png");
+		session.save(monnaie1);
+		
+		Monnaie monnaie2 = new Monnaie();
+		monnaie2.setNomMonnaie("Poisson d'or");
+		monnaie2.setCheminPhotoMonnaie("/NekoAtsume/resources/imagesObjet/Or.png");
+		session.save(monnaie2);
+		
+		
+		Objet objet = new Objet();
+		objet.setNomObjet("Baseball");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Baseball.png");
+		objet.setPrix(90);
+		objet.setCategorieObjet(categorieObjet);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Rubber Ball Yellow");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Rubber_Ball_Yellow.png");
+		objet.setPrix(60);
+		objet.setCategorieObjet(categorieObjet);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Rubber Ball Red");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Rubber_Ball_Red.png");
+		objet.setPrix(60);
+		objet.setCategorieObjet(categorieObjet);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Rubber Ball Blue");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Rubber_Ball_Blue.png");
+		objet.setPrix(60);
+		objet.setCategorieObjet(categorieObjet);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Watermelon Ball");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Watermelon_Ball.png");
+		objet.setPrix(80);
+		objet.setCategorieObjet(categorieObjet);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Ping Pong Ball");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Ping_Pong_Ball.png");
+		objet.setPrix(50);
+		objet.setCategorieObjet(categorieObjet);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Soccer Ball");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Soccer_Ball.png");
+		objet.setPrix(10);
+		objet.setCategorieObjet(categorieObjet);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Stress Reliever");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Stress_Reliever.png");
+		objet.setPrix(80);
+		objet.setCategorieObjet(categorieObjet);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Ball of Yarn");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Ball_of_Yarn.png");
+		objet.setPrix(120);
+		objet.setCategorieObjet(categorieObjet);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Toy Capsule");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Toy_Capsule.png");
+		objet.setPrix(30);
+		objet.setCategorieObjet(categorieObjet);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Temari Ball");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Temari_Ball.png");
+		objet.setPrix(25);
+		objet.setCategorieObjet(categorieObjet);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cake Box");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cake_Box.png");
+		objet.setPrix(40);
+		objet.setCategorieObjet(categorieObjet2);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Gift Box");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Gift_Box.png");
+		objet.setPrix(5);
+		objet.setCategorieObjet(categorieObjet2);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Shopping Box Small");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Shopping_Box_Small.png");
+		objet.setPrix(70);
+		objet.setCategorieObjet(categorieObjet2);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Shopping Box Large");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Shopping_Box_Large.png");
+		objet.setPrix(100);
+		objet.setCategorieObjet(categorieObjet2);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cardboard Truck");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cardboard_Truck.png");
+		objet.setPrix(15);
+		objet.setCategorieObjet(categorieObjet2);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cardboard House");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cardboard_House.png");
+		objet.setPrix(40);
+		objet.setCategorieObjet(categorieObjet2);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cardboard Café");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cardboard_Cafe.png");
+		objet.setPrix(50);
+		objet.setCategorieObjet(categorieObjet2);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cardboard Choo-Choo");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cardboard_Choo_Choo.png");
+		objet.setPrix(60);
+		objet.setCategorieObjet(categorieObjet2);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Pillow Purple");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Pillow_Purple.png");
+		objet.setPrix(120);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Pillow Yellow");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Pillow_Yellow.png");
+		objet.setPrix(120);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Pillow Green");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Pillow_Green.png");
+		objet.setPrix(120);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Silk Crepe Pillow");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Silk_Crepe_Pillow.png");
+		objet.setPrix(20);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Sakura Pillow");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Sakura_Pillow.png");
+		objet.setPrix(220);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Maple Pillow");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Maple_Pillow.png");
+		objet.setPrix(220);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Snowy Pillow");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Snowy_Pillow.png");
+		objet.setPrix(220);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cushion Beige");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cushion_Beige.png");
+		objet.setPrix(100);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cushion Pink");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cushion_Pink.png");
+		objet.setPrix(100);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cushion Brown");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cushion_Brown.png");
+		objet.setPrix(100);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cushion Green");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cushion_Green.png");
+		objet.setPrix(100);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Lucky Cushion");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Lucky_Cushion.png");
+		objet.setPrix(120);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+
+		objet = new Objet();
+		objet.setNomObjet("Fluffy Bed White");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Fluffy_Bed_White.png");
+		objet.setPrix(160);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Fluffy Bed Pink");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Fluffy_Bed_Pink.png");
+		objet.setPrix(160);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Fluffy Bed Brown");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Fluffy_Bed_Brown.png");
+		objet.setPrix(160);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Orange Cube");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Orange_Cube.png");
+		objet.setPrix(320);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Navy-blue Cube");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Navy_blue_Cube.png");
+		objet.setPrix(320);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Tiramisu Cube");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Tiramisu_Cube.png");
+		objet.setPrix(28);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Dice Cube");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Dice_Cube.png");
+		objet.setPrix(32);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Stump House");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Stump_House.png");
+		objet.setPrix(400);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Thick Cooling Pad");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Thick_Cooling_Pad.png");
+		objet.setPrix(130);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cool Aluminum Pad");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cool_Aluminum_Pad.png");
+		objet.setPrix(150);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Marble Pad");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Marble_Pad.png");
+		objet.setPrix(30);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Large Cooling Mat");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Large_Cooling_Mat.png");
+		objet.setPrix(390);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Fluffy Cushion");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Fluffy_Cushion.png");
+		objet.setPrix(170);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Sheep Cushion");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Sheep_Cushion.png");
+		objet.setPrix(250);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Sakuramochi Cushion");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Sakuramochi_Cushion.png");
+		objet.setPrix(12);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Burger Cushion");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Burger_Cushion.png");
+		objet.setPrix(14);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Pancake Cushion");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Pancake_Cushion.png");
+		objet.setPrix(15);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Head Space");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Head_Space.png");
+		objet.setPrix(15);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Black Head Space");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Black_Head_Space.png");
+		objet.setPrix(17);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Basket Case");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Basket_Case.png");
+		objet.setPrix(380);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+
+		objet = new Objet();
+		objet.setNomObjet("Chestnut Cushion");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Chestnut_Cushion.png");
+		objet.setPrix(320);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Zanzibar Cushion");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Zanzibar_Cushion.png");
+		objet.setPrix(20);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Bean Bag");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Bean_Bag.png");
+		objet.setPrix(10);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Giant Cushion");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Giant_Cushion.png");
+		objet.setPrix(25);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Hammock Yellow");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Hammock_Yellow.png");
+		objet.setPrix(210);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Hammock Pink");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Hammock_Pink.png");
+		objet.setPrix(210);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Hammock Woven");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Hammock_Woven.png");
+		objet.setPrix(220);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+
+		objet = new Objet();
+		objet.setNomObjet("Luxurious Hammock");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Luxurious_Hammock.png");
+		objet.setPrix(35);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Tent Nature");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Tent_Nature.png");
+		objet.setPrix(170);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Tent Modern Red");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Tent_Modern_Red.png");
+		objet.setPrix(22);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Tent Blizzard");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Tent_Blizzard.png");
+		objet.setPrix(190);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Tent Pyramid");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Tent_Pyramid.png");
+		objet.setPrix(190);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Warm Sock");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Warm_Sock.png");
+		objet.setPrix(110);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Pom-pom Sock");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Pom_pom_Sock.png");
+		objet.setPrix(12);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Colorful Sock");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Colorful_Sock.png");
+		objet.setPrix(15);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Arabesque Blanket");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Arabesque_Blanket.png");
+		objet.setPrix(18);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cozy Blanket Red");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cozy_Blanket_Red.png");
+		objet.setPrix(110);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cozy Blanket Yellow");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cozy_Blanket_Yellow.png");
+		objet.setPrix(110);
+		objet.setCategorieObjet(categorieObjet3);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Paper_Umbrella");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Paper_Umbrella.png");
+		objet.setPrix(50);
+		objet.setCategorieObjet(categorieObjet4);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Beach_Umbrella");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Beach_Umbrella.png");
+		objet.setPrix(340);
+		objet.setCategorieObjet(categorieObjet4);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Two-tier Cat Tree");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Two_tier_Cat_Tree.png");
+		objet.setPrix(200);
+		objet.setCategorieObjet(categorieObjet4);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Three-tier Cat Tree");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Three_tier_Cat_Tree.png");
+		objet.setPrix(320);
+		objet.setCategorieObjet(categorieObjet4);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cat Condo Complex");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cat_Condo_Complex.png");
+		objet.setPrix(500);
+		objet.setCategorieObjet(categorieObjet4);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cat Metropolis");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cat_Metropolis.png");
+		objet.setPrix(50);
+		objet.setCategorieObjet(categorieObjet4);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Art Deco Cat Tree");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Art_Deco_Cat_Tree.png");
+		objet.setPrix(800);
+		objet.setCategorieObjet(categorieObjet4);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Bureau with Pot");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Bureau_with_Pot.png");
+		objet.setPrix(950);
+		objet.setCategorieObjet(categorieObjet4);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Tunnel (I Piece)");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Tunnel_I_Piece.png");
+		objet.setPrix(160);
+		objet.setCategorieObjet(categorieObjet5);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Tunnel (U Piece)");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Tunnel_U_Piece.png");
+		objet.setPrix(160);
+		objet.setCategorieObjet(categorieObjet5);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+
+		objet = new Objet();
+		objet.setNomObjet("Tunnel (T Piece)");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Tunnel_T_Piece.png");
+		objet.setPrix(200);
+		objet.setCategorieObjet(categorieObjet5);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Tunnel (3D Piece)");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Tunnel_3D_Piece.png");
+		objet.setPrix(20);
+		objet.setCategorieObjet(categorieObjet5);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Carp Tunnel");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Carp_Tunnel.png");
+		objet.setPrix(18);
+		objet.setCategorieObjet(categorieObjet5);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Fish-stick Tunnel");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Fish_stick_Tunnel.png");
+		objet.setPrix(240);
+		objet.setCategorieObjet(categorieObjet5);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cow Tunnel");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cow_Tunnel.png");
+		objet.setPrix(300);
+		objet.setCategorieObjet(categorieObjet5);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Doughnut Tunnel");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Doughnut_Tunnel.png");
+		objet.setPrix(330);
+		objet.setCategorieObjet(categorieObjet5);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Tail-thing Teaser");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Tail_thing_Teaser.png");
+		objet.setPrix(80);
+		objet.setCategorieObjet(categorieObjet6);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Wing-thing Teaser");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Wing_thing_Teaser.png");
+		objet.setPrix(100);
+		objet.setCategorieObjet(categorieObjet6);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Wild-thing Teaser");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Wild_thing_Teaser.png");
+		objet.setPrix(100);
+		objet.setCategorieObjet(categorieObjet6);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Zebra Grass Gadget");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Zebra_Grass_Gadget.png");
+		objet.setPrix(90);
+		objet.setCategorieObjet(categorieObjet6);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Fluff-thing Teaser");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Fluff_thing_Teaser.png");
+		objet.setPrix(100);
+		objet.setCategorieObjet(categorieObjet6);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Mister Mouse");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Mister_Mouse.png");
+		objet.setPrix(140);
+		objet.setCategorieObjet(categorieObjet6);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+
+		objet = new Objet();
+		objet.setNomObjet("Mister Dragonfly");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Mister_Dragonfly.png");
+		objet.setPrix(120);
+		objet.setCategorieObjet(categorieObjet6);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Kick Toy (Mouse)");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Kick_Toy_Mouse.png");
+		objet.setPrix(170);
+		objet.setCategorieObjet(categorieObjet6);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Kick Toy (Fish)");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Kick_Toy_Fish.png");
+		objet.setPrix(170);
+		objet.setCategorieObjet(categorieObjet6);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+
+		objet = new Objet();
+		objet.setNomObjet("Kick Toy (Bunny)");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Kick_Toy_Bunny.png");
+		objet.setPrix(170);
+		objet.setCategorieObjet(categorieObjet6);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Kick Toy (Saury)");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Kick_Toy_Saury.png");
+		objet.setPrix(200);
+		objet.setCategorieObjet(categorieObjet6);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+
+		objet = new Objet();
+		objet.setNomObjet("Busy Bee");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Busy_Bee.png");
+		objet.setPrix(15);
+		objet.setCategorieObjet(categorieObjet6);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Butterfly Swarm");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Butterfly_Swarm.png");
+		objet.setPrix(12);
+		objet.setCategorieObjet(categorieObjet6);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Twisty Rail");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Twisty_Rail.png");
+		objet.setPrix(15);
+		objet.setCategorieObjet(categorieObjet6);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Kotatsu");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Kotatsu.png");
+		objet.setPrix(60);
+		objet.setCategorieObjet(categorieObjet7);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Sunken Fireplace");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Sunken_Fireplace.png");
+		objet.setPrix(70);
+		objet.setCategorieObjet(categorieObjet7);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Hot-Water Bottle");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Hot_Water_Bottle.png");
+		objet.setPrix(120);
+		objet.setCategorieObjet(categorieObjet7);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+
+		objet = new Objet();
+		objet.setNomObjet("Hot Mat (Small)");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Hot_Mat_Small.png");
+		objet.setPrix(240);
+		objet.setCategorieObjet(categorieObjet7);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Hot Mat (Large)");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Hot_Mat_Large.png");
+		objet.setPrix(36);
+		objet.setCategorieObjet(categorieObjet7);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Heating Stove");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Heating_Stove.png");
+		objet.setPrix(600);
+		objet.setCategorieObjet(categorieObjet7);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Panel Heater");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Panel_Heater.png");
+		objet.setPrix(20);
+		objet.setCategorieObjet(categorieObjet7);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Space Heater");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Space_Heater.png");
+		objet.setPrix(32);
+		objet.setCategorieObjet(categorieObjet7);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Pile of Leaves");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Pile_of_Leaves.png");
+		objet.setPrix(400);
+		objet.setCategorieObjet(categorieObjet8);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Paper Bag");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Paper_Bag.png");
+		objet.setPrix(30);
+		objet.setCategorieObjet(categorieObjet8);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Plastic Bag");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Plastic_Bag.png");
+		objet.setPrix(10);
+		objet.setCategorieObjet(categorieObjet8);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		
+	
+
+
+	
+		
+		objet = new Objet();
+		objet.setNomObjet("Scratching Board");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Scratching_Board.png");
+		objet.setPrix(180);
+		objet.setCategorieObjet(categorieObjet9);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Scratching Post");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Scratching_Post.png");
+		objet.setPrix(240);
+		objet.setCategorieObjet(categorieObjet9);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Scratching Log");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Scratching_Log.png");
+		objet.setPrix(30);
+		objet.setCategorieObjet(categorieObjet9);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Fruit Basket");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Fruit_Basket.png");
+		objet.setPrix(80);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Earthenware Pot");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Earthenware_Pot.png");
+		objet.setPrix(20);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Rice Kettle");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Rice_Kettle.png");
+		objet.setPrix(27);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Lacquered Bowl");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Lacquered_Bowl.png");
+		objet.setPrix(25);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Clay Pot");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Clay_Pot.png");
+		objet.setPrix(15);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Pickling Pot");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Pickling_Pot.png");
+		objet.setPrix(18);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Planter");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Planter.png");
+		objet.setPrix(130);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+
+		objet = new Objet();
+		objet.setNomObjet("Bucket (Blue)");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Bucket_Blue.png");
+		objet.setPrix(60);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Bucket (Pink)");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Bucket_Pink.png");
+		objet.setPrix(60);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Snow Sled");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Snow_Sled.png");
+		objet.setPrix(140);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Goldfish Bowl");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Goldfish_Bowl.png");
+		objet.setPrix(10);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Glass Vase");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Glass_Vase.png");
+		objet.setPrix(750);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Wood Pail");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Wood_Pail.png");
+		objet.setPrix(340);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cowboy Hat");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cowboy_Hat.png");
+		objet.setPrix(400);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cat Macaroon (Pink)");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cat_Macaroon_Pink.png");
+		objet.setPrix(210);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cat Macaroon (Green)");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cat_Macaroon_Green.png");
+		objet.setPrix(210);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Cat Pancake");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cat_Pancake.png");
+		objet.setPrix(24);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Cat Pancake");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Cat_Pancake.png");
+		objet.setPrix(24);
+		objet.setCategorieObjet(categorieObjet10);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Thrifty Bitz");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Thrifty_Bitz.png");
+		objet.setPrix(0);
+		objet.setCategorieObjet(categorieObjet11);
+		session.save(objet);
+		
+		
+		objet = new Objet();
+		objet.setNomObjet("Frisky Bitz");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Frisky_Bitz.png");
+		objet.setPrix(30);
+		objet.setCategorieObjet(categorieObjet11);
+		objet.setMonnaie(monnaie1);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Bonito Bitz");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Bonito_Bitz.png");
+		objet.setPrix(7);
+		objet.setCategorieObjet(categorieObjet11);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Ritzy Bitz");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Ritzy_Bitz.png");
+		objet.setPrix(3);
+		objet.setCategorieObjet(categorieObjet11);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Deluxe Tuna Bitz");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Deluxe_Tuna_Bitz.png");
+		objet.setPrix(12);
+		objet.setCategorieObjet(categorieObjet11);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
+		objet = new Objet();
+		objet.setNomObjet("Sashimi");
+		objet.setCheminPhotoObjet("/NekoAtsume/resources/imagesObjet/Sashimi.png");
+		objet.setPrix(5);
+		objet.setCategorieObjet(categorieObjet11);
+		objet.setMonnaie(monnaie2);
+		session.save(objet);
+		
 		session.getTransaction().commit();
 		session.close();
 
-		
-		
-		
-		Categorie c = new Categorie();
-		c.setNomCategorie("Général");
-		Objet obj1 = new Objet();
-		obj1.setNomObjet("Ballon de foot");
-		obj1.setPrix(15);
-		Objet obj2 = new Objet();
-		obj2.setNomObjet("Ballon de basket");
-		obj2.setPrix(17);
-		Objet obj3 = new Objet();
-		obj3.setNomObjet("Ballon de foot");
-		obj3.setPrix(8);
-		Objet obj4 = new Objet();
-		obj4.setNomObjet("Ballon de basket");
-		obj4.setPrix(100);
-		Objet obj5= new Objet();
-		obj5.setNomObjet("Ballon de foot");
-		obj5.setPrix(35);
-		Objet obj6 = new Objet();
-		obj6.setNomObjet("Ballon de basket");
-		obj6.setPrix(19);
-		
-		Collection<Objet> listObjet = new ArrayList<Objet>();
-		listObjet.add(obj1);
-		listObjet.add(obj2);
-		
-		CompteInscrit ci = new CompteInscrit();
-		ci.setPseudo("beep");
-		ci.setMdp("xDdeLol");
-		Astuce as = new Astuce();
-		as.setAstuce("Snowball vient facilement avec un ballon de foot et un ballon de basket");
-		as.setListObjet(listObjet);
-		as.setAuteur(ci);
-		as.setTitre("La fourberie de snowball !");
-		as.setCategorie(c);
-		as.setChat(chat);
-		
-		CompteAdmin ca = new CompteAdmin();
-		ca.setEmail("willeme.verdeaux@gmail.com");
-		ca.setPseudo("wil0u");
-		ca.setMdp("coucou");
-		
-		Astuce as2 = new Astuce();
-		as2.setAuteur(ci);
-		as2.setCategorie(c);
-		as2.setTitre("Attirer jean michel");
-		as2.setAstuce("Jean michel le chat vient facilement avec un ballon de foot et un ballon de basket lol c'est pas énorme ça ? ");
-		as2.setListObjet(listObjet);
-		as2.setChat(chat);
-		session = sessionFactory.openSession();
-		session.beginTransaction();
-		session.save(c);
-		session.save(obj1);
-		session.save(obj2);
-		session.save(obj3);
-		session.save(obj4);
-		session.save(obj5);
-		session.save(obj6);
-		session.save(ci);
-		session.save(as);
-		session.save(as2);
-		session.save(ca);
-		session.getTransaction().commit();
-		session.close();
-		
-		
-		session = sessionFactory.openSession();
-		session.beginTransaction();
-		
-		
-		
-		// POUR OPHELIE faire du order by reported
-		Criteria criteria = session.createCriteria(Objet.class);
-		criteria.addOrder(Order.asc("prix"));
-		List<Objet> objets = (List<Objet>)criteria.list();
-		for (int i = 0; i<objets.size();i++){
-			System.out.println("Objet"+objets.get(i).getIdObjet()+" a pour prix : "+ objets.get(i).getPrix());
-		}
 		
 	}
 

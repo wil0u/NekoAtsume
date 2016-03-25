@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -17,6 +18,8 @@ public class Objet {
 	Monnaie monnaie;
 	@javax.persistence.OrderBy("prix asc")
 	int prix;
+	@ManyToOne
+	CategorieObjet categorieObjet;
 	
 	public int getPrix() {
 		return prix;
@@ -30,6 +33,18 @@ public class Objet {
 	}
 	public void setIdObjet(int idObjet) {
 		this.idObjet = idObjet;
+	}
+	public Monnaie getMonnaie() {
+		return monnaie;
+	}
+	public void setMonnaie(Monnaie monnaie) {
+		this.monnaie = monnaie;
+	}
+	public CategorieObjet getCategorieObjet() {
+		return categorieObjet;
+	}
+	public void setCategorieObjet(CategorieObjet categorieObjet) {
+		this.categorieObjet = categorieObjet;
 	}
 	public String getNomObjet() {
 		return nomObjet;

@@ -43,7 +43,7 @@
 				${Chat.nomJaponnaisChat }
 			</li>			
 		</ul>
-		
+	<a href="http://localhost:8080/NekoAtsume/chat/${Chat.idChat}/astuce">Ajouter une astuce</a>	
 <c:choose>
     <c:when test="${empty ListeAstuces}">
          <h2>${Chat.nomChat } n'a pas d'astuce. </h2>

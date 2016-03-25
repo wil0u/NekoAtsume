@@ -29,10 +29,11 @@
         <property name="show_sql">true</property>
 
         <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">create</property>
 
         <property name="hibernate.connection.characterEncoding">UTF-8</property>
-		<mapping class="modele.Categorie"/>
+		<mapping class="modele.CategorieAstuce"/>
+		<mapping class="modele.CategorieObjet"/>
 		<mapping class="modele.Chat"/>
 		<mapping class="modele.Objet"/>
 		<mapping class="modele.Astuce"/>

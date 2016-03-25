@@ -4,6 +4,7 @@ import java.util.List;
 
 import modele.Astuce;
 import modele.Chat;
+import modele.Objet;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -68,9 +69,20 @@ public class AstuceControleur {
 		
 	}
 	
-	@RequestMapping(value="/chat/{idChat}/astuces", method = RequestMethod.POST)
+	@RequestMapping(value="/chat/{idChat}/astuce", method = RequestMethod.GET)
 	public ModelAndView AjoutAstuce(@PathVariable("idChat") int idChat){
-		ModelAndView modelAndView = new ModelAndView("AstucesChat");
+		ModelAndView modelAndView = new ModelAndView("AjoutAstuceForm");
+		Chat chat = new Chat();
+	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		chat = session.get(Chat.class,idChat);
+    	Criteria criteria = session.createCriteria(Objet.class);
+		List<Objet> objets = (List<Objet>)criteria.list(); 
+		
+		modelAndView.addObject("listeObjets",objets);
+		modelAndView.addObject("chat",chat);
+		
 		
 		return modelAndView;
 		

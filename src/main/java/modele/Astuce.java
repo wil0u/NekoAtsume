@@ -20,7 +20,7 @@ public class Astuce {
 	@Id @GeneratedValue
 	int idAstuce;
 	@ManyToOne
-	Categorie categorie;
+	CategorieAstuce categorie;
 	String astuce;
 	@ManyToOne
 	CompteInscrit Auteur;
@@ -55,10 +55,10 @@ public class Astuce {
 	public void setIdAstuce(int idAstuce) {
 		this.idAstuce = idAstuce;
 	}
-	public Categorie getCategorie() {
+	public CategorieAstuce getCategorie() {
 		return categorie;
 	}
-	public void setCategorie(Categorie categorie) {
+	public void setCategorie(CategorieAstuce categorie) {
 		this.categorie = categorie;
 	}
 	public String getAstuce() {
