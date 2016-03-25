@@ -1771,6 +1771,17 @@ public class HibernateTest {
 		objet.setMonnaie(monnaie2);
 		session.save(objet);
 		
+		
+		List<Objet> listObj = new ArrayList<Objet>();
+		listObj.add(objet);
+		listObj.add(objet);
+		Astuce as = new Astuce();
+		as.setListObjet(listObj);
+		as.setAstuce("ccoucoucocu ocutestsfstsdsrt");
+		as.setChat(chat);
+		session.save(as);
+		
+		
 		session.getTransaction().commit();
 		session.close();
 

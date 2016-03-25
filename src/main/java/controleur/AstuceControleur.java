@@ -1,8 +1,11 @@
 package controleur;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import modele.Astuce;
+import modele.CategorieAstuce;
+import modele.CategorieObjet;
 import modele.Chat;
 import modele.Objet;
 
@@ -12,6 +15,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -77,13 +82,115 @@ public class AstuceControleur {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		chat = session.get(Chat.class,idChat);
-    	Criteria criteria = session.createCriteria(Objet.class);
-		List<Objet> objets = (List<Objet>)criteria.list(); 
 		
-		modelAndView.addObject("listeObjets",objets);
+		Criteria criteriaCategorieObjet = session.createCriteria(CategorieObjet.class);
+		List<CategorieObjet> categorieObjets = (List<CategorieObjet>)criteriaCategorieObjet.list();
+		
+		
+		
+    	Criteria criteria = session.createCriteria(Objet.class);
+    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(0)));
+    	List<Objet> balls = (List<Objet>)criteria.list();
+    	
+    	criteria = session.createCriteria(Objet.class);
+    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(1)));
+    	List<Objet> boxs = (List<Objet>)criteria.list();
+		
+    	criteria = session.createCriteria(Objet.class);
+    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(2)));
+    	List<Objet> beds = (List<Objet>)criteria.list();
+		
+    	criteria = session.createCriteria(Objet.class);
+    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(3)));
+    	List<Objet> furniture = (List<Objet>)criteria.list();
+    	
+    	criteria = session.createCriteria(Objet.class);
+    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(4)));
+    	List<Objet> tunnels = (List<Objet>)criteria.list();
+    	
+    	criteria = session.createCriteria(Objet.class);
+    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(5)));
+    	List<Objet> toys = (List<Objet>)criteria.list();
+		
+    	criteria = session.createCriteria(Objet.class);
+    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(6)));
+    	List<Objet> heating = (List<Objet>)criteria.list();
+		
+    	criteria = session.createCriteria(Objet.class);
+    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(7)));
+    	List<Objet> bagsHiding = (List<Objet>)criteria.list();
+    	
+    	criteria = session.createCriteria(Objet.class);
+    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(8)));
+    	List<Objet> scratching = (List<Objet>)criteria.list();
+		
+    	criteria = session.createCriteria(Objet.class);
+    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(9)));
+    	List<Objet> baskets = (List<Objet>)criteria.list();
+    	
+    	criteria = session.createCriteria(Objet.class);
+    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(10)));
+    	List<Objet> foods = (List<Objet>)criteria.list();
+    	
+    	
+    	criteria = session.createCriteria(CategorieAstuce.class);
+    	
+    	List<CategorieAstuce> listCategorieAstuces = (List<CategorieAstuce>)criteria.list();
+    	
+    	
+    	
+		modelAndView.addObject("balls",balls);
+		modelAndView.addObject("boxes",boxs);
+		modelAndView.addObject("beds",beds);
+		modelAndView.addObject("furniture",furniture);
+		modelAndView.addObject("tunnels",tunnels);
+		modelAndView.addObject("toys",toys);
+		modelAndView.addObject("heating",heating);
+		modelAndView.addObject("bagsHiding",bagsHiding);
+		modelAndView.addObject("scratching",scratching);
+		modelAndView.addObject("baskets",baskets);
+		modelAndView.addObject("foods",foods);
 		modelAndView.addObject("chat",chat);
 		
 		
+		return modelAndView;
+		
+		
+	}
+	@RequestMapping(value="/chat/{idChat}/astuce", method = RequestMethod.POST)
+	public ModelAndView AjoutAstuce(@ModelAttribute("astuce") Astuce astuce, BindingResult result,@PathVariable("idChat") int idChat){
+		
+		//Teste si il y à des erreus
+		if(result.hasErrors()){
+			ModelAndView model1 = new ModelAndView("AjoutAstuceForm");
+			return model1;
+		}
+		
+		
+		//Associe la vue AjoutSucces avec méthode
+		ModelAndView modelAndView = new ModelAndView("AjoutSucces");
+		Objet objet;
+		Chat chat;
+		
+	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		//Liste d'objet a récuperer à partir des identifiants transmit par le formulaire
+		List<Objet> objets = new ArrayList<Objet>();
+		for(int i=0;i<astuce.getListObjetId().size();i++){
+			objet = session.get(Objet.class, astuce.getListObjetId().get(i)); 
+			objets.add(objet);
+		}
+		
+		//On récupère le chat associé 
+		chat = session.get(Chat.class, idChat);
+		//Et on bind les infos à l'astuce 
+		astuce.setListObjet(objets);
+		astuce.setChat(chat);
+		session.save(astuce);
+		session.getTransaction().commit();
+		session.close();
 		return modelAndView;
 		
 		

@@ -3,6 +3,7 @@ package modele;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Astuce {
@@ -26,11 +28,19 @@ public class Astuce {
 	CompteInscrit Auteur;
 	Date date;
 	@ManyToMany
-	Collection<Objet> listObjet = new ArrayList();
+	List<Objet> listObjet = new ArrayList<Objet>();
 	@ManyToOne
 	Chat chat;
 	String titre;
+	@Transient
+	List<Integer> listObjetId = new ArrayList<Integer>();
 	
+	public List<Integer> getListObjetId() {
+		return listObjetId;
+	}
+	public void setListObjetId(List<Integer> listObjetId) {
+		this.listObjetId = listObjetId;
+	}
 	public String getTitre() {
 		return titre;
 	}
@@ -43,10 +53,11 @@ public class Astuce {
 	public void setChat(Chat chat) {
 		this.chat = chat;
 	}
-	public Collection<Objet> getListObjet() {
+	
+	public List<Objet> getListObjet() {
 		return listObjet;
 	}
-	public void setListObjet(Collection<Objet> listObjet) {
+	public void setListObjet(List<Objet> listObjet) {
 		this.listObjet = listObjet;
 	}
 	public int getIdAstuce() {
@@ -83,6 +94,7 @@ public class Astuce {
 	public Astuce() {
 		// TODO Auto-generated constructor stub
 	}
+
 	
 	// NBLBLBLLBLBLBL
 	
