@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -114,9 +115,11 @@ public class CompteControleur {
 		Session sessionHibernate = sessionFactory.openSession();
 		sessionHibernate.beginTransaction();
 		CompteInscrit compteRetour = null;
+		
 		Query query= sessionHibernate.getNamedQuery("findCompteByEmail")
 				.setString("email", compte.getEmail());
-		compteRetour = (CompteInscrit) query.uniqueResult();	
+		compteRetour = (CompteInscrit) query.uniqueResult();
+		
 		if(compteRetour != null && compte.getMdp().equals(compteRetour.getMdp())){
 			System.out.println("le user existe  et son mdp coincide!");
 			session.setAttribute("emailUser", compte.getEmail());
@@ -135,5 +138,36 @@ public class CompteControleur {
            return modelAndView;
 	}
 	
+	@RequestMapping(value="/submitMotPass", method = RequestMethod.POST)
+	public ModelAndView ChangerMdpSubmit(HttpSession httpSession,@RequestParam("pass1") String pass1,@RequestParam("pass2") String pass2){
+		ModelAndView modelAndView = new ModelAndView("Redirection");
+		if(!pass1.equals(pass2)){	
+		ModelAndView model1 = new ModelAndView("ChangerDeMotDePassForm");
+		model1.addObject("error","Error : Les mots de passes ne sont pas identiques");
+		return model1;
+		}
+	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		Session sessionHibernate = sessionFactory.openSession();
+		sessionHibernate.beginTransaction();
+		CompteInscrit compteRetour = null;
+		String email = (String)httpSession.getAttribute("emailUser");
+		Query query= sessionHibernate.getNamedQuery("findCompteByEmail")
+				.setString("email",email);
+		compteRetour = (CompteInscrit) query.uniqueResult();
+		System.out.println(compteRetour.getMdp());
+		compteRetour.setMdp(pass1);
+		System.out.println(compteRetour.getMdp());
+		sessionHibernate.save(compteRetour);
+		sessionHibernate.getTransaction().commit();
+		modelAndView.addObject("url","/NekoAtsume/connexion");
+		modelAndView.addObject("succes","Changement de mot de passe effectué avec succes.");
+        return modelAndView;
+	}
+	@RequestMapping(value="/changerMotPass")
+	public ModelAndView changerMdp(HttpSession httpSession){
+		ModelAndView modelAndView = new ModelAndView("ChangerDeMotDePassForm");
+		   
+        return modelAndView;
+	}
 	
 }

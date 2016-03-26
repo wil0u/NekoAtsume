@@ -19,5 +19,5 @@
 			</li>
 			
 		</ul>
-
+<a href="http://localhost:8080/NekoAtsume/changerMotPass" class="btn btn-default" role="button">Changer de mot de passe</a>
 <%@ include file="footer.jsp" %>

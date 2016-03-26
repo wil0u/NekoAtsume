@@ -16,8 +16,9 @@
 <title>Redirection</title>
 </head>
 <body>
-<h1 class="text-danger">${error}<small>Attention vous aller être redirigé dans 10 secondes</small></h1>
-
+<h1 class="text-danger">${error}</h1>
+<h1 class="text-success">${succes}</h1>
+<small>Attention vous aller être redirigé dans 10 secondes</small><
 
 </body>
 </html>
