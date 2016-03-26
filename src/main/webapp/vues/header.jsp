@@ -30,11 +30,12 @@
   <li role="presentation"><a href="http://localhost:8080/NekoAtsume/index">Home</a></li>
   <li role="presentation"><a href="http://localhost:8080/NekoAtsume/chats">Chats</a></li>
   <li role="presentation"><a href="http://localhost:8080/NekoAtsume/astuces">Astuces</a></li>
+  <li role="presentation"><a href="http://localhost:8080/NekoAtsume/objets">Objets</a></li>
   </ul>
   <c:if test="${empty param.emailUser}">
   
 <a href="http://localhost:8080/NekoAtsume/connexion" class="btn btn-default navbar-btn navbar-right " role="button">Connexion</a>
-<a href="http://localhost:8080/NekoAtsume/compte" class="btn btn-default navbar-btn btn btn-primary" role="button">Inscription</a>
+<a href="http://localhost:8080/NekoAtsume/compte" class="btn btn-default navbar-btn btn-primary navbar-right" role="button">Inscription</a>
 
 </c:if>
 <c:if test="${not empty param.emailUser}">
