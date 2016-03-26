@@ -5,7 +5,7 @@
    <jsp:param name="pageTitle" value="Connexion" />
    <jsp:param name="emailUser" value="${emailUser }" />
 </jsp:include>
-
+<h1 class="text-danger">${error}</h1>
 <h1 class="text-info">${Info}</h1>
 <form method="post" action="/NekoAtsume/connexion" class="form-horizontal">
   <div class="form-group">

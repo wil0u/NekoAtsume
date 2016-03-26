@@ -6,6 +6,7 @@
    <jsp:param name="emailUser" value="${emailUser }" />
 </jsp:include>
 
+<h1 class="text-danger">${error}</h1>
 <form:errors path="astuce.*"/>
 <form method="post" action="/NekoAtsume/chat/${chat.idChat}/astuce"  >
 	<div class="form-group">

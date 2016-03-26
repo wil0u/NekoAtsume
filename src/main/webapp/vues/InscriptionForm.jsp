@@ -5,8 +5,8 @@
    <jsp:param name="pageTitle" value="Inscription" />
    <jsp:param name="emailUser" value="${emailUser }" />
 </jsp:include>
-
-<form:errors path="astuce.*"/>
+<h1 class="text-danger">${error}</h1>
+<form:errors path="compte.*"/>
 <form method="post" action="/NekoAtsume/compte"  >
   <div class="form-group">
     <label for="exampleInputEmail1">Adresse email</label>

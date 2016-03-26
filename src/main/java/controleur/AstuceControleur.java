@@ -176,7 +176,12 @@ public class AstuceControleur {
 			return model1;
 		}
 		
-	
+		if(astuce.getTitre().equals("")||astuce.getAstuce().equals("")){
+			ModelAndView model1 = new ModelAndView("Redirection");
+			model1.addObject("error","Erreur : Le corps ou le titre de l'astuce est vide !!");
+			model1.addObject("url","/NekoAtsume/chat/"+idChat+"/astuce");
+			return model1;
+		}
 		
 		//Associe la vue AjoutSucces avec méthode
 		ModelAndView modelAndView = new ModelAndView("AjoutSucces");
