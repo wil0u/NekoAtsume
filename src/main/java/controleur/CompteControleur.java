@@ -146,6 +146,11 @@ public class CompteControleur {
 		model1.addObject("error","Error : Les mots de passes ne sont pas identiques");
 		return model1;
 		}
+		if(pass1.equals("")||pass2.equals("")){	
+			ModelAndView model1 = new ModelAndView("ChangerDeMotDePassForm");
+			model1.addObject("error","Attention un ou plusieurs champ(s) de saisie(s) sont vides.");
+			return model1;
+			}
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session sessionHibernate = sessionFactory.openSession();
 		sessionHibernate.beginTransaction();
@@ -159,7 +164,7 @@ public class CompteControleur {
 		System.out.println(compteRetour.getMdp());
 		sessionHibernate.save(compteRetour);
 		sessionHibernate.getTransaction().commit();
-		modelAndView.addObject("url","/NekoAtsume/connexion");
+		modelAndView.addObject("url","/NekoAtsume/index");
 		modelAndView.addObject("succes","Changement de mot de passe effectué avec succes.");
         return modelAndView;
 	}

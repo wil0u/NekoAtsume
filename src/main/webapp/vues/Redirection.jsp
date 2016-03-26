@@ -12,13 +12,13 @@
 <!-- Latest compiled JavaScript -->
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<meta http-equiv="refresh" content="10; URL="${url}">
+<meta http-equiv="refresh" content="10; URL=${url}">
 <title>Redirection</title>
 </head>
 <body>
 <h1 class="text-danger">${error}</h1>
 <h1 class="text-success">${succes}</h1>
-<small>Attention vous aller être redirigé dans 10 secondes</small><
+<small>Attention vous aller être redirigé dans 10 secondes vers ${url }</small>
 
 </body>
 </html>
