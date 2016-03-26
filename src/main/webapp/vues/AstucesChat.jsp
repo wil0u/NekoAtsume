@@ -1,11 +1,11 @@
 <%@ include file="headerTag.jsp" %>
 
 <jsp:include page="/vues/header.jsp" >	
-   <jsp:param name="pageHeader" value="Liste des astuces" />
+   <jsp:param name="pageHeader" value="Les astuce du chat : ${Chat.nomChat}!" />
    <jsp:param name="pageTitle" value="Liste astuces" />
+   <jsp:param name="emailUser" value="${emailUser }" />
 </jsp:include>
 
-Concerne le chat ${Chat.nomChat}
 
 
 <table class="table table-hover">

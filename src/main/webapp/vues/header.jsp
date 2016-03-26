@@ -17,7 +17,31 @@
 </head>
 
 <body>
+
  <div class="container">
+ <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+  <li role="presentation"><a href="http://localhost:8080/NekoAtsume/index">Home</a></li>
+  <li role="presentation"><a href="http://localhost:8080/NekoAtsume/chats">Chats</a></li>
+  <li role="presentation"><a href="http://localhost:8080/NekoAtsume/astuces">Astuces</a></li>
+  <c:if test="${empty param.emailUser}">
+<p class="navbar-text navbar-right"><a href="http://localhost:8080/NekoAtsume/connexion" class="navbar-link">Connexion</a></p>
+<p class="navbar-text navbar-right"><a href="http://localhost:8080/NekoAtsume/compte" class="navbar-link">Inscription</a></p>
+</c:if>
+<c:if test="${not empty param.emailUser}">
+    <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">${param.emailUser}</a></p>
+    <p class="navbar-text navbar-right"><a href="http://localhost:8080/NekoAtsume/deconnexion" class="navbar-link">Log out</a></p>
+</c:if>
+  
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
     <div class="page-header">
       <h1>${param.pageHeader}</h1>
     </div>

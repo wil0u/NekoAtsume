@@ -3,10 +3,13 @@ package controleur;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import modele.Astuce;
 import modele.CategorieAstuce;
 import modele.CategorieObjet;
 import modele.Chat;
+import modele.CompteInscrit;
 import modele.Objet;
 
 import org.hibernate.Criteria;
@@ -25,7 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AstuceControleur {
 	@RequestMapping("/astuces")
-	public ModelAndView listeAstuce(){
+	public ModelAndView listeAstuce(HttpSession httpSession){
 		ModelAndView modelAndView = new ModelAndView("AstuceListe");
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -34,27 +37,28 @@ public class AstuceControleur {
     	Criteria criteria = session.createCriteria(Astuce.class);
 		List<Astuce> astuces = (List<Astuce>)criteria.list();
 		modelAndView.addObject("ListeAstuce",astuces);
+		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 		return modelAndView;
 		
 		
 	}
 	
 	@RequestMapping("/astuce/{idAstuce}")
-	public ModelAndView detailChat(@PathVariable("idAstuce") int idAstuce){
+	public ModelAndView detailChat(@PathVariable("idAstuce") int idAstuce, HttpSession httpSession){
 		ModelAndView modelAndView = new ModelAndView("Astuce");
 		Astuce astuce = new Astuce();
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		astuce = session.get(Astuce.class,idAstuce);
-		
+		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 		modelAndView.addObject("Astuce",astuce);
 		return modelAndView;
 		
 		
 	}
 	@RequestMapping(value="/chat/{idChat}/astuces", method = RequestMethod.GET)
-	public ModelAndView AstucesAssocieesAuChat(@PathVariable("idChat") int idChat){
+	public ModelAndView AstucesAssocieesAuChat(@PathVariable("idChat") int idChat,HttpSession httpSession){
 		ModelAndView modelAndView = new ModelAndView("AstucesChat");
 		Chat chat = new Chat();
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -69,13 +73,19 @@ public class AstuceControleur {
 			System.out.println("Astuce :"+astuces.get(i).getAstuce());
 		modelAndView.addObject("listeAstuces",astuces);
 		modelAndView.addObject("Chat",chat);
+		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 		return modelAndView;
 		
 		
 	}
 	
 	@RequestMapping(value="/chat/{idChat}/astuce", method = RequestMethod.GET)
-	public ModelAndView AjoutAstuce(@PathVariable("idChat") int idChat){
+	public ModelAndView AjoutAstuce(@PathVariable("idChat") int idChat,HttpSession httpSession){
+		if(httpSession.getAttribute("emailUser")==null){
+			ModelAndView model1 = new ModelAndView("ConnexionForm");
+			model1.addObject("Info","Vous devez être connecté pour ajouter une astuce.");
+			return model1;
+		}
 		ModelAndView modelAndView = new ModelAndView("AjoutAstuceForm");
 		Chat chat = new Chat();
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -151,14 +161,14 @@ public class AstuceControleur {
 		modelAndView.addObject("baskets",baskets);
 		modelAndView.addObject("foods",foods);
 		modelAndView.addObject("chat",chat);
-		
+		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 		
 		return modelAndView;
 		
 		
 	}
 	@RequestMapping(value="/chat/{idChat}/astuce", method = RequestMethod.POST)
-	public ModelAndView AjoutAstuce(@ModelAttribute("astuce") Astuce astuce, BindingResult result,@PathVariable("idChat") int idChat){
+	public ModelAndView AjoutAstuce(@ModelAttribute("astuce") Astuce astuce, BindingResult result,@PathVariable("idChat") int idChat,HttpSession httpSession){
 		
 		//Teste si il y à des erreus
 		if(result.hasErrors()){
@@ -166,11 +176,13 @@ public class AstuceControleur {
 			return model1;
 		}
 		
+	
 		
 		//Associe la vue AjoutSucces avec méthode
 		ModelAndView modelAndView = new ModelAndView("AjoutSucces");
 		Objet objet;
 		Chat chat;
+		CompteInscrit compte;
 		
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -185,12 +197,16 @@ public class AstuceControleur {
 		
 		//On récupère le chat associé 
 		chat = session.get(Chat.class, idChat);
+		String emailUser = (String) httpSession.getAttribute("emailUser");
+		compte = session.get(CompteInscrit.class,emailUser);
 		//Et on bind les infos à l'astuce 
 		astuce.setListObjet(objets);
+		astuce.setAuteur(compte);
 		astuce.setChat(chat);
 		session.save(astuce);
 		session.getTransaction().commit();
 		session.close();
+		modelAndView.addObject("email",compte);
 		return modelAndView;
 		
 		

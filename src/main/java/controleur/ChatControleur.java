@@ -2,6 +2,8 @@ package controleur;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import modele.Astuce;
 import modele.Chat;
 import modele.Objet;
@@ -23,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class ChatControleur {
 
 	@RequestMapping("/chats")
-	public ModelAndView listeChat(){
+	public ModelAndView listeChat(HttpSession httpSession){
 		
 		 
 		ModelAndView modelAndView = new ModelAndView("ChatListe");
@@ -35,11 +37,12 @@ public class ChatControleur {
 		
     	Criteria criteria = session.createCriteria(Chat.class);
 		List<Chat> chats = (List<Chat>)criteria.list();
+		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 		modelAndView.addObject("listChat",chats);
 		return modelAndView;
 	}
 	@RequestMapping("/chat/{idChat}")
-	public ModelAndView detailChat(@PathVariable("idChat") int idChat){
+	public ModelAndView detailChat(@PathVariable("idChat") int idChat,HttpSession httpSession){
 		ModelAndView modelAndView = new ModelAndView("Chat");
 		Chat chat = new Chat();
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -54,6 +57,7 @@ public class ChatControleur {
 			System.out.println("Astuce :"+astuces.get(i).getAstuce());
 		modelAndView.addObject("Chat",chat);
 		modelAndView.addObject("ListeAstuces",astuces);
+		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 		return modelAndView;
 		
 		

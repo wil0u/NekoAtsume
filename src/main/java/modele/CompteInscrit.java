@@ -1,5 +1,6 @@
 package modele;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -7,10 +8,11 @@ import javax.persistence.Id;
 @Entity
 public class CompteInscrit {
 	@Id 
+	String email;
+	@Column(unique=true)
 	String pseudo;
 	String mdp;
 	String cheminPhoto;
-	String email;
 	boolean banned;
 	
 	public String getPseudo() {

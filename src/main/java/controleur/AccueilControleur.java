@@ -2,6 +2,8 @@ package controleur;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import modele.Astuce;
 
 import org.hibernate.Criteria;
@@ -16,11 +18,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class AccueilControleur {
 
 	@RequestMapping("/index")
-	public ModelAndView listeAstuce(){
+	public ModelAndView listeAstuce(HttpSession httpSession){
 		ModelAndView modelAndView = new ModelAndView("index");
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
+		
+		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 		
 		return modelAndView;
 		

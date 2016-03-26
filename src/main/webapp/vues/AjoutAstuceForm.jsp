@@ -3,6 +3,7 @@
 <jsp:include page="/vues/header.jsp" >	
    <jsp:param name="pageHeader" value="Ajout astuce pour le chat ${chat.nomChat }" />
    <jsp:param name="pageTitle" value="Formulaire d'ajout d'astuce" />
+   <jsp:param name="emailUser" value="${emailUser }" />
 </jsp:include>
 
 <form:errors path="astuce.*"/>
@@ -21,13 +22,11 @@
 
 	<div class="form-group">
 		<legend>Beds</legend>
-		<div class="row">
 			<c:forEach var="objet" items="${beds}">
 				<label class="checkbox-inline" for="coucou">
  					<input type="checkbox" name="listObjetId"  value="${objet.idObjet}"><img src="${objet.cheminPhotoObjet}" class="img-thumbnail" style="width:50px;height:50px"/>${ objet.nomObjet}
 				</label>
 			</c:forEach>
-		</div>
 	</div>
 
   
@@ -122,8 +121,7 @@
 			</label>
 		</c:forEach>
 	</div>
-</div>
-<input type="submit" value="Submit" />
+<button type="submit" class="btn btn-default">Submit</button>
 </form>	
 
 <%@ include file="footer.jsp" %>

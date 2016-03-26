@@ -3,6 +3,7 @@
 <jsp:include page="/vues/header.jsp" >	
    <jsp:param name="pageHeader" value="Bien joué ;)" />
    <jsp:param name="pageTitle" value="BRAVO !" />
+   <jsp:param name="emailUser" value="${emailUser }" />
 </jsp:include>
 
 

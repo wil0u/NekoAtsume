@@ -3,6 +3,7 @@
 <jsp:include page="/vues/header.jsp" >	
    <jsp:param name="pageHeader" value="Detail du chat : ${Chat.nomChat } " />
    <jsp:param name="pageTitle" value="Détail chat" />
+   <jsp:param name="emailUser" value="${emailUser }" />
 </jsp:include>
 
 
