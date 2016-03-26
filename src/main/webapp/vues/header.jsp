@@ -39,7 +39,7 @@
 
 </c:if>
 <c:if test="${not empty param.emailUser}">
-    <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">${param.emailUser}</a></p>
+    <p class="navbar-text navbar-right">Signed in as <a href="http://localhost:8080/NekoAtsume/monProfile" class="navbar-link">${param.emailUser}</a></p>
     <a href="http://localhost:8080/NekoAtsume/deconnexion" class="btn btn-default navbar-btn navbar-right btn btn-danger" role="button">Log out</a>
 </c:if>
   

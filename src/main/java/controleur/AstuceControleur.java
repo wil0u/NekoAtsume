@@ -13,6 +13,7 @@ import modele.CompteInscrit;
 import modele.Objet;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -202,8 +203,11 @@ public class AstuceControleur {
 		
 		//On récupère le chat associé 
 		chat = session.get(Chat.class, idChat);
+		Query query= session.getNamedQuery("findCompteByEmail")
+				.setString("email", (String) httpSession.getAttribute("emailUser"));
+	
 		String emailUser = (String) httpSession.getAttribute("emailUser");
-		compte = session.get(CompteInscrit.class,emailUser);
+		compte = (CompteInscrit) query.uniqueResult();
 		//Et on bind les infos à l'astuce 
 		astuce.setListObjet(objets);
 		astuce.setAuteur(compte);

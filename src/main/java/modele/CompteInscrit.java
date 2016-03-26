@@ -6,17 +6,29 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-
+@NamedQueries({
+	@NamedQuery(
+	name = "findCompteByEmail",
+	query = "from CompteInscrit c where c.email = :email"
+	)
+})
 @Entity
 public class CompteInscrit {
-	@Id 
+	@Id @GeneratedValue
+	int compteId;
+
 	String email;
 	@Column(unique=true)
 	String pseudo;
 	String mdp;
 	String cheminPhoto;
 	boolean banned;
-	
+	public int getCompteId() {
+		return compteId;
+	}
+	public void setCompteId(int compteId) {
+		this.compteId = compteId;
+	}
 	public String getPseudo() {
 		return pseudo;
 	}

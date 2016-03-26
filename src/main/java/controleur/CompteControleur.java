@@ -9,6 +9,7 @@ import modele.Chat;
 import modele.CompteInscrit;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -36,6 +37,24 @@ public class CompteControleur {
 		return modelAndView;
 	}
 	
+	
+	@RequestMapping(value="/monProfile", method = RequestMethod.GET)
+	public ModelAndView voirProfile(HttpSession sessionHttp){
+		
+		 
+		ModelAndView modelAndView = new ModelAndView("CompteProfile");
+	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		String email = (String)sessionHttp.getAttribute("emailUser");
+		Query query= session.getNamedQuery("findCompteByEmail")
+				.setString("email", email);
+		CompteInscrit compte= (CompteInscrit) query.uniqueResult();
+		modelAndView.addObject("compte",compte);
+		return modelAndView;
+	}
+	
+	
 	@RequestMapping(value="/compte", method = RequestMethod.POST)
 	public ModelAndView AjoutCompte(@ModelAttribute("compte") CompteInscrit compte, BindingResult result){
 		ModelAndView modelAndView = new ModelAndView("AjoutSucces");
@@ -43,20 +62,23 @@ public class CompteControleur {
 			ModelAndView model1 = new ModelAndView("InscriptionForm");
 			return model1;
 		}
+		
 		CompteInscrit compteRetour;
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		compteRetour = session.get(CompteInscrit.class,compte.getEmail());
-		if(compteRetour!=null){
+		Criteria criteria = session.createCriteria(CompteInscrit.class);  
+		criteria.add( Restrictions.like("email", compte.getEmail()));
+		List<CompteInscrit> comptesEmail = criteria.list();
+		if(comptesEmail.size()>0){
 			ModelAndView model1 = new ModelAndView("InscriptionForm");
 			model1.addObject("error","Erreur : Cet email est deja utilisé !");
 			return model1;
 		}
-		Criteria criteria = session.createCriteria(CompteInscrit.class);  
+		criteria = session.createCriteria(CompteInscrit.class);  
 		criteria.add( Restrictions.like("pseudo", compte.getPseudo()));
-		List<CompteInscrit> comptes = criteria.list();
-		if(comptes.size()>0){
+		List<CompteInscrit> comptesPseudo = criteria.list();
+		if(comptesPseudo.size()>0){
 			ModelAndView model1 = new ModelAndView("InscriptionForm");
 			model1.addObject("error","Erreur : Ce pseudo est déja utilisé !");
 			return model1;
@@ -92,8 +114,9 @@ public class CompteControleur {
 		Session sessionHibernate = sessionFactory.openSession();
 		sessionHibernate.beginTransaction();
 		CompteInscrit compteRetour = null;
-		compteRetour = sessionHibernate.get(CompteInscrit.class, compte.getEmail());
-		
+		Query query= sessionHibernate.getNamedQuery("findCompteByEmail")
+				.setString("email", compte.getEmail());
+		compteRetour = (CompteInscrit) query.uniqueResult();	
 		if(compteRetour != null && compte.getMdp().equals(compteRetour.getMdp())){
 			System.out.println("le user existe  et son mdp coincide!");
 			session.setAttribute("emailUser", compte.getEmail());
