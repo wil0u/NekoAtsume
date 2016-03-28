@@ -6,6 +6,8 @@
    <jsp:param name="emailUser" value="${emailUser }" />
 </jsp:include>
 
+
+
 <h1 class="text-danger">${error}</h1>
 <form:errors path="astuce.*"/>
 <form method="post" action="/NekoAtsume/chat/${chat.idChat}/astuce"  >
@@ -18,19 +20,42 @@
 		<textarea class="form-control" name="astuce" path="astuce" id="inputAstuce" class="form-control" aria-describedby="helpBlock" rows="3"></textarea>
 		<span id="helpBlock" class="help-block">Veuillez écrire le détail de votre astuce dans le block de texte ci-dessus.</span>	
 	</div>
-
+	
+	
+	
+	<c:forEach var="i" begin="1" end="5">
+	<p> TRUC <c:out value="${i}"/>
+	<c:forEach var="j" begin="1" end="5">
+     NAME <c:out value="${j}"/></c:forEach>
+</c:forEach>
 
 
 	<div class="form-group">
 		<legend>Beds</legend>
-			<c:forEach var="objet" items="${beds}">
-				<label class="checkbox-inline" for="coucou">
- 					<input type="checkbox" name="listObjetId"  value="${objet.idObjet}"><img src="${objet.cheminPhotoObjet}" class="img-thumbnail" style="width:50px;height:50px"/>${ objet.nomObjet}
-				</label>
-			</c:forEach>
+		<c:set var="i" value="${0}" />
+		<c:forEach var="objet" items="${beds}">
+		
+			<c:if test="${i%5 == 0}">
+				<c:set var="i" value="${i+1}" />
+				<p>
+			</c:if>
+			        
+		            <table class="table">
+		            
+					<label class="checkbox-inline"> <input type="checkbox"
+						name="listObjetId" value="${objet.idObjet}"><img
+						src="${objet.cheminPhotoObjet}" class="img-thumbnail"
+						style="width: 50px; height: 50px" />${ objet.nomObjet}
+					</label>
+					<c:set var="i" value="${i+1}" />
+					</table>
+					
+		</c:forEach>
+		
+	</div>
 	</div>
 
-  
+
 	<div class="form-group">
 		<legend>Balls</legend>
 		<c:forEach var="objet" items="${balls}">
@@ -122,7 +147,7 @@
 			</label>
 		</c:forEach>
 	</div>
-<button type="submit" class="btn btn-default">Submit</button>
+<button type="submit" class="btn btn-default" id="JESUISUNVILAINBOUTON">Submit</button>
 </form>	
 
 <%@ include file="footer.jsp" %>

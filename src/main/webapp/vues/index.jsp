@@ -9,6 +9,9 @@
 
 <div class="jumbotron">
   <h1>Hello, visiteur!</h1>
-  <p>Bienvenue sur un fan site de Neko Atsume qui recence des astuces apropos de ce dernier !</p>
+  <p>Bienvenue sur un fan site de Neko Atsume !</p>
+  
+</ul>
+
 </div>
 <%@ include file="footer.jsp" %>		

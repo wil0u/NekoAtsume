@@ -3,6 +3,22 @@ package modele;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
+@NamedQueries(
+		{
+	@NamedQuery(
+	name = "findCatbyName",
+	query = "from Chat c where c.nomChat = :nom"
+	),
+	
+@NamedQuery(
+	name = "findCatbyLvl",
+	query = "from Chat c where c.lvlChat = :lvl"
+	)
+}
+		)
 
 @Entity
 public class Chat {

@@ -5,25 +5,47 @@
    <jsp:param name="pageTitle" value="Inscription" />
    <jsp:param name="emailUser" value="${emailUser }" />
 </jsp:include>
-<h1 class="text-danger">${error}</h1>
+<div class="text-danger">${error1}
+${error2}
+${error3}
+${error4}
+${error5} </div>
+
 <form:errors path="compte.*"/>
-<form method="post" action="/NekoAtsume/compte"  >
-  <div class="form-group">
-    <label for="exampleInputEmail1">Adresse email</label>
-    <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-  </div>
-  <div class="form-group">
-    <label for="Pseudo">Pseudo</label>
-    <input type="text" name="pseudo" class="form-control" id="Pseudo" placeholder="Pseudo">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" name="mdp" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  
 
+	<form method="post" action="/NekoAtsume/compte">
+		<fieldset>
+			<div class="form-group">
+				<label for="exampleInputEmail1"><span
+					class="requis"></span></label> <input type="email" name="email"
+					class="form-control" id="exampleInputEmail1" placeholder="Email"
+					value="" size="20" maxlength="60" />
+					<span class="erreur">${erreurs['email']}</span>
+			</div>
+			<div class="form-group">
+				<label for="Pseudo"></label> <input type="text" name="pseudo"
+					class="form-control" id="Pseudo" placeholder="Pseudo" value=""
+					size="20" maxlength="20" /> 
+					<span class="erreur">${erreurs['motdepasse']}</span>
+				 			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1"><span
+					class="requis"></span></label> <input type="password" name="mdp"
+					class="form-control" id="exampleInputPassword1"
+					placeholder="Mot de passe" value="" size="20" maxlength="20" /> 
+					<span class="erreur">${erreurs['confirmation']}</span>
+			</div>
+<div class="form-group">
+				<label for="confirmation"><span
+					class="requis"></span></label> <input type="password" name="confirmation" value=""  
+					id="confirmation" class="form-control" placeholder="Confirmation du mot de passe"/> 
+					<span class="erreur">${erreurs['nom']}</span>
+			</div>
 
-  <button type="submit" class="btn btn-default">Submit</button>
+			<input type="submit" value="Inscription" class="btn btn-default" /> <br />
+		</fieldset>
+	</form>
+
 </form>
 
 

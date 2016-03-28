@@ -6,7 +6,19 @@
    <jsp:param name="emailUser" value="${emailUser }" />
 </jsp:include>                          
  <table  class="table table-striped">
-<caption>Guys, my name is Ankush Gorav</caption>
+ 
+<!--  affichera l'erreur si pas trouvé de chat au nom ou au niveau associé -->
+ <div class="text-danger">${error} </div>
+ 
+ <form method="post" action="/NekoAtsume/chat/chatsRech">          
+Chercher un chat par son nom <input type="text" name="NomChat" value=""  />
+Chercher un chat par son niveau <input type="text" name="LvlChat" value="" />
+<button type="submit" class="btn btn-default">Rechercher le chat</button>
+</form>
+
+<a href="http://localhost:8080/NekoAtsume/chats"><button class="btn btn-default">Afficher tous les chats</button></a>
+<br />
+<BR>
   <tr>
     <th>Nom chat</th>
     <th>Image chat</th>

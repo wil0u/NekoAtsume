@@ -1,8 +1,8 @@
 <%@ include file="headerTag.jsp" %>
 
 <jsp:include page="/vues/header.jsp" >	
-   <jsp:param name="pageHeader" value="Votre profile" />
-   <jsp:param name="pageTitle" value="Votre profile" />
+   <jsp:param name="pageHeader" value="Votre profil" />
+   <jsp:param name="pageTitle" value="Votre profil" />
    <jsp:param name="emailUser" value="${emailUser }" />
 </jsp:include>
 

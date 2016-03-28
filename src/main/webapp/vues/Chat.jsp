@@ -5,8 +5,9 @@
    <jsp:param name="pageTitle" value="Détail chat" />
    <jsp:param name="emailUser" value="${emailUser }" />
 </jsp:include>
-
-
+<a href="http://localhost:8080/NekoAtsume/chats"><button class="btn btn-default">Revenir à l'affichage de tous les chats</button></a>
+<br />
+<br>
 
 		<ul class="list-group" >
 		

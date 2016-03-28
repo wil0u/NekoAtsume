@@ -1,7 +1,13 @@
 package controleur;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import modele.Astuce;
@@ -57,12 +63,27 @@ public class CompteControleur {
 	
 	
 	@RequestMapping(value="/compte", method = RequestMethod.POST)
-	public ModelAndView AjoutCompte(@ModelAttribute("compte") CompteInscrit compte, BindingResult result){
+	public ModelAndView AjoutCompte(@ModelAttribute("compte") CompteInscrit compte, BindingResult result, HttpServletRequest request, HttpServletResponse response ) 
+			throws ServletException, IOException {
+		   
+
+        String resultat;
+
+        Map<String, String> erreurs = new HashMap<String, String>();
+		
+		/* Récupération des champs du formulaire. */
+
 		ModelAndView modelAndView = new ModelAndView("AjoutSucces");
 		if(result.hasErrors()){
 			ModelAndView model1 = new ModelAndView("InscriptionForm");
 			return model1;
 		}
+		
+		
+		String pseudo = compte.getPseudo() ;
+		String email =compte.getEmail() ;
+		String motDePasse = compte.getMdp();
+		String confirmation = request.getParameter("confirmation");
 		
 		CompteInscrit compteRetour;
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -71,31 +92,114 @@ public class CompteControleur {
 		Criteria criteria = session.createCriteria(CompteInscrit.class);  
 		criteria.add( Restrictions.like("email", compte.getEmail()));
 		List<CompteInscrit> comptesEmail = criteria.list();
+		
+		ModelAndView model1 = new ModelAndView("InscriptionForm");
+				
 		if(comptesEmail.size()>0){
-			ModelAndView model1 = new ModelAndView("InscriptionForm");
-			model1.addObject("error","Erreur : Cet email est deja utilisé !");
-			return model1;
+			
+			model1.addObject("error1","Cet email est deja utilisé !");
+			
 		}
+		
 		criteria = session.createCriteria(CompteInscrit.class);  
 		criteria.add( Restrictions.like("pseudo", compte.getPseudo()));
 		List<CompteInscrit> comptesPseudo = criteria.list();
+		
 		if(comptesPseudo.size()>0){
-			ModelAndView model1 = new ModelAndView("InscriptionForm");
-			model1.addObject("error","Erreur : Ce pseudo est déja utilisé !");
-			return model1;
+			
+			model1.addObject("error2","Ce pseudo est déja utilisé !");
 		}
 		
 		if(compte.getEmail().equals("")||compte.getPseudo().equals("")||compte.getMdp().equals("") ){
-			ModelAndView model1 = new ModelAndView("InscriptionForm");
-			model1.addObject("error","Erreur : Un ou plusieurs champs sont vides !");
+			
+			model1.addObject("error3","Un ou plusieurs champs sont vides !");
+		}
+		
+		     /* Validation des champs mot de passe et confirmation. */
+
+        try {
+
+            validationMotsDePasse( motDePasse, confirmation );
+
+        } catch ( Exception e ) {
+          erreurs.put( "motdepasse", e.getMessage() );
+        	
+        	model1.addObject("error4","Votre mot de passe n'est pas identique ou trop court.");
+	  }
+
+
+        /* Validation du champ nom. */
+
+        try {
+
+            validationNom( pseudo );
+
+        } catch ( Exception e ) {
+ 
+        	model1.addObject("error5","Le nom d'utilisateur doit contenir au moins 3 caractères.");
+		  }
+		
+        // s'il y a une quelconque erreur
+    	if (model1 != null){
 			return model1;
 		}
+		else{
+			// c'est safe easy life
 		session.save(compte);
 		session.getTransaction().commit();
 		session.close();
 		
-		return modelAndView;
+	
+		return modelAndView;}
 	}
+
+
+	/**
+	 * 
+	 * Valide les mots de passe saisis.
+	 * 
+	 */
+
+	private void validationMotsDePasse(String motDePasse, String confirmation) throws Exception {
+
+		if (motDePasse != null && motDePasse.trim().length() != 0 && confirmation != null
+				&& confirmation.trim().length() != 0) {
+
+			if (!motDePasse.equals(confirmation)) {
+
+				throw new Exception("Les mots de passe entrés sont différents, merci de les saisir à nouveau.");
+
+			} else if (motDePasse.trim().length() < 3) {
+
+				throw new Exception("Les mots de passe doivent contenir au moins 3 caractères.");
+
+			}
+
+		} else {
+
+			throw new Exception("Merci de saisir et confirmer votre mot de passe.");
+
+		}
+
+	}
+
+	/**
+	 * 
+	 * Valide le nom d'utilisateur saisi.
+	 * 
+	 */
+
+	private void validationNom(String nom) throws Exception {
+
+		if (nom != null && nom.trim().length() < 3) {
+
+			throw new Exception("Le nom d'utilisateur doit contenir au moins 3 caractères.");
+
+		}
+
+	}
+	
+	
 	
 	
 	@RequestMapping(value="/connexion", method = RequestMethod.GET)
