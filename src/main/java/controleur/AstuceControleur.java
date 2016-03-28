@@ -185,7 +185,7 @@ public class AstuceControleur {
 		}
 		
 		//Associe la vue AjoutSucces avec méthode
-		ModelAndView modelAndView = new ModelAndView("AjoutSucces");
+		
 		Objet objet;
 		Chat chat;
 		CompteInscrit compte;
@@ -215,9 +215,43 @@ public class AstuceControleur {
 		session.save(astuce);
 		session.getTransaction().commit();
 		session.close();
+		ModelAndView modelAndView = listeAstuce(httpSession) ;
 		modelAndView.addObject("email",compte);
+		modelAndView.addObject("Succes","Vous avez inséré une astuce !");
 		return modelAndView;
 		
 		
 	}
+	
+	 @RequestMapping("/AdminAstuces")
+	 public ModelAndView affichePanneauAdminAstuces(HttpSession httpSession){
+		 ModelAndView modelAndView = new ModelAndView("AdminAstuces");
+		 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			
+	    	Criteria criteria = session.createCriteria(Astuce.class);
+			List<Astuce> astuces = (List<Astuce>)criteria.list();
+			modelAndView.addObject("ListeAstuce",astuces);
+			modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
+			
+			return modelAndView;
+	 }
+	 
+	 @RequestMapping("/astuce/{idAstuce}/moderer")
+		public ModelAndView AdminModererAstuce(@PathVariable("idAstuce") int idAstuce, HttpSession httpSession){
+			ModelAndView modelAndView = new ModelAndView("AdminAstucesModeration");
+			Astuce astuce = new Astuce();
+		 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			astuce = session.get(Astuce.class,idAstuce);
+			modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
+			modelAndView.addObject("Astuce",astuce);
+			return modelAndView;
+			
+			
+		}
+	 
+	 
 }

@@ -5,9 +5,10 @@
    <jsp:param name="pageTitle" value="Détail astuce" />
    <jsp:param name="emailUser" value="${emailUser }" />
 </jsp:include>
-<a href="http://localhost:8080/NekoAtsume/astuces"><button class="btn btn-default">Revenir à l'affichage des astuces</button></a>
+<a href="http://localhost:8080/NekoAtsume/AdminAstuces"><button class="btn btn-default">Revenir au Panneau d'administration des Astuces</button></a>
 <br />
 <br>
+<form method="post" action="">
 
 		<ul>
 			<li class="list-group-item" >
@@ -17,22 +18,24 @@
 		
 			<li class="list-group-item">
 			<span class="label label-default">Titre</span>
-				${Astuce.titre }
+				<input type="text" class="form-control" name="NomChat" value="${Astuce.titre }"/>
 			</li>
 		
 			<li class="list-group-item">
 			<span class="label label-default">Catégorie</span>
-				${Astuce.categorie.nomCategorie }
+				<input type="text" placeholder="Catégorie" name="NomChat" value="${Astuce.categorie.nomCategorie }"/>
 				//
-				<c:if test="${not empty Astuce.chat}">
+				
+				Penser à créer un champ grisé impossible à remplir si astuce concerne pas chat
+				<input type="text" placeholder="Nom du chat si chat concerné" name="NomChat" value="<c:if test="${not empty Astuce.chat}">
    				
 					${Astuce.chat.nomChat}
 					
-			</c:if>		
+			</c:if>		"/>
 			</li>
 				<li class="list-group-item">
 			<span class="label label-default">Astuce</span>
-				${Astuce.astuce }
+				<input type="text" name="NomChat" class="form-control" value="${Astuce.astuce }"/>
 			</li>
 		
 			<li class="list-group-item">
@@ -49,6 +52,8 @@
 				</ul>
 			</li>
 			
+		<input type="submit" value="Modifier l'astuce" class="btn btn-danger" />
+		<div class="bouton_Supprimer"><a href="" class="btn btn-danger" role="bouton_Supprimer">Supprimer l'astuce</a></div>
 			
 		</ul>
 		

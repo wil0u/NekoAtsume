@@ -1,0 +1,117 @@
+@CHARSET "ISO-8859-1";
+
+body {
+/* 	background-color : blue ; */
+	background-image:url(http://localhost:8080/NekoAtsume/resources/imagesFond/Try3.jpg);
+	background-image:repeat;
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+}
+
+th {
+	background-color : #ffcc99 ; 
+	
+}
+
+#container{
+	background-color:#ff9999;
+}
+#container-fluid{
+	background-color:#ffcc99;
+}
+
+#text-danger{
+	color :red ;
+}
+#bs-example-navbar-collapse-1{
+	background-color:#ffe6cc;
+	
+}
+td {
+	background-color : #ffe6cc ; 
+	 opacity: 0.90;
+	
+}
+
+h1 {
+	
+	 font-family: Segoe Script;
+        color : white;
+	
+}
+#Bouton1{
+	margin-left : 50px;
+}
+
+.bouton_Supprimer{
+	float: right;
+	
+}
+#JESUISUNVILAINBOUTON{
+	
+	
+	-moz-box-shadow:inset -2px 1px 0px -15px #a4e271;
+	-webkit-box-shadow:inset -2px 1px 0px -15px #a4e271;
+	box-shadow:inset -2px 1px 0px -15px #a4e271;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #89c403), color-stop(1, #77a809));
+	background:-moz-linear-gradient(top, #89c403 5%, #77a809 100%);
+	background:-webkit-linear-gradient(top, #89c403 5%, #77a809 100%);
+	background:-o-linear-gradient(top, #89c403 5%, #77a809 100%);
+	background:-ms-linear-gradient(top, #89c403 5%, #77a809 100%);
+	background:linear-gradient(to bottom, #89c403 5%, #77a809 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#89c403', endColorstr='#77a809',GradientType=0);
+	background-color:#89c403;
+	-moz-border-radius:25px;
+	-webkit-border-radius:25px;
+	border-radius:25px;
+	border:12px solid #74b807;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:28px;
+	font-weight:bold;
+	padding:32px 76px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #739e2e;
+
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77a809), color-stop(1, #89c403));
+	background:-moz-linear-gradient(top, #77a809 5%, #89c403 100%);
+	background:-webkit-linear-gradient(top, #77a809 5%, #89c403 100%);
+	background:-o-linear-gradient(top, #77a809 5%, #89c403 100%);
+	background:-ms-linear-gradient(top, #77a809 5%, #89c403 100%);
+	background:linear-gradient(to bottom, #77a809 5%, #89c403 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#77a809', endColorstr='#89c403',GradientType=0);
+	background-color:#77a809;
+
+}
+
+caption {
+		background-color : #ffcc99 ; 
+		 font-size: 40px; /* Paragraphes de 14 pixels */
+/* 		 font-variant: small-caps; */
+         color = black ;
+	
+}
+form .erreur {
+
+    color: #900;
+
+}
+
+@font-face {
+  font-family: Constantia;
+  src: local("Constantia"),
+   url(Constantia.ttf);
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Segoe Script;
+  src: local("Segoe Script"),
+   url(Segoe Script.ttf);
+  font-weight: bold;
+}

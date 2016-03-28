@@ -227,6 +227,7 @@ public class CompteControleur {
 		if(compteRetour != null && compte.getMdp().equals(compteRetour.getMdp())){
 			System.out.println("le user existe  et son mdp coincide!");
 			session.setAttribute("emailUser", compte.getEmail());
+			
 		}else{
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
 			model1.addObject("error","Erreur : Email ou mot de passe incorrect.");
@@ -278,5 +279,31 @@ public class CompteControleur {
 		   
         return modelAndView;
 	}
+	
+	@RequestMapping(value="/AdminPanneau")
+	public ModelAndView affichePanneauAdmin(HttpSession httpSession){
+ModelAndView modelAndView = new ModelAndView("AdminPanneau");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/AdminMembres")
+	public ModelAndView affichePanneauAdminMembres(HttpSession httpSession){
+ModelAndView modelAndView = new ModelAndView("AdminMembres");
+
+
+SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+Session session = sessionFactory.openSession();
+session.beginTransaction();
+
+Criteria criteria = session.createCriteria(CompteInscrit.class);
+List<CompteInscrit> inscrits = (List<CompteInscrit>) criteria.list();
+modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
+modelAndView.addObject("listInscrit", inscrits);
+// ATTENTION, PROBLEME D'ENVOI DES MOT DE PASSE VIA LE NET, ATTENTION ATTENTION ATTENTION !!!!!!!!!!!!!!
+		
+		return modelAndView;
+	}
+	
 	
 }

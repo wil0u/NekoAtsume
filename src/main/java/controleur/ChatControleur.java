@@ -33,7 +33,6 @@ public class ChatControleur {
 		
 		 
 		ModelAndView modelAndView = new ModelAndView("ChatListe");
-		modelAndView.addObject("WelcomeMessage","Hi guys, my name is Ankush Gorav. At the moment i'm riding my elephant and i'm eating some badam dooh!");
 		
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -69,6 +68,22 @@ public class ChatControleur {
 		
 	}
 	
+	 @RequestMapping("/AdminChats")
+	 public ModelAndView affichePanneauAdminChats(HttpSession httpSession){
+		 ModelAndView modelAndView = new ModelAndView("AdminChats");
+			
+		 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			
+	    	Criteria criteria = session.createCriteria(Chat.class);
+			List<Chat> chats = (List<Chat>)criteria.list();
+			modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
+			modelAndView.addObject("listChat",chats);
+		
+			return modelAndView;
+	 }
+		
 	@RequestMapping("/chat/chatsRech")
 	public ModelAndView recherche_Chat_Nom(HttpSession httpSession,  HttpServletRequest request){
 		
@@ -129,7 +144,39 @@ public class ChatControleur {
 		return modelAndView;
 		
 	}
-	
+	   
+	  
+	   @RequestMapping("/chat/{idChat}/moderer")
+		public ModelAndView AdminModererChat(@PathVariable("idChat") int idChat,HttpSession httpSession){
+			ModelAndView modelAndView = new ModelAndView("AdminChatsModeration");
+			Chat chat = new Chat();
+		 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			chat = session.get(Chat.class,idChat);
+			
+	    	Criteria criteria = session.createCriteria(Astuce.class);
+	    	criteria.add(Restrictions.eq("chat",chat));
+			List<Astuce> astuces = (List<Astuce>)criteria.list();
+			for (int i = 1 ; i < astuces.size(); i++)
+				System.out.println("Astuce :"+astuces.get(i).getAstuce());
+			modelAndView.addObject("Chat",chat);
+			modelAndView.addObject("ListeAstuces",astuces);
+			modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
+			
+			return modelAndView;
+			
+			
+		}
+	   
+	   @RequestMapping("/AdminAjoutChat")
+		public ModelAndView AdminAjoutChat(HttpSession httpSession){
+			ModelAndView modelAndView = new ModelAndView("AdminAjoutChat");
+						
+			return modelAndView;
+			
+			
+		}
 	
 	
 	

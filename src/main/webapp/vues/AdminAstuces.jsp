@@ -1,10 +1,12 @@
 <%@ include file="headerTag.jsp" %>
 
 <jsp:include page="/vues/header.jsp" >	
-   <jsp:param name="pageHeader" value="Liste de toutes les astuces" />
-   <jsp:param name="pageTitle" value="Liste astuces" />
-   <jsp:param name="emailUser" value="${emailUser}" />
+   <jsp:param name="pageHeader" value="Panneau d'Administration des Astuces" />
+   <jsp:param name="pageTitle" value="Panneau d'Administration des Astuces" />
+   <jsp:param name="emailUser" value="${emailUser }" />
 </jsp:include>
+
+ <a href="http://localhost:8080/NekoAtsume/AdminPanneau" class="btn btn-default" role="button">Revenir au Panneau d'administration</a>
 
 <c:if test="${not empty Succes}">
 
@@ -21,7 +23,7 @@
   <tr>
     <td>${astuce.titre}</td>  
     <td><a href="http://localhost:8080/NekoAtsume/chat/${astuce.chat.idChat}">${astuce.chat.nomChat}</a></td>
-    <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}">Détail</a></td>
+    <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}/moderer">Modérer</a></td>
   </tr>
   </c:forEach>
 </table>
