@@ -27,4 +27,4 @@
 
 
 
-<%@ include file="headerTag.jsp" %>
+<%@ include file="footer.jsp" %>

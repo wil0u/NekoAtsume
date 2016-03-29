@@ -1,20 +1,23 @@
 <%@ include file="headerTag.jsp" %>
 
 <jsp:include page="/vues/header.jsp" >	
-   <jsp:param name="pageHeader" value="Votre profil" />
-   <jsp:param name="pageTitle" value="Votre profil" />
+   <jsp:param name="pageHeader" value="Mon profil" />
+   <jsp:param name="pageTitle" value="Mon profil" />
    <jsp:param name="emailUser" value="${emailUser }" />
 </jsp:include>
+<c:if test="${not empty Succes}">
+<div class="alert alert-success">${Succes}</div>
+ </c:if>
 
 		<ul class="list-group" >
 		
 			<li class="list-group-item" >
-			<span class="label label-default">Votre email</span>
+			<span class="label label-default">Email</span>
 				${compte.email }
 			</li>
 		
 			<li class="list-group-item">
-			<span class="label label-default">Votre pseudo</span>
+			<span class="label label-default">Pseudo</span>
 				${compte.pseudo }
 			</li>
 			

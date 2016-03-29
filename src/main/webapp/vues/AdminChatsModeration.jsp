@@ -5,10 +5,10 @@
    <jsp:param name="pageTitle" value="Détail chat" />
    <jsp:param name="emailUser" value="${emailUser }" />
 </jsp:include>
- <a href="http://localhost:8080/NekoAtsume/AdminChats" class="btn btn-default" role="button">Revenir au Panneau d'administration des Chats</a>
+ <a href="http://localhost:8080/NekoAtsume/AdminChats" class="btn btn-default" role="button">Revenir au Panneau d'administration</a>
 <br />
 <br>
-<form method="post" action="">
+<form method="post" action="/NekoAtsume/modifierChat">
 		<ul class="list-group" >
 		
 			<li class="list-group-item" >
@@ -49,20 +49,21 @@
 		</ul>
 		
 		<input type="submit" value="Modifier le Chat" class="btn btn-danger" />
+		<c:choose>
+    <c:when test="${empty ListeAstuces}">
+         <h2>${Chat.nomChat } n'a pas d'astuce. </h2>
+    </c:when>
+    <c:otherwise>
+       <div class="bouton_Showr"> <a class="btn btn-default"  href="http://localhost:8080/NekoAtsume/chat/${Chat.idChat}/astuces">Voir astuce(s) sur ce chat</a></div>
+</c:otherwise>
+    </c:choose>
+
 		<div class="bouton_Supprimer"><a href="" class="btn btn-danger" role="bouton_Supprimer">Supprimer le Chat</a></div>
 		</fieldset>
 	</form>
 	
 	
-<c:choose>
-    <c:when test="${empty ListeAstuces}">
-         <h2>${Chat.nomChat } n'a pas d'astuce. </h2>
-    </c:when>
-    <c:otherwise>
-       <a href="http://localhost:8080/NekoAtsume/chat/${Chat.idChat}/astuces">Voir astuce(s) sur ce chat</a>
 
-    </c:otherwise>
-</c:choose>
 
 
 <%@ include file="footer.jsp" %>

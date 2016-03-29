@@ -10,6 +10,10 @@ import javax.persistence.NamedQuery;
 	@NamedQuery(
 	name = "findCompteByEmail",
 	query = "from CompteInscrit c where c.email = :email"
+	),
+	@NamedQuery(
+	name = "findCompteWithoutMDP",
+	query = "Select pseudo, email from CompteInscrit"
 	)
 })
 @Entity

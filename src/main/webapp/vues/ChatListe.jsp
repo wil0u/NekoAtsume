@@ -16,13 +16,41 @@ Chercher un chat par son niveau <input type="text" name="LvlChat" value="" />
 <button type="submit" class="btn btn-default">Rechercher le chat</button>
 </form>
 
+
 <a href="http://localhost:8080/NekoAtsume/chats"><button class="btn btn-default">Afficher tous les chats</button></a>
-<br />
-<BR>
+<div class="ligne"></div>
+
   <tr>
-    <th>Nom chat</th>
+    <th>Nom chat
+<!--     Ordonnancement des chats par ASC ou DESC -->
+    <a href="http://localhost:8080/NekoAtsume/chatsNomUP">
+    <button type="button" class="btn btn-default" aria-label="Left Align">
+  <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+</button>
+</a>
+ <a href="http://localhost:8080/NekoAtsume/chatsNomDOWN">
+<button type="button" class="btn btn-default" aria-label="Left Align">
+  <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+</button>
+    </a>
+    </th>
     <th>Image chat</th>
-    <th>Power Lv.</th>
+    <th>Power Lv.
+    
+     <a href="http://localhost:8080/NekoAtsume/chatsLvlUP">
+    <button type="button" class="btn btn-default" aria-label="Left Align">
+  <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+</button>
+</a> <a href="http://localhost:8080/NekoAtsume/chatsLvlDOWN">
+    <button type="button" class="btn btn-default" aria-label="Left Align">
+  <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+</button>
+</a>
+    
+    
+    
+    
+    </th>
 	<th></th>
 	<th></th>
   </tr>

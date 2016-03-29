@@ -225,14 +225,16 @@ public class AstuceControleur {
 	
 	 @RequestMapping("/AdminAstuces")
 	 public ModelAndView affichePanneauAdminAstuces(HttpSession httpSession){
-		 ModelAndView modelAndView = new ModelAndView("AdminAstuces");
+		
 		 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
 			
 	    	Criteria criteria = session.createCriteria(Astuce.class);
 			List<Astuce> astuces = (List<Astuce>)criteria.list();
-			modelAndView.addObject("ListeAstuce",astuces);
+			
+			ModelAndView modelAndView = new ModelAndView("AdminAstuces");
+			modelAndView.addObject("listAstuce",astuces);
 			modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 			
 			return modelAndView;

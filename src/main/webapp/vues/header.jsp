@@ -22,8 +22,7 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 
-<!-- Ajout image entête -->
-<img src="http://localhost:8080/NekoAtsume/resources/imagesFond/nekoA.jpg" alt="ImageEntête">
+
 </head>
 
 <body>
@@ -34,26 +33,43 @@
  <nav class="navbar navbar-default">
   <div class="container-fluid" id= "container-fluid">
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
+ <div class="container-fluid">
     <!-- Collect the nav links, forms, and other content for toggling -->
       <ul class="nav navbar-nav">
   <li role="presentation"><a href="http://localhost:8080/NekoAtsume/index">Home</a></li>
   <li role="presentation"><a href="http://localhost:8080/NekoAtsume/chats">Chats</a></li>
   <li role="presentation"><a href="http://localhost:8080/NekoAtsume/astuces">Astuces</a></li>
   <li role="presentation"><a href="http://localhost:8080/NekoAtsume/objets">Objets</a></li>
-  </ul>
+  
+  
   <c:if test="${empty param.emailUser}">
   
 <a href="http://localhost:8080/NekoAtsume/connexion" class="btn btn-default navbar-btn navbar-right " role="button" id="Bouton1">Connexion</a>
 <a href="http://localhost:8080/NekoAtsume/compte" class="btn btn-default navbar-btn btn-primary navbar-right" role="button" id="Bouton2">Inscription</a>
 
 </c:if>
+</ul>
 <c:if test="${not empty param.emailUser}">
-    <p class="navbar-text navbar-right">Signed in as <a href="http://localhost:8080/NekoAtsume/monProfile" class="navbar-link">${param.emailUser}</a></p>
-    <a href="http://localhost:8080/NekoAtsume/deconnexion" class="btn btn-default navbar-btn navbar-right btn btn-danger" role="button">Log out</a>
+
+    <a href="http://localhost:8080/NekoAtsume/deconnexion" class="btn navbar-btn navbar-right btn-danger" role="button">Deconnexion</a>
+    <a href="http://localhost:8080/NekoAtsume/monProfil" class="btn  navbar-btn btn-danger navbar-right" role="button">Mon profil</a>
+    
+    <li class="dropdown navbar-right" >    
+    <a class="btn navbar-btn navbar-right btn-danger" data-toggle="dropdown" href="#" >Panneau d'administration
+        <span class="caret"></span></a>
+        
+        <ul class="dropdown-menu" >
+          <li><a href="http://localhost:8080/NekoAtsume/AdminChats">Chats</a></li>
+          <li><a href="http://localhost:8080/NekoAtsume/AdminAstuces">Astuces</a></li>
+          <li><a href="http://localhost:8080/NekoAtsume/AdminMembres">Membres</a></li>
+          
+        </ul>
+        </li>
+        
+
+    
 </c:if>
 
- <a href="http://localhost:8080/NekoAtsume/AdminPanneau" class="btn btn-default navbar-btn navbar-right btn btn-danger" role="button">Panneau d'administration</a>
 
   
   </div> 
@@ -62,3 +78,9 @@
     <div class="page-header">
       <h1>${param.pageHeader}</h1>
     </div>
+    <div>
+        
+   
+   
+     
+   

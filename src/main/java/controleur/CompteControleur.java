@@ -45,11 +45,11 @@ public class CompteControleur {
 	}
 	
 	
-	@RequestMapping(value="/monProfile", method = RequestMethod.GET)
+	@RequestMapping(value="/monProfil", method = RequestMethod.GET)
 	public ModelAndView voirProfile(HttpSession sessionHttp){
 		
 		 
-		ModelAndView modelAndView = new ModelAndView("CompteProfile");
+		ModelAndView modelAndView = new ModelAndView("CompteProfil");
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -209,7 +209,7 @@ public class CompteControleur {
 	}
 	
 	@RequestMapping(value="/connexion", method = RequestMethod.POST)
-	public ModelAndView Connexion(@ModelAttribute("compte") CompteInscrit compte, BindingResult result,HttpSession session){
+	public ModelAndView Connexion(@ModelAttribute("compte") CompteInscrit compte, BindingResult result,HttpSession httpSession){
 		ModelAndView modelAndView = new ModelAndView("index");
 		if(result.hasErrors()){
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
@@ -226,7 +226,7 @@ public class CompteControleur {
 		
 		if(compteRetour != null && compte.getMdp().equals(compteRetour.getMdp())){
 			System.out.println("le user existe  et son mdp coincide!");
-			session.setAttribute("emailUser", compte.getEmail());
+			httpSession.setAttribute("emailUser", compte.getEmail());
 			
 		}else{
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
@@ -245,7 +245,7 @@ public class CompteControleur {
 	
 	@RequestMapping(value="/submitMotPass", method = RequestMethod.POST)
 	public ModelAndView ChangerMdpSubmit(HttpSession httpSession,@RequestParam("pass1") String pass1,@RequestParam("pass2") String pass2){
-		ModelAndView modelAndView = new ModelAndView("Redirection");
+		
 		if(!pass1.equals(pass2)){	
 		ModelAndView model1 = new ModelAndView("ChangerDeMotDePassForm");
 		model1.addObject("error","Error : Les mots de passes ne sont pas identiques");
@@ -269,10 +269,13 @@ public class CompteControleur {
 		System.out.println(compteRetour.getMdp());
 		sessionHibernate.save(compteRetour);
 		sessionHibernate.getTransaction().commit();
-		modelAndView.addObject("url","/NekoAtsume/index");
-		modelAndView.addObject("succes","Changement de mot de passe effectué avec succes.");
+		
+		ModelAndView modelAndView = voirProfile(httpSession);
+		
+		modelAndView.addObject("Succes","Changement de mot de passe effectué avec succès.");
         return modelAndView;
 	}
+	
 	@RequestMapping(value="/changerMotPass")
 	public ModelAndView changerMdp(HttpSession httpSession){
 		ModelAndView modelAndView = new ModelAndView("ChangerDeMotDePassForm");
@@ -286,6 +289,7 @@ ModelAndView modelAndView = new ModelAndView("AdminPanneau");
 		
 		return modelAndView;
 	}
+
 	
 	@RequestMapping(value="/AdminMembres")
 	public ModelAndView affichePanneauAdminMembres(HttpSession httpSession){
@@ -296,12 +300,27 @@ SessionFactory sessionFactory = new Configuration().configure().buildSessionFact
 Session session = sessionFactory.openSession();
 session.beginTransaction();
 
+
 Criteria criteria = session.createCriteria(CompteInscrit.class);
 List<CompteInscrit> inscrits = (List<CompteInscrit>) criteria.list();
 modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 modelAndView.addObject("listInscrit", inscrits);
-// ATTENTION, PROBLEME D'ENVOI DES MOT DE PASSE VIA LE NET, ATTENTION ATTENTION ATTENTION !!!!!!!!!!!!!!
-		
+
+
+
+//List results = session.createCriteria(Cat.class)
+//.setProjection( Projections.alias( Projections.groupProperty("color"), "colr" ) )
+//.addOrder( Order.asc("colr") )
+//.list();
+//
+//Example example = Example.create(cat)
+//.excludeZeroes()           //exclude zero valued properties
+//.excludeProperty("color")  //exclude the property named "color"
+//.ignoreCase()              //perform case insensitive string comparisons
+//.enableLike();             //use like for string comparisons
+//List results = session.createCriteria(Cat.class)
+//.add(example)
+//.list();
 		return modelAndView;
 	}
 	

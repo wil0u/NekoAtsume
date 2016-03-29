@@ -1,14 +1,13 @@
-<%@ include file="headerTag.jsp" %>
+ <%@ include file="headerTag.jsp" %>
 
 <jsp:include page="/vues/header.jsp" >	
-   <jsp:param name="pageHeader" value="Panneau d'Administration des Membres" />
-   <jsp:param name="pageTitle" value="Panneau d'Administrations des membres" />
+   <jsp:param name="pageHeader" value="Panneau d'administration" />
+   <jsp:param name="pageTitle" value="Panneau d'administration des Chats" />
    <jsp:param name="emailUser" value="${emailUser }" />
 </jsp:include>
  <table  class="table table-striped">
-
- <a href="http://localhost:8080/NekoAtsume/AdminPanneau" class="btn btn-default" role="button">Revenir au Panneau d'administration</a>
-  <h1> ATTENTION GROS PROBLEME DE SECURITE CAR ENVOI DES MDP SUR LE RESEAU</h1>
+ <div class="ligne"></div>
+<table  class="table table-striped">
  
  <!-- Lorsqu'on a banni avec succès, retour ici avec affichage  -->
 
@@ -41,4 +40,4 @@ Chercher un membre par son email <input type="text" name="LvlChat" value="" />
   </tr>
   </c:forEach>
 </table> 
-<%@ include file="footer.jsp" %>
+ <%@ include file="footer.jsp" %>

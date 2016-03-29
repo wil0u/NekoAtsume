@@ -1,7 +1,7 @@
 @CHARSET "ISO-8859-1";
 
 body {
-/* 	background-color : blue ; */
+
 	background-image:url(http://localhost:8080/NekoAtsume/resources/imagesFond/Try3.jpg);
 	background-image:repeat;
 }
@@ -11,14 +11,24 @@ img {
     margin: 0 auto;
 }
 
+
+
 th {
 	background-color : #ffcc99 ; 
 	
 }
 
+.ligne{
+	border-bottom:1px solid white;
+	margin-bottom : 20px;
+	margin-top : 20px;
+}
+
 #container{
 	background-color:#ff9999;
+
 }
+
 #container-fluid{
 	background-color:#ffcc99;
 }
@@ -42,14 +52,28 @@ h1 {
         color : white;
 	
 }
+
+.footer{	
+
+border-top:1px solid white;
+	margin-top:25px;
+	background-color:#ff9999;
+    text-align : center ;
+	
+	
+}
 #Bouton1{
 	margin-left : 50px;
 }
+
+
 
 .bouton_Supprimer{
 	float: right;
 	
 }
+
+
 #JESUISUNVILAINBOUTON{
 	
 	
@@ -92,7 +116,6 @@ h1 {
 caption {
 		background-color : #ffcc99 ; 
 		 font-size: 40px; /* Paragraphes de 14 pixels */
-/* 		 font-variant: small-caps; */
          color = black ;
 	
 }
