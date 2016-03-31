@@ -23,8 +23,9 @@
 			</li>
 		
 			<li class="list-group-item">
+			<div class="zoom">
 			<span class="label label-default">Image</span>
-				<img src="${Chat.cheminPhotoChat}" />
+				<img src="${Chat.cheminPhotoChat}" /></div>
 			</li>
 				<li class="list-group-item">
 				<span class="label label-default">Couleur</span>

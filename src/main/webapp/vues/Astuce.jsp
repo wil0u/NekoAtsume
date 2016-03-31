@@ -9,6 +9,14 @@
 <a href="http://localhost:8080/NekoAtsume/astuces"><button class="btn btn-default">Revenir à l'affichage des astuces</button></a>
 <br />
 <br>
+<div class="progress">
+  <div class="progress-bar progress-bar-success" role="progressbar" style="width:70%">
+    Nom de votes pour (% à renvoyer dans la barre)
+  </div>
+   <div class="progress-bar progress-bar-danger" role="progressbar" style="width:30%">
+     Nom de votes contre (% à renvoyer dans la barre)
+  </div>
+</div>
 
 		<ul>
 			<li class="list-group-item" >
