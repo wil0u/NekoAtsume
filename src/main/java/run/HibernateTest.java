@@ -207,17 +207,7 @@ public class HibernateTest {
 		chat.setMemorialChat("Silent Bell");
 		chat.setNomJaponnaisChat("しろさばさん");
 		session.save(chat);
-		
-		chat = new Chat();
-		chat.setNomChat("Pepper");
-		chat.setCaractereChat("Shy");
-		chat.setLvlChat(165);
-		chat.setCheminPhotoChat("/NekoAtsume/resources/imagesChat/Pepper.png");
-		chat.setCouleurChat("Black w/ Odd Eyes");
-		chat.setMemorialChat("Toy Mirror");
-		chat.setNomJaponnaisChat("おっどさん");
-		session.save(chat);
-		
+
 		chat = new Chat();
 		chat.setNomChat("Pepper");
 		chat.setCaractereChat("Shy");
@@ -431,16 +421,6 @@ public class HibernateTest {
 		session.save(chat);
 		
 		chat = new Chat();
-		chat.setNomChat("Saint Purrtrick");
-		chat.setCaractereChat("Awe-Inspiring");
-		chat.setLvlChat(222);
-		chat.setCheminPhotoChat("/NekoAtsume/resources/imagesChat/Saint.png");
-		chat.setCouleurChat("Ethereal");
-		chat.setMemorialChat("Mysterious Stone");
-		chat.setNomJaponnaisChat("ねこまたさん");
-		session.save(chat);
-		
-		chat = new Chat();
 		chat.setNomChat("Ms. Fortune");
 		chat.setCaractereChat("Charismatic");
 		chat.setLvlChat(20);
@@ -458,16 +438,6 @@ public class HibernateTest {
 		chat.setCouleurChat("Adventurer");
 		chat.setMemorialChat("Antique Compass");
 		chat.setNomJaponnaisChat("やまねこさん");
-		session.save(chat);
-		
-		chat = new Chat();
-		chat.setNomChat("Conductor Whiskers");
-		chat.setCaractereChat("Vigilant");
-		chat.setLvlChat(50);
-		chat.setCheminPhotoChat("/NekoAtsume/resources/imagesChat/Conductor.png");
-		chat.setCouleurChat("Railway Uniform");
-		chat.setMemorialChat("Hand-drawn ticket");
-		chat.setNomJaponnaisChat("えきちょうさん");
 		session.save(chat);
 		
 		chat = new Chat();
