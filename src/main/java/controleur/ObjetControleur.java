@@ -88,7 +88,7 @@ public class ObjetControleur {
 		modelAndView.addObject("baskets",baskets);
 		modelAndView.addObject("foods",foods);
 		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
-		
+		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
 		return modelAndView;
 		
 		

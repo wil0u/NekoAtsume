@@ -23,7 +23,7 @@ public class AccueilControleur {
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		
+		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
 		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 		
 		return modelAndView;

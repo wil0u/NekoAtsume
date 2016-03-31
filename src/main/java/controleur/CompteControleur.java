@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import modele.Astuce;
 import modele.Chat;
+import modele.CompteAdmin;
 import modele.CompteInscrit;
 
 import org.hibernate.Criteria;
@@ -58,6 +59,7 @@ public class CompteControleur {
 				.setString("email", email);
 		CompteInscrit compte= (CompteInscrit) query.uniqueResult();
 		modelAndView.addObject("compte",compte);
+		modelAndView.addObject("Admin",sessionHttp.getAttribute("Admin"));
 		return modelAndView;
 	}
 	
@@ -71,7 +73,7 @@ public class CompteControleur {
 
         Map<String, String> erreurs = new HashMap<String, String>();
 		
-		/* Récupération des champs du formulaire. */
+		/* Rï¿½cupï¿½ration des champs du formulaire. */
 
 		ModelAndView modelAndView = new ModelAndView("AjoutSucces");
 		if(result.hasErrors()){
@@ -93,11 +95,11 @@ public class CompteControleur {
 		criteria.add( Restrictions.like("email", compte.getEmail()));
 		List<CompteInscrit> comptesEmail = criteria.list();
 		
-		ModelAndView model1 = new ModelAndView("InscriptionForm");
+		ModelAndView model1=null;
 				
 		if(comptesEmail.size()>0){
-			
-			model1.addObject("error1","Cet email est deja utilisé !");
+			model1 = new ModelAndView("InscriptionForm");
+			model1.addObject("error1","Cet email est deja utilisï¿½ !");
 			
 		}
 		
@@ -106,12 +108,12 @@ public class CompteControleur {
 		List<CompteInscrit> comptesPseudo = criteria.list();
 		
 		if(comptesPseudo.size()>0){
-			
-			model1.addObject("error2","Ce pseudo est déja utilisé !");
+			model1 = new ModelAndView("InscriptionForm");
+			model1.addObject("error2","Ce pseudo est dï¿½ja utilisï¿½ !");
 		}
 		
 		if(compte.getEmail().equals("")||compte.getPseudo().equals("")||compte.getMdp().equals("") ){
-			
+			model1 = new ModelAndView("InscriptionForm");
 			model1.addObject("error3","Un ou plusieurs champs sont vides !");
 		}
 		
@@ -123,7 +125,7 @@ public class CompteControleur {
 
         } catch ( Exception e ) {
           erreurs.put( "motdepasse", e.getMessage() );
-        	
+          	model1 = new ModelAndView("InscriptionForm");
         	model1.addObject("error4","Votre mot de passe n'est pas identique ou trop court.");
 	  }
 
@@ -136,7 +138,7 @@ public class CompteControleur {
 
         } catch ( Exception e ) {
  
-        	model1.addObject("error5","Le nom d'utilisateur doit contenir au moins 3 caractères.");
+        	model1.addObject("error5","Le nom d'utilisateur doit contenir au moins 3 caractï¿½res.");
 		  }
 		
         // s'il y a une quelconque erreur
@@ -144,7 +146,7 @@ public class CompteControleur {
 			return model1;
 		}
 		else{
-			// c'est safe easy life
+			
 		session.save(compte);
 		session.getTransaction().commit();
 		session.close();
@@ -167,11 +169,11 @@ public class CompteControleur {
 
 			if (!motDePasse.equals(confirmation)) {
 
-				throw new Exception("Les mots de passe entrés sont différents, merci de les saisir à nouveau.");
+				throw new Exception("Les mots de passe entrï¿½s sont diffï¿½rents, merci de les saisir ï¿½ nouveau.");
 
 			} else if (motDePasse.trim().length() < 3) {
 
-				throw new Exception("Les mots de passe doivent contenir au moins 3 caractères.");
+				throw new Exception("Les mots de passe doivent contenir au moins 3 caractï¿½res.");
 
 			}
 
@@ -193,7 +195,7 @@ public class CompteControleur {
 
 		if (nom != null && nom.trim().length() < 3) {
 
-			throw new Exception("Le nom d'utilisateur doit contenir au moins 3 caractères.");
+			throw new Exception("Le nom d'utilisateur doit contenir au moins 3 caractï¿½res.");
 
 		}
 
@@ -225,6 +227,10 @@ public class CompteControleur {
 		compteRetour = (CompteInscrit) query.uniqueResult();
 		
 		if(compteRetour != null && compte.getMdp().equals(compteRetour.getMdp())){
+			if(compteRetour instanceof CompteAdmin){
+				httpSession.setAttribute("Admin", "Admin");
+				System.out.println("je suis un admin");
+			}
 			System.out.println("le user existe  et son mdp coincide!");
 			httpSession.setAttribute("emailUser", compte.getEmail());
 			
@@ -272,7 +278,7 @@ public class CompteControleur {
 		
 		ModelAndView modelAndView = voirProfile(httpSession);
 		
-		modelAndView.addObject("Succes","Changement de mot de passe effectué avec succès.");
+		modelAndView.addObject("Succes","Changement de mot de passe effectuï¿½ avec succï¿½s.");
         return modelAndView;
 	}
 	

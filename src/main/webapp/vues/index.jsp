@@ -4,6 +4,7 @@
 	<jsp:param name="pageTitle" value="Bienvenue !" />
    <jsp:param name="pageHeader" value="Accueil" />
     <jsp:param name="emailUser" value="${emailUser }" />
+  <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
 
 

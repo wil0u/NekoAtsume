@@ -53,7 +53,7 @@
 
     <a href="http://localhost:8080/NekoAtsume/deconnexion" class="btn navbar-btn navbar-right btn-danger" role="button">Deconnexion</a>
     <a href="http://localhost:8080/NekoAtsume/monProfil" class="btn  navbar-btn btn-danger navbar-right" role="button">Mon profil</a>
-    
+    <c:if test="${not empty param.Admin}">
     <li class="dropdown navbar-right" >    
     <a class="btn navbar-btn navbar-right btn-danger" data-toggle="dropdown" href="#" >Panneau d'administration
         <span class="caret"></span></a>
@@ -65,6 +65,7 @@
           
         </ul>
         </li>
+      </c:if>
         
 
     

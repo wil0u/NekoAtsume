@@ -4,6 +4,7 @@
 	<jsp:param name="pageTitle" value="Liste objet" />
    <jsp:param name="pageHeader" value="Liste des Objets" />
    <jsp:param name="emailUser" value="${emailUser }" />
+<jsp:param name="Admin" value="${Admin}" />
 </jsp:include> 
 
 <!-- Feuille CSS AJOUTEE  -->

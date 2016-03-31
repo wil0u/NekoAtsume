@@ -4,6 +4,7 @@
 	<jsp:param name="pageTitle" value="Liste chat" />
    <jsp:param name="pageHeader" value="Liste des chats" />
    <jsp:param name="emailUser" value="${emailUser }" />
+  <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>                          
  <table  class="table table-striped">
  

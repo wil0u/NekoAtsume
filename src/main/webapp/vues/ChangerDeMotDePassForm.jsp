@@ -4,6 +4,7 @@
    <jsp:param name="pageHeader" value="Changement de mot de passe" />
    <jsp:param name="pageTitle" value="Changer mdp" />
    <jsp:param name="emailUser" value="${emailUser }" />
+  <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
 <h1 class="text-danger">${error}</h1>
 <form method="POST" action="/NekoAtsume/submitMotPass" >

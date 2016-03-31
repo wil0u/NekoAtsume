@@ -1741,6 +1741,11 @@ public class HibernateTest {
 		objet.setMonnaie(monnaie2);
 		session.save(objet);
 		
+		CompteAdmin compteAdmin = new CompteAdmin();
+		compteAdmin.setEmail("dieu@gmail.com");
+		compteAdmin.setMdp("dieu");
+		compteAdmin.setPseudo("dieu");
+		session.save(compteAdmin);
 		
 		List<Objet> listObj = new ArrayList<Objet>();
 		listObj.add(objet);

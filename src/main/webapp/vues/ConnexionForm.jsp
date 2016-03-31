@@ -4,6 +4,7 @@
    <jsp:param name="pageHeader" value="Formulaire de connexion" />
    <jsp:param name="pageTitle" value="Connexion" />
    <jsp:param name="emailUser" value="${emailUser }" />
+  <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
 <div class="text-danger">${error}</div>
 <div class="text-info">${Info}</div>

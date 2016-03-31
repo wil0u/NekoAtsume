@@ -38,6 +38,7 @@ public class AstuceControleur {
     	Criteria criteria = session.createCriteria(Astuce.class);
 		List<Astuce> astuces = (List<Astuce>)criteria.list();
 		modelAndView.addObject("ListeAstuce",astuces);
+		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
 		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 		return modelAndView;
 		
@@ -52,6 +53,7 @@ public class AstuceControleur {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		astuce = session.get(Astuce.class,idAstuce);
+		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
 		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 		modelAndView.addObject("Astuce",astuce);
 		return modelAndView;
@@ -74,6 +76,7 @@ public class AstuceControleur {
 			System.out.println("Astuce :"+astuces.get(i).getAstuce());
 		modelAndView.addObject("listeAstuces",astuces);
 		modelAndView.addObject("Chat",chat);
+		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
 		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 		return modelAndView;
 		
@@ -84,7 +87,7 @@ public class AstuceControleur {
 	public ModelAndView AjoutAstuce(@PathVariable("idChat") int idChat,HttpSession httpSession){
 		if(httpSession.getAttribute("emailUser")==null){
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
-			model1.addObject("Info","Vous devez être connecté pour ajouter une astuce.");
+			model1.addObject("Info","Vous devez ï¿½tre connectï¿½ pour ajouter une astuce.");
 			return model1;
 		}
 		ModelAndView modelAndView = new ModelAndView("AjoutAstuceForm");
@@ -163,6 +166,7 @@ public class AstuceControleur {
 		modelAndView.addObject("foods",foods);
 		modelAndView.addObject("chat",chat);
 		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
+		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
 		
 		return modelAndView;
 		
@@ -171,7 +175,7 @@ public class AstuceControleur {
 	@RequestMapping(value="/chat/{idChat}/astuce", method = RequestMethod.POST)
 	public ModelAndView AjoutAstuce(@ModelAttribute("astuce") Astuce astuce, BindingResult result,@PathVariable("idChat") int idChat,HttpSession httpSession){
 		
-		//Teste si il y à des erreus
+		//Teste si il y ï¿½ des erreus
 		if(result.hasErrors()){
 			ModelAndView model1 = new ModelAndView("AjoutAstuceForm");
 			return model1;
@@ -184,7 +188,7 @@ public class AstuceControleur {
 			return model1;
 		}
 		
-		//Associe la vue AjoutSucces avec méthode
+		//Associe la vue AjoutSucces avec mï¿½thode
 		
 		Objet objet;
 		Chat chat;
@@ -194,21 +198,21 @@ public class AstuceControleur {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-		//Liste d'objet a récuperer à partir des identifiants transmit par le formulaire
+		//Liste d'objet a rï¿½cuperer ï¿½ partir des identifiants transmit par le formulaire
 		List<Objet> objets = new ArrayList<Objet>();
 		for(int i=0;i<astuce.getListObjetId().size();i++){
 			objet = session.get(Objet.class, astuce.getListObjetId().get(i)); 
 			objets.add(objet);
 		}
 		
-		//On récupère le chat associé 
+		//On rï¿½cupï¿½re le chat associï¿½ 
 		chat = session.get(Chat.class, idChat);
 		Query query= session.getNamedQuery("findCompteByEmail")
 				.setString("email", (String) httpSession.getAttribute("emailUser"));
 	
 		String emailUser = (String) httpSession.getAttribute("emailUser");
 		compte = (CompteInscrit) query.uniqueResult();
-		//Et on bind les infos à l'astuce 
+		//Et on bind les infos ï¿½ l'astuce 
 		astuce.setListObjet(objets);
 		astuce.setAuteur(compte);
 		astuce.setChat(chat);
@@ -217,7 +221,8 @@ public class AstuceControleur {
 		session.close();
 		ModelAndView modelAndView = listeAstuce(httpSession) ;
 		modelAndView.addObject("email",compte);
-		modelAndView.addObject("Succes","Vous avez inséré une astuce !");
+		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
+		modelAndView.addObject("Succes","Vous avez insï¿½rï¿½ une astuce !");
 		return modelAndView;
 		
 		
@@ -235,6 +240,7 @@ public class AstuceControleur {
 			
 			ModelAndView modelAndView = new ModelAndView("AdminAstuces");
 			modelAndView.addObject("listAstuce",astuces);
+			modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
 			modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 			
 			return modelAndView;
@@ -248,6 +254,7 @@ public class AstuceControleur {
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
 			astuce = session.get(Astuce.class,idAstuce);
+			modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
 			modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 			modelAndView.addObject("Astuce",astuce);
 			return modelAndView;
