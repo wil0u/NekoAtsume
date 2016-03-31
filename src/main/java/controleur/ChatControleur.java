@@ -20,6 +20,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.SocketUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,7 +54,7 @@ public class ChatControleur {
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		
+		Criteria criteria = session.createCriteria(Chat.class);
 		List<Chat> chats = null ;
 		 
 	    switch (tri) {
@@ -65,10 +67,10 @@ public class ChatControleur {
         case "LVLDOWN":  chats = session.createCriteria(Chat.class).addOrder(Order.desc("lvlChat")).list();
                  break;
         default: 
-        
-		chats = session.createCriteria(Chat.class).list();
+		chats = (List<Chat>)criteria.list();
         break;
         }
+    System.out.println("COUCOU");
 			
 		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 		modelAndView.addObject("listChat",chats);
@@ -157,6 +159,7 @@ public class ChatControleur {
 		modelAndView.addObject("Chat",chat);
 		modelAndView.addObject("ListeAstuces",astuces);
 		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
+		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
 		session.close();
 		return modelAndView;
 		
@@ -224,68 +227,52 @@ public class ChatControleur {
 	    Rechercher un chat par son nom ou par son niveau
 	    @param request Requ�te HTTP associ�e
 	    @param httpSession La session HTTP
-	    @param admin vide si pas demandé par admin
 	    @return La page associ�e
-	*/	 	 
+	*/
 	@RequestMapping("/chat/chatsRech")
-	public ModelAndView recherche_Chat(HttpSession httpSession, HttpServletRequest request, String admin){
-		ModelAndView modelAndView = null ;
+	public ModelAndView recherche_Chat_Nom(HttpSession httpSession, HttpServletRequest request){
 		
-		if(admin == null){
-		    modelAndView = new ModelAndView("RechChat");}
-			else
-			{
-			modelAndView = new ModelAndView("RechAdminChat");}
+	    SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
 		
-		// récupérer le param de rech
-    	String RechChat = request.getParameter("RechChat");
-    	System.out.println("Recherche : " +RechChat);
+    	String nomChat = request.getParameter("NomChat");
+    	String lvlChat = request.getParameter("LvlChat");
+    	System.out.println("Nom chat : " +nomChat);
+    	System.out.println("Lvl Chat : " +lvlChat);
+//    	System.out.println(Integer.parseInt(nomChat));
     	
-    	 if(RechChat.equals("")){
-        
-    	modelAndView.addObject("error","Il n'y a pas de chat associé à votre recherche");
-    	
-    	return modelAndView;
-    		
+    	// si nom chat pas vide
+    	if(!(nomChat.equals(""))){
+    		System.out.println("Dans la recherhe Chat par Nom");
+   	 	Query query = session.getNamedQuery("findCatbyName").setString("nom", nomChat);
+        Chat chat = (Chat) query.uniqueResult();
+	 
+    	if(chat != null){
+    	  ModelAndView modelAndView = detailChat(chat.getIdChat(), httpSession);
+    	  session.close();
+    	  return modelAndView ;
     	}
+    	else{
     	
-    	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
- 		Session session = sessionFactory.openSession();
- 		session.beginTransaction();
-
-    	// déterminer si c'est un nom ou un lvl
-    	//truc
-	    try {// PAR LVL
-	        int lvlChat = Integer.parseInt(RechChat);
-	        System.out.println(lvlChat);
-	        System.out.println("Rechercher Chat par Lvl");
-    		modelAndView = listeChatLvl(httpSession, lvlChat);
+    	ModelAndView modelAndView = listeChat(httpSession, "","");
+    	modelAndView.addObject("error","Il n'y a pas de chat associ� � ce nom");
+    	session.close();
+    	return modelAndView;
+    	
+    	}
+    	}
+    	// si on veut rechercher par Lvl, il peut y avoir plusieurs chats.
+    	else{
+    		System.out.println("Rechercher Chat par Lvl");
+    		ModelAndView modelAndView = listeChatLvl(httpSession, Integer.parseInt(lvlChat));
     		System.out.println("Reussi");
     		session.close();
     		return modelAndView;	
-	    } catch (NumberFormatException nfe) {
-	    	// PAR STRING
-	    	
-	    	String nomChat = RechChat ;
-	        System.out.println("Dans la recherhe Chat par Nom");
-	   	 	Query query = session.getNamedQuery("findCatbyName").setString("nom", nomChat);
-	        Chat chat = (Chat) query.uniqueResult();
-		 
-	    	if(chat != null){
-	    	  modelAndView = detailChat(chat.getIdChat(), httpSession);
-	    	  session.close();
-	    	  return modelAndView ;
-	    	}
-	    	else{
-	    	
-	    	modelAndView = listeChat(httpSession, "","");
-	    	modelAndView.addObject("error","Il n'y a pas de chat associ� � ce nom");
-	    	session.close();
-	    	return modelAndView;
-	    	
-	    	}
-	    }
-	   }
+       	}
+
+    		
+    	}
 		
 	  
 	/**
@@ -306,9 +293,10 @@ public class ChatControleur {
         Criteria criteria = session.createCriteria(Chat.class);
     	criteria.add(Restrictions.eq("lvlChat",lvl));
     	List<Chat> chats= (List<Chat>)criteria.list();
-    	
+    	System.out.println("FONCTIONNE ?");
 
 		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
+		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
 		modelAndView.addObject("listChat",chats);
 		session.close();
 		return modelAndView;
@@ -332,6 +320,7 @@ public class ChatControleur {
 				System.out.println("Astuce :"+astuces.get(i).getAstuce());
 			modelAndView.addObject("Chat",chat);
 			modelAndView.addObject("ListeAstuces",astuces);
+			modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
 			modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 			session.close();
 			
@@ -348,12 +337,68 @@ public class ChatControleur {
 	   @RequestMapping("/AdminAjoutChat")
 		public ModelAndView AdminAjoutChat(HttpSession httpSession){
 			ModelAndView modelAndView = new ModelAndView("AdminAjoutChat");
-						
+		
 			return modelAndView;
 			
 			
 		}
 	
+	   @RequestMapping("/modifierChat")
+		public ModelAndView AdminModifierChat(@ModelAttribute("chat") Chat chat, BindingResult result,HttpSession httpSession){
+			ModelAndView modelAndView;
+			if(result.hasErrors()){
+				ModelAndView model1 = new ModelAndView("AdminChatsModeration");
+				return model1;
+			}	
+			 
+			
+			Chat chatRetour;
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			chatRetour = session.get(Chat.class, chat.getIdChat());
+			chatRetour.setCaractereChat(chat.getCaractereChat());
+			chatRetour.setCouleurChat(chat.getCouleurChat());
+			chatRetour.setLvlChat(chat.getLvlChat());
+			chatRetour.setMemorialChat(chat.getMemorialChat());
+			chatRetour.setNomChat(chat.getNomChat());
+			chatRetour.setNomJaponnaisChat(chat.getNomJaponnaisChat());
+			session.save(chatRetour);
+
+			session.getTransaction().commit();
+			session.close();
+			
+			modelAndView = affichePanneauAdminChats(httpSession);
+			modelAndView.addObject("Succes","La modification du chat a été fait avec succès.");
+			return modelAndView;
+			
+			
+		}
+	   @RequestMapping("/supprimerChat")
+		public ModelAndView AdminSupprimerChat(@ModelAttribute("chat") Chat chat, BindingResult result,HttpSession httpSession){
+			ModelAndView modelAndView;
+			if(result.hasErrors()){
+				ModelAndView model1 = new ModelAndView("AdminChatsModeration");
+				return model1;
+			}	
+			 
+			
+			Chat chatRetour;
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			chatRetour = session.get(Chat.class, chat.getIdChat());
+			session.delete(chatRetour);
+
+			session.getTransaction().commit();
+			session.close();
+			
+			modelAndView = affichePanneauAdminChats(httpSession);
+			modelAndView.addObject("Succes","La suppression du chat a été fait avec succès.");
+			return modelAndView;
+			
+			
+		}
 	
 	
 }
