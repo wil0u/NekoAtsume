@@ -4,6 +4,7 @@
    <jsp:param name="pageHeader" value="Panneau d'administration" />
    <jsp:param name="pageTitle" value="Panneau d'administration des Chats" />
    <jsp:param name="emailUser" value="${emailUser }" />
+   <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
  <table  class="table table-striped">
  <div class="ligne"></div>
@@ -35,7 +36,12 @@ Chercher un membre par son email <input type="text" name="LvlChat" value="" />
   <tr>
     <td>${inscrit.pseudo}</td>
      <td>${inscrit.email}</td>
-    <td><a href="">Bannir</a></td>
+     
+<%--   <--!   <c:if ...> --> --%>
+<!--  		<td><a href="">Bannir</a></td> -->
+<%--  	</c:if> --%>
+   
+    
 <%--     http://localhost:8080/NekoAtsume/membre/${chat.idChat}/bannir --%>
   </tr>
   </c:forEach>

@@ -4,6 +4,7 @@
    <jsp:param name="pageHeader" value="Detail du chat : ${Chat.nomChat } " />
    <jsp:param name="pageTitle" value="Détail chat" />
    <jsp:param name="emailUser" value="${emailUser }" />
+   <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
 <a href="http://localhost:8080/NekoAtsume/chats"><button class="btn btn-default">Revenir à l'affichage de tous les chats</button></a>
 <br />
@@ -20,13 +21,11 @@
 			<span class="label label-default">Nom</span>
 				${Chat.nomChat }
 			</li>
-					
+		
 			<li class="list-group-item">
-			<div class="zoom">
 			<span class="label label-default">Image</span>
-				<img src="${Chat.cheminPhotoChat}" /></div>
+				<img src="${Chat.cheminPhotoChat}" />
 			</li>
-			
 				<li class="list-group-item">
 				<span class="label label-default">Couleur</span>
 				${Chat.couleurChat }

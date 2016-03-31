@@ -4,6 +4,7 @@
    <jsp:param name="pageHeader" value="Formulaire d'inscription" />
    <jsp:param name="pageTitle" value="Inscription" />
    <jsp:param name="emailUser" value="${emailUser }" />
+  <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
 <div class="text-danger">${error1}
 ${error2}

@@ -4,6 +4,7 @@
    <jsp:param name="pageHeader" value="Les astuce du chat : ${Chat.nomChat}!" />
    <jsp:param name="pageTitle" value="Liste astuces" />
    <jsp:param name="emailUser" value="${emailUser }" />
+   <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
 
 

@@ -4,6 +4,7 @@
    <jsp:param name="pageHeader" value="Mon profil" />
    <jsp:param name="pageTitle" value="Mon profil" />
    <jsp:param name="emailUser" value="${emailUser }" />
+   <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
 <c:if test="${not empty Succes}">
 <div class="alert alert-success">${Succes}</div>

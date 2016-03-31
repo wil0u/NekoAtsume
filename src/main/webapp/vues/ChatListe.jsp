@@ -4,6 +4,7 @@
 	<jsp:param name="pageTitle" value="Liste chat" />
    <jsp:param name="pageHeader" value="Liste des chats" />
    <jsp:param name="emailUser" value="${emailUser }" />
+  <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>                          
  <table  class="table table-striped">
  
@@ -11,7 +12,8 @@
  <div class="text-danger">${error} </div>
  
  <form method="post" action="/NekoAtsume/chat/chatsRech">          
-Chercher un chat par son nom ou par son niveau <input type="text" name="RechChat" value=""  />
+Chercher un chat par son nom <input type="text" name="NomChat" value=""  />
+Chercher un chat par son niveau <input type="text" name="LvlChat" value="" />
 <button type="submit" class="btn btn-default">Rechercher le chat</button>
 </form>
 

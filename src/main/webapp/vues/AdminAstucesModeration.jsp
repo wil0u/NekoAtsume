@@ -4,6 +4,7 @@
    <jsp:param name="pageHeader" value="Détail de l'astuce : ${Astuce.titre } " />
    <jsp:param name="pageTitle" value="Détail astuce" />
    <jsp:param name="emailUser" value="${emailUser }" />
+    <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
 <a href="http://localhost:8080/NekoAtsume/AdminAstuces"><button class="btn btn-default">Revenir au Panneau d'administration</button></a>
 <br />

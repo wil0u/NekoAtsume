@@ -4,6 +4,7 @@
    <jsp:param name="pageHeader" value="Ajouter un chat" />
    <jsp:param name="pageTitle" value="Ajouter un Chat" />
    <jsp:param name="emailUser" value="${emailUser }" />
+   <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
  <a href="http://localhost:8080/NekoAtsume/AdminChats" class="btn btn-default" role="button">Revenir au Panneau d'administration des Chats</a>
 <div class="text-danger">${error1}

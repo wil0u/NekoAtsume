@@ -4,30 +4,11 @@
    <jsp:param name="pageHeader" value="Détail de l'astuce : ${Astuce.titre } " />
    <jsp:param name="pageTitle" value="Détail astuce" />
    <jsp:param name="emailUser" value="${emailUser }" />
+   <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
 <a href="http://localhost:8080/NekoAtsume/astuces"><button class="btn btn-default">Revenir à l'affichage des astuces</button></a>
 <br />
 <br>
-<center>
-		<ul>  <a href="http://localhost:8080/NekoAtsume/chatsNomUP">
-    <button type="button" id = "votesPour" class="btn btn-default" aria-label="Left Align">
-  <span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-</button>
-</a>
- <a href="http://localhost:8080/NekoAtsume/chatsNomUP">
-    <button type="button" id = "votesContre" class="btn btn-default" aria-label="Left Align">
-  <span class="glyphicon glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-</button>
-</a> 
-</center>
-<div class="progress">
-  <div class="progress-bar progress-bar-success" role="progressbar" style="width:70%">
-    Nom de votes pour (% à renvoyer dans la barre)
-  </div>
-   <div class="progress-bar progress-bar-danger" role="progressbar" style="width:30%">
-     Nom de votes contre (% à renvoyer dans la barre)
-  </div>
-</div>
 
 		<ul>
 			<li class="list-group-item" >

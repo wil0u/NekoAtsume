@@ -4,6 +4,7 @@
    <jsp:param name="pageHeader" value="Liste de toutes les astuces" />
    <jsp:param name="pageTitle" value="Liste astuces" />
    <jsp:param name="emailUser" value="${emailUser}" />
+   <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
 
 <c:if test="${not empty Succes}">
