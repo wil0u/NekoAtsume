@@ -29,6 +29,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ChatControleur {
+	
+	@RequestMapping("/chats")
+	public ModelAndView listeChat (HttpSession httpSession){
+		ModelAndView modelAndView = listeChat(httpSession, "-","NA");
+		return modelAndView;
+	}
 
 	/**
     Obtenir le classement chats ordonn� par le crit�re "TRI". Pas de crit�re =  la page sans tri
@@ -37,11 +43,10 @@ public class ChatControleur {
     @param admin contient "admin" quand la requ�te vient d'une page admin
     @return La page associ�e
 */
-	@RequestMapping("/chats")
-	public ModelAndView listeChat(HttpSession httpSession, String tri, String admin){
+		public ModelAndView listeChat(HttpSession httpSession, String tri, String admin){
 		ModelAndView modelAndView = null;
 		
-		if(admin == null){
+		if(admin.equals("NA")){
 	    modelAndView = new ModelAndView("ChatListe");}
 		else
 		{
@@ -70,8 +75,7 @@ public class ChatControleur {
 		chats = (List<Chat>)criteria.list();
         break;
         }
-    System.out.println("COUCOU");
-			
+  			
 		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 		modelAndView.addObject("listChat",chats);
 		session.close();
@@ -88,7 +92,7 @@ public class ChatControleur {
 	public ModelAndView listeChatNomUP(HttpSession httpSession){
 		
 		 
-		ModelAndView modelAndView = listeChat(httpSession, "UP","");
+		ModelAndView modelAndView = listeChat(httpSession, "UP","NA");
 		return modelAndView;
 		
 	}
@@ -102,7 +106,7 @@ public class ChatControleur {
 	public ModelAndView listeChatNomDOWN(HttpSession httpSession){
 		
 		 
-		ModelAndView modelAndView = listeChat(httpSession, "DOWN","");
+		ModelAndView modelAndView = listeChat(httpSession, "DOWN","NA");
 		return modelAndView;
 	}
 	
@@ -115,7 +119,7 @@ public class ChatControleur {
 	public ModelAndView listeChatLvlUP(HttpSession httpSession){
 		
 		 
-		ModelAndView modelAndView = listeChat(httpSession, "LVLUP","");
+		ModelAndView modelAndView = listeChat(httpSession, "LVLUP","NA");
 			 	
 		return modelAndView;
 		
@@ -130,7 +134,7 @@ public class ChatControleur {
 	public ModelAndView listeChatLvlDOWN(HttpSession httpSession){
 		
 		 
-		ModelAndView modelAndView = listeChat(httpSession, "LVLDOWN","");
+		ModelAndView modelAndView = listeChat(httpSession, "LVLDOWN","NA");
 		return modelAndView;
 		
 	}
@@ -173,7 +177,7 @@ public class ChatControleur {
 */
 	 @RequestMapping("/AdminChats")
 	 public ModelAndView affichePanneauAdminChats(HttpSession httpSession){
-		 ModelAndView modelAndView = listeChat(httpSession, "","admin");
+		 ModelAndView modelAndView = listeChat(httpSession, "-","admin");
 		  return modelAndView;
 	 }
 	 
@@ -220,8 +224,7 @@ public class ChatControleur {
 		  return modelAndView;
 	 }
 		
-	 
-	 
+	  
 		
 	 /**
 	    Rechercher un chat par son nom ou par son niveau
@@ -229,51 +232,78 @@ public class ChatControleur {
 	    @param httpSession La session HTTP
 	    @return La page associ�e
 	*/
-	@RequestMapping("/chat/chatsRech")
-	public ModelAndView recherche_Chat_Nom(HttpSession httpSession, HttpServletRequest request){
+	public ModelAndView recherche_Chat(HttpSession httpSession, HttpServletRequest request, String admin){
+		
+		ModelAndView modelAndView = null;
+		if(admin.equals("NA")){
+		    modelAndView = new ModelAndView("ChatListe");}
+			else
+			{
+			modelAndView = new ModelAndView("AdminChats");}
+			
+		//Si le truc est vide :
+		String RechChat = request.getParameter("RechChat");
+		if (RechChat == "null"){
+			if(admin.equals("NA")){
+			    modelAndView = listeChat(httpSession);}
+				else
+				{
+				modelAndView = affichePanneauAdminChats(httpSession);}
+
+			modelAndView.addObject("error", "Il n'y a pas de chat associé à ce nom");
+			return modelAndView;
+		}
 		
 	    SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-    	String nomChat = request.getParameter("NomChat");
-    	String lvlChat = request.getParameter("LvlChat");
-    	System.out.println("Nom chat : " +nomChat);
-    	System.out.println("Lvl Chat : " +lvlChat);
-//    	System.out.println(Integer.parseInt(nomChat));
     	
-    	// si nom chat pas vide
-    	if(!(nomChat.equals(""))){
-    		System.out.println("Dans la recherhe Chat par Nom");
-   	 	Query query = session.getNamedQuery("findCatbyName").setString("nom", nomChat);
-        Chat chat = (Chat) query.uniqueResult();
-	 
-    	if(chat != null){
-    	  ModelAndView modelAndView = detailChat(chat.getIdChat(), httpSession);
-    	  session.close();
-    	  return modelAndView ;
-    	}
-    	else{
     	
-    	ModelAndView modelAndView = listeChat(httpSession, "","");
-    	modelAndView.addObject("error","Il n'y a pas de chat associ� � ce nom");
-    	session.close();
-    	return modelAndView;
-    	
-    	}
-    	}
-    	// si on veut rechercher par Lvl, il peut y avoir plusieurs chats.
-    	else{
-    		System.out.println("Rechercher Chat par Lvl");
-    		ModelAndView modelAndView = listeChatLvl(httpSession, Integer.parseInt(lvlChat));
-    		System.out.println("Reussi");
-    		session.close();
-    		return modelAndView;	
-       	}
+    	 try {
+			// RECH LVL CHAT
+			int lvlChat = Integer.parseInt(RechChat);
+			Criteria criteria = session.createCriteria(Chat.class);
+			criteria.add(Restrictions.eq("lvlChat", lvlChat));
+			List<Chat> chats = (List<Chat>) criteria.list();
+			
+			modelAndView.addObject("email", httpSession.getAttribute("emailUser"));
+			modelAndView.addObject("Admin", httpSession.getAttribute("Admin"));
+			modelAndView.addObject("listChat", chats);
+			session.close();
+			return modelAndView;
+ 	    
+ 	    } catch (NumberFormatException nfe) {
+ 	        // RECH NOM CHAT
+ 	       		
+ 	    	Query query = session.getNamedQuery("findCatbyName").setString("nom", RechChat);
+				Chat chat = (Chat) query.uniqueResult();
 
+				if (chat != null) {
+					modelAndView = detailChat(chat.getIdChat(), httpSession);
+					session.close();
+					return modelAndView;
+				}else{
+					if(admin.equals("NA")){
+					    modelAndView = listeChat(httpSession);}
+						else
+						{
+						modelAndView = affichePanneauAdminChats(httpSession);}
+
+					modelAndView.addObject("error", "Il n'y a pas de chat associé à ce nom");
+					session.close();
+					return modelAndView;
+					
+				}
+
+ 	    	}
+ 	    }
+    	    	
+    	
+    	
     		
-    	}
-		
+    	
+	
 	  
 	/**
     Obtenir la liste des chats � un niveau donn�
@@ -281,28 +311,22 @@ public class ChatControleur {
     @param httpSession La session HTTP
     @return La page associ�e
 */
-	public ModelAndView listeChatLvl(HttpSession httpSession, int lvl){
 		
-		 
-		ModelAndView modelAndView = new ModelAndView("ChatListe");
-				
-	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
+	@RequestMapping("chat/chatsRech")
+		public ModelAndView recherche_Chat(HttpSession httpSession, HttpServletRequest request){
+		ModelAndView modelAndView = recherche_Chat(httpSession, request,"NA");
+		return modelAndView;
 		
-        Criteria criteria = session.createCriteria(Chat.class);
-    	criteria.add(Restrictions.eq("lvlChat",lvl));
-    	List<Chat> chats= (List<Chat>)criteria.list();
-    	System.out.println("FONCTIONNE ?");
-
-		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
-		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
-		modelAndView.addObject("listChat",chats);
-		session.close();
+		
+	}
+	
+	@RequestMapping("chat/AdminChatsRech")
+       public ModelAndView Admin_Recherche_Chat(HttpSession httpSession, HttpServletRequest request){
+		ModelAndView modelAndView = recherche_Chat(httpSession, request,"ADMIN");
 		return modelAndView;
 		
 	}
-	   
+	
 /**POSSIBILITE DE FAIRE MIEUX */
 	   @RequestMapping("/chat/{idChat}/moderer")
 		public ModelAndView AdminModererChat(@PathVariable("idChat") int idChat,HttpSession httpSession){

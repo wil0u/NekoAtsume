@@ -75,7 +75,7 @@ public class CompteControleur {
 		
 		/* R�cup�ration des champs du formulaire. */
 
-		ModelAndView modelAndView = new ModelAndView("AjoutSucces");
+		ModelAndView modelAndView = new ModelAndView("index");
 		if(result.hasErrors()){
 			ModelAndView model1 = new ModelAndView("InscriptionForm");
 			return model1;

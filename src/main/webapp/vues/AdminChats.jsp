@@ -13,10 +13,9 @@
 <div class="alert alert-success">${Succes}</div>
  </c:if>
   
-  Rechercher non fonctionnelle dans panneau admin // A modifier pour n'avoir qu'un seul champ</br>
- <form method="post" action="/NekoAtsume/chat/chatsRech">          
-Chercher un chat par son nom <input type="text" name="NomChat" value=""  />
-Chercher un chat par son niveau <input type="text" name="LvlChat" value="" />
+  </br>
+ <form method="post" action="/NekoAtsume/chat/AdminChatsRech">          
+Chercher un chat par son nom ou par son niveau <input type="text" name="RechChat" value=""  />
 <button type="submit" class="btn btn-default">Rechercher le chat</button>
 </form>
 
