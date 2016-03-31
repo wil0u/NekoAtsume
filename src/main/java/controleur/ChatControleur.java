@@ -254,7 +254,7 @@ public class ChatControleur {
  		session.beginTransaction();
 
     	// déterminer si c'est un nom ou un lvl
-    	
+    	//truc
 	    try {// PAR LVL
 	        int lvlChat = Integer.parseInt(RechChat);
 	        System.out.println(lvlChat);
@@ -272,13 +272,13 @@ public class ChatControleur {
 	        Chat chat = (Chat) query.uniqueResult();
 		 
 	    	if(chat != null){
-	    	  ModelAndView modelAndView = detailChat(chat.getIdChat(), httpSession);
+	    	  modelAndView = detailChat(chat.getIdChat(), httpSession);
 	    	  session.close();
 	    	  return modelAndView ;
 	    	}
 	    	else{
 	    	
-	    	ModelAndView modelAndView = listeChat(httpSession, "","");
+	    	modelAndView = listeChat(httpSession, "","");
 	    	modelAndView.addObject("error","Il n'y a pas de chat associ� � ce nom");
 	    	session.close();
 	    	return modelAndView;
