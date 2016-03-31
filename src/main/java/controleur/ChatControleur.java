@@ -29,11 +29,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class ChatControleur {
 
 	/**
-    Obtenir le classement chats ordonné par le critère "TRI". Pas de critère =  la page sans tri
+    Obtenir le classement chats ordonnï¿½ par le critï¿½re "TRI". Pas de critï¿½re =  la page sans tri
     @param httpSession La session HTTP
-    @param tri Le critère de tri
-    @param admin contient "admin" quand la requête vient d'une page admin
-    @return La page associée
+    @param tri Le critï¿½re de tri
+    @param admin contient "admin" quand la requï¿½te vient d'une page admin
+    @return La page associï¿½e
 */
 	@RequestMapping("/chats")
 	public ModelAndView listeChat(HttpSession httpSession, String tri, String admin){
@@ -52,7 +52,7 @@ public class ChatControleur {
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		Criteria criteria = session.createCriteria(Chat.class);
+		
 		List<Chat> chats = null ;
 		 
 	    switch (tri) {
@@ -65,10 +65,10 @@ public class ChatControleur {
         case "LVLDOWN":  chats = session.createCriteria(Chat.class).addOrder(Order.desc("lvlChat")).list();
                  break;
         default: 
-		chats = (List<Chat>)criteria.list();
+        
+		chats = session.createCriteria(Chat.class).list();
         break;
         }
-    System.out.println("COUCOU");
 			
 		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 		modelAndView.addObject("listChat",chats);
@@ -78,9 +78,9 @@ public class ChatControleur {
 	}
 	
 	/**
-    Obtenir le classement chats ordonné par ordre croissant des noms
+    Obtenir le classement chats ordonnï¿½ par ordre croissant des noms
     @param httpSession La session HTTP
-    @return La page associée
+    @return La page associï¿½e
 */
 	@RequestMapping("/chatsNomUP")
 	public ModelAndView listeChatNomUP(HttpSession httpSession){
@@ -92,9 +92,9 @@ public class ChatControleur {
 	}
 	
 	/**
-    Obtenir le classement chats ordonné par ordre décroissant des noms
+    Obtenir le classement chats ordonnï¿½ par ordre dï¿½croissant des noms
     @param httpSession La session HTTP
-    @return La page associée
+    @return La page associï¿½e
 */
 	@RequestMapping("/chatsNomDOWN")
 	public ModelAndView listeChatNomDOWN(HttpSession httpSession){
@@ -105,9 +105,9 @@ public class ChatControleur {
 	}
 	
 	/**
-    Obtenir le classement chats ordonné par ordre croissant des lvl
+    Obtenir le classement chats ordonnï¿½ par ordre croissant des lvl
     @param httpSession La session HTTP
-    @return La page associée
+    @return La page associï¿½e
 */
 	@RequestMapping("/chatsLvlUP")
 	public ModelAndView listeChatLvlUP(HttpSession httpSession){
@@ -120,9 +120,9 @@ public class ChatControleur {
 	}
 	
 	/**
-    Obtenir le classement chats ordonné par ordre décroissant des lvl
+    Obtenir le classement chats ordonnï¿½ par ordre dï¿½croissant des lvl
     @param httpSession La session HTTP
-    @return La page associée
+    @return La page associï¿½e
 */
 	@RequestMapping("/chatsLvlDOWN")
 	public ModelAndView listeChatLvlDOWN(HttpSession httpSession){
@@ -135,10 +135,10 @@ public class ChatControleur {
 	
 	
 	/**
-    Obtenir la page détaillée du chat idChat
-    @param idChat IdChat recherché
+    Obtenir la page dï¿½taillï¿½e du chat idChat
+    @param idChat IdChat recherchï¿½
     @param httpSession La session HTTP
-    @return La page associée
+    @return La page associï¿½e
 */
 	@RequestMapping("/chat/{idChat}")
 	public ModelAndView detailChat(@PathVariable("idChat") int idChat,HttpSession httpSession){
@@ -166,7 +166,7 @@ public class ChatControleur {
 	 /**
      ADMIN Afficher la liste des chats
     @param httpSession La session HTTP
-    @return La page associée
+    @return La page associï¿½e
 */
 	 @RequestMapping("/AdminChats")
 	 public ModelAndView affichePanneauAdminChats(HttpSession httpSession){
@@ -177,7 +177,7 @@ public class ChatControleur {
 	 /**
      ADMIN Afficher la liste des chats nom UP
     @param httpSession La session HTTP
-    @return La page associée
+    @return La page associï¿½e
 */
 	 @RequestMapping("/AdminChatsNomUP")
 	 public ModelAndView affichePanneauAdminChatsUP(HttpSession httpSession){
@@ -187,7 +187,7 @@ public class ChatControleur {
 	 /**
      ADMIN Afficher la liste des chats nom DOWN
     @param httpSession La session HTTP
-    @return La page associée
+    @return La page associï¿½e
 */
 	 @RequestMapping("/AdminChatsNomDOWN")
 	 public ModelAndView affichePanneauAdminChatsDOWN(HttpSession httpSession){
@@ -198,7 +198,7 @@ public class ChatControleur {
 	 /**
      ADMIN Afficher la liste des chats LVL UP
     @param httpSession La session HTTP
-    @return La page associée
+    @return La page associï¿½e
 */
 	 @RequestMapping("/AdminChatsLvlUP")
 	 public ModelAndView affichePanneauAdminChatsLVLUP(HttpSession httpSession){
@@ -209,7 +209,7 @@ public class ChatControleur {
 	 /**
      ADMIN Afficher la liste des chats nom DOWN
     @param httpSession La session HTTP
-    @return La page associée
+    @return La page associï¿½e
 */
 	 @RequestMapping("/AdminChatsLvlDOWN")
 	 public ModelAndView affichePanneauAdminChatsLVLDOWN(HttpSession httpSession){
@@ -222,61 +222,77 @@ public class ChatControleur {
 		
 	 /**
 	    Rechercher un chat par son nom ou par son niveau
-	    @param request Requête HTTP associée
+	    @param request Requï¿½te HTTP associï¿½e
 	    @param httpSession La session HTTP
-	    @return La page associée
-	*/
+	    @param admin vide si pas demandÃ© par admin
+	    @return La page associï¿½e
+	*/	 	 
 	@RequestMapping("/chat/chatsRech")
-	public ModelAndView recherche_Chat_Nom(HttpSession httpSession, HttpServletRequest request){
+	public ModelAndView recherche_Chat(HttpSession httpSession, HttpServletRequest request, String admin){
+		ModelAndView modelAndView = null ;
 		
-	    SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
+		if(admin == null){
+		    modelAndView = new ModelAndView("RechChat");}
+			else
+			{
+			modelAndView = new ModelAndView("RechAdminChat");}
 		
-    	String nomChat = request.getParameter("NomChat");
-    	String lvlChat = request.getParameter("LvlChat");
-    	System.out.println("Nom chat : " +nomChat);
-    	System.out.println("Lvl Chat : " +lvlChat);
-//    	System.out.println(Integer.parseInt(nomChat));
+		// rÃ©cupÃ©rer le param de rech
+    	String RechChat = request.getParameter("RechChat");
+    	System.out.println("Recherche : " +RechChat);
     	
-    	// si nom chat pas vide
-    	if(!(nomChat.equals(""))){
-    		System.out.println("Dans la recherhe Chat par Nom");
-   	 	Query query = session.getNamedQuery("findCatbyName").setString("nom", nomChat);
-        Chat chat = (Chat) query.uniqueResult();
-	 
-    	if(chat != null){
-    	  ModelAndView modelAndView = detailChat(chat.getIdChat(), httpSession);
-    	  session.close();
-    	  return modelAndView ;
-    	}
-    	else{
+    	 if(RechChat.equals("")){
+        
+    	modelAndView.addObject("error","Il n'y a pas de chat associÃ© Ã  votre recherche");
     	
-    	ModelAndView modelAndView = listeChat(httpSession, "","");
-    	modelAndView.addObject("error","Il n'y a pas de chat associé à ce nom");
-    	session.close();
     	return modelAndView;
+    		
+    	}
     	
-    	}
-    	}
-    	// si on veut rechercher par Lvl, il peut y avoir plusieurs chats.
-    	else{
-    		System.out.println("Rechercher Chat par Lvl");
-    		ModelAndView modelAndView = listeChatLvl(httpSession, Integer.parseInt(lvlChat));
+    	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+ 		Session session = sessionFactory.openSession();
+ 		session.beginTransaction();
+
+    	// dÃ©terminer si c'est un nom ou un lvl
+    	
+	    try {// PAR LVL
+	        int lvlChat = Integer.parseInt(RechChat);
+	        System.out.println(lvlChat);
+	        System.out.println("Rechercher Chat par Lvl");
+    		modelAndView = listeChatLvl(httpSession, lvlChat);
     		System.out.println("Reussi");
     		session.close();
     		return modelAndView;	
-       	}
-
-    		
-    	}
+	    } catch (NumberFormatException nfe) {
+	    	// PAR STRING
+	    	
+	    	String nomChat = RechChat ;
+	        System.out.println("Dans la recherhe Chat par Nom");
+	   	 	Query query = session.getNamedQuery("findCatbyName").setString("nom", nomChat);
+	        Chat chat = (Chat) query.uniqueResult();
+		 
+	    	if(chat != null){
+	    	  ModelAndView modelAndView = detailChat(chat.getIdChat(), httpSession);
+	    	  session.close();
+	    	  return modelAndView ;
+	    	}
+	    	else{
+	    	
+	    	ModelAndView modelAndView = listeChat(httpSession, "","");
+	    	modelAndView.addObject("error","Il n'y a pas de chat associï¿½ ï¿½ ce nom");
+	    	session.close();
+	    	return modelAndView;
+	    	
+	    	}
+	    }
+	   }
 		
 	  
 	/**
-    Obtenir la liste des chats à un niveau donné
-    @param lvl Lvl du ou des chats recherchés
+    Obtenir la liste des chats ï¿½ un niveau donnï¿½
+    @param lvl Lvl du ou des chats recherchï¿½s
     @param httpSession La session HTTP
-    @return La page associée
+    @return La page associï¿½e
 */
 	public ModelAndView listeChatLvl(HttpSession httpSession, int lvl){
 		
@@ -290,7 +306,7 @@ public class ChatControleur {
         Criteria criteria = session.createCriteria(Chat.class);
     	criteria.add(Restrictions.eq("lvlChat",lvl));
     	List<Chat> chats= (List<Chat>)criteria.list();
-    	System.out.println("FONCTIONNE ?");
+    	
 
 		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 		modelAndView.addObject("listChat",chats);
@@ -327,7 +343,7 @@ public class ChatControleur {
 	   /**
 	    Obtenir la page d'ajout de chat de l'admin
 	    @param httpSession La session HTTP
-	    @return La page associée
+	    @return La page associï¿½e
 	*/
 	   @RequestMapping("/AdminAjoutChat")
 		public ModelAndView AdminAjoutChat(HttpSession httpSession){

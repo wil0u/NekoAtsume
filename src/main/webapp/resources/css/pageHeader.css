@@ -11,6 +11,30 @@ img {
     margin: 0 auto;
 }
 
+.zoom {
+height:100px;
+}
+.zoom p {
+text-align:center;
+}
+
+.zoom img:hover {
+width:100x;
+height:100px;
+}
+
+#votesPour{
+	background-color : #33cc33 ;
+
+  
+	
+}
+#votesContre{
+	background-color :  #ff5050;
+
+  
+	
+}
 
 
 th {
