@@ -36,8 +36,10 @@ Chercher un membre par son email <input type="text" name="LvlChat" value="" />
   <tr>
     <td>${inscrit.pseudo}</td>
      <td>${inscrit.email}</td>
-    <td><a href="">Bannir</a></td>
-<%--     http://localhost:8080/NekoAtsume/membre/${chat.idChat}/bannir --%>
+     <c:if test="${not inscrit.banned}"><td><a href="http://localhost:8080/NekoAtsume/membre/${inscrit.compteId}/bannir">Bannir</a></td></c:if>
+    <c:if test="${inscrit.banned}"><td><a href="http://localhost:8080/NekoAtsume/membre/${inscrit.compteId}/bannir">Debannir</a></td></c:if>
+    		
+<%--     http://localhost:8080/NekoAtsume/membre/${inscrit.email}/bannir --%>
   </tr>
   </c:forEach>
 </table> 

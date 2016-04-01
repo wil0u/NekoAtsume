@@ -18,12 +18,14 @@
     <th>Titre</th>
     <th>Chat concerné</th>
     <th>Lien</th>
+    <th>Suppression</th>
   </tr>
   <c:forEach var="astuce" items="${listAstuce}">
   <tr>
     <td>${astuce.titre}</td>  
     <td><a href="http://localhost:8080/NekoAtsume/chat/${astuce.chat.idChat}">${astuce.chat.nomChat}</a></td>
-    <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}/moderer">Modérer</a></td>
+    <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}/moderer">Modifier</a></td>
+    <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}/supprimerAstuce">Supprimer</a></td>
   </tr>
   </c:forEach>
 </table>

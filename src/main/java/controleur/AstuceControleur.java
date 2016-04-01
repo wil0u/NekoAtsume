@@ -37,6 +37,7 @@ public class AstuceControleur {
 		
     	Criteria criteria = session.createCriteria(Astuce.class);
 		List<Astuce> astuces = (List<Astuce>)criteria.list();
+		session.close();
 		modelAndView.addObject("ListeAstuce",astuces);
 		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
 		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
@@ -53,6 +54,8 @@ public class AstuceControleur {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		astuce = session.get(Astuce.class,idAstuce);
+		astuce.getListObjet();
+		
 		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
 		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 		modelAndView.addObject("Astuce",astuce);
@@ -74,6 +77,7 @@ public class AstuceControleur {
 		List<Astuce> astuces = (List<Astuce>)criteria.list();      
 		for (int i = 1 ; i < astuces.size(); i++)
 			System.out.println("Astuce :"+astuces.get(i).getAstuce());
+		session.close();
 		modelAndView.addObject("listeAstuces",astuces);
 		modelAndView.addObject("Chat",chat);
 		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
@@ -151,7 +155,7 @@ public class AstuceControleur {
     	
     	List<CategorieAstuce> listCategorieAstuces = (List<CategorieAstuce>)criteria.list();
     	
-    	
+    	session.close();
     	
 		modelAndView.addObject("balls",balls);
 		modelAndView.addObject("boxes",boxs);
@@ -237,11 +241,9 @@ public class AstuceControleur {
 			
 	    	Criteria criteria = session.createCriteria(Astuce.class);
 			List<Astuce> astuces = (List<Astuce>)criteria.list();
-			
+			session.close();
 			ModelAndView modelAndView = new ModelAndView("AdminAstuces");
 			modelAndView.addObject("listAstuce",astuces);
-			modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
-			modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 			
 			return modelAndView;
 	 }
@@ -254,6 +256,154 @@ public class AstuceControleur {
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
 			astuce = session.get(Astuce.class,idAstuce);
+			Criteria criteriaCategorieObjet = session.createCriteria(CategorieObjet.class);
+			List<CategorieObjet> categorieObjets = (List<CategorieObjet>)criteriaCategorieObjet.list();
+			
+	    	Criteria criteria = session.createCriteria(Objet.class);
+	    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(0)));
+	    	List<Objet> balls = (List<Objet>)criteria.list();
+	    	
+	    	criteria = session.createCriteria(Objet.class);
+	    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(1)));
+	    	List<Objet> boxs = (List<Objet>)criteria.list();
+			
+	    	criteria = session.createCriteria(Objet.class);
+	    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(2)));
+	    	List<Objet> beds = (List<Objet>)criteria.list();
+			
+	    	criteria = session.createCriteria(Objet.class);
+	    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(3)));
+	    	List<Objet> furniture = (List<Objet>)criteria.list();
+	    	
+	    	criteria = session.createCriteria(Objet.class);
+	    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(4)));
+	    	List<Objet> tunnels = (List<Objet>)criteria.list();
+	    	
+	    	criteria = session.createCriteria(Objet.class);
+	    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(5)));
+	    	List<Objet> toys = (List<Objet>)criteria.list();
+			
+	    	criteria = session.createCriteria(Objet.class);
+	    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(6)));
+	    	List<Objet> heating = (List<Objet>)criteria.list();
+			
+	    	criteria = session.createCriteria(Objet.class);
+	    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(7)));
+	    	List<Objet> bagsHiding = (List<Objet>)criteria.list();
+	    	
+	    	criteria = session.createCriteria(Objet.class);
+	    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(8)));
+	    	List<Objet> scratching = (List<Objet>)criteria.list();
+			
+	    	criteria = session.createCriteria(Objet.class);
+	    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(9)));
+	    	List<Objet> baskets = (List<Objet>)criteria.list();
+	    	
+	    	criteria = session.createCriteria(Objet.class);
+	    	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(10)));
+	    	List<Objet> foods = (List<Objet>)criteria.list();
+	    	
+	    	
+	    	criteria = session.createCriteria(CategorieAstuce.class);
+	    	
+	    	List<CategorieAstuce> listCategorieAstuces = (List<CategorieAstuce>)criteria.list();
+	    	List<Objet> objetAstuces;
+	    	objetAstuces = astuce.getListObjet();
+	    	
+	    	for (int i=0;i<balls.size();i++){
+	    		for(int j=0;j<objetAstuces.size();j++){
+	    			if(objetAstuces.get(j).getNomObjet().equals(balls.get(i).getNomObjet())){
+	    				balls.get(i).setIsChecked("T");
+	    			}
+	    		}
+	    	}
+	    	
+	    	for (int i=0;i<beds.size();i++){
+	    		for(int j=0;j<objetAstuces.size();j++){
+	    			if(objetAstuces.get(j).getNomObjet().equals(beds.get(i).getNomObjet())){
+	    				beds.get(i).setIsChecked("T");
+	    			}
+	    		}
+	    	}
+	    	for (int i=0;i<boxs.size();i++){
+	    		for(int j=0;j<objetAstuces.size();j++){
+	    			if(objetAstuces.get(j).getNomObjet().equals(boxs.get(i).getNomObjet())){
+	    				boxs.get(i).setIsChecked("T");
+	    			}
+	    		}
+	    	}
+	     	for (int i=0;i<furniture.size();i++){
+	    		for(int j=0;j<objetAstuces.size();j++){
+	    			if(objetAstuces.get(j).getNomObjet().equals(furniture.get(i).getNomObjet())){
+	    				furniture.get(i).setIsChecked("T");
+	    			}
+	    		}
+	    	}
+	     	for (int i=0;i<tunnels.size();i++){
+	    		for(int j=0;j<objetAstuces.size();j++){
+	    			if(objetAstuces.get(j).getNomObjet().equals(tunnels.get(i).getNomObjet())){
+	    				tunnels.get(i).setIsChecked("T");
+	    			}
+	    		}
+	    	}
+	    	for (int i=0;i<toys.size();i++){
+	    		for(int j=0;j<objetAstuces.size();j++){
+	    			if(objetAstuces.get(j).getNomObjet().equals(toys.get(i).getNomObjet())){
+	    				toys.get(i).setIsChecked("T");
+	    			}
+	    		}
+	    	}
+	    	for (int i=0;i<heating.size();i++){
+	    		for(int j=0;j<objetAstuces.size();j++){
+	    			if(objetAstuces.get(j).getNomObjet().equals(heating.get(i).getNomObjet())){
+	    				heating.get(i).setIsChecked("T");
+	    			}
+	    		}
+	    	}
+	    	for (int i=0;i<bagsHiding.size();i++){
+	    		for(int j=0;j<objetAstuces.size();j++){
+	    			if(objetAstuces.get(j).getNomObjet().equals(bagsHiding.get(i).getNomObjet())){
+	    				bagsHiding.get(i).setIsChecked("T");
+	    			}
+	    		}
+	    	}
+	    	for (int i=0;i<scratching.size();i++){
+	    		for(int j=0;j<objetAstuces.size();j++){
+	    			if(objetAstuces.get(j).getNomObjet().equals(scratching.get(i).getNomObjet())){
+	    				scratching.get(i).setIsChecked("T");
+	    			}
+	    		}
+	    	}
+	    	
+	    	for (int i=0;i<baskets.size();i++){
+	    		for(int j=0;j<objetAstuces.size();j++){
+	    			if(objetAstuces.get(j).getNomObjet().equals(baskets.get(i).getNomObjet())){
+	    				baskets.get(i).setIsChecked("T");
+	    			}
+	    		}
+	    	}
+	    	for (int i=0;i<foods.size();i++){
+	    		for(int j=0;j<objetAstuces.size();j++){
+	    			if(objetAstuces.get(j).getNomObjet().equals(foods.get(i).getNomObjet())){
+	    				foods.get(i).setIsChecked("T");
+	    			}
+	    		}
+	    	}
+	    	session.close();
+	    	modelAndView.addObject("balls",balls);
+			modelAndView.addObject("boxes",boxs);
+			modelAndView.addObject("beds",beds);
+			modelAndView.addObject("furniture",furniture);
+			modelAndView.addObject("tunnels",tunnels);
+			modelAndView.addObject("toys",toys);
+			modelAndView.addObject("heating",heating);
+			modelAndView.addObject("bagsHiding",bagsHiding);
+			modelAndView.addObject("scratching",scratching);
+			modelAndView.addObject("baskets",baskets);
+			modelAndView.addObject("foods",foods);
+			modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
+			modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
+			
 			modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
 			modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 			modelAndView.addObject("Astuce",astuce);
@@ -262,5 +412,65 @@ public class AstuceControleur {
 			
 		}
 	 
+	 @RequestMapping("/modifierAstuce")
+	 public ModelAndView modificationAstuce(@ModelAttribute("astuce") Astuce astuce, BindingResult result,HttpSession httpSession){
+		
+		 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			Objet objet = new Objet();
+			List<Objet> objets = new ArrayList();
+			for(int i=0;i<astuce.getListObjetId().size();i++){
+				objet = session.get(Objet.class, astuce.getListObjetId().get(i)); 
+				objets.add(objet);
+			}
+			
+			Astuce astuceRetour = session.get(Astuce.class,astuce.getIdAstuce());
+			astuceRetour.setAstuce(astuce.getAstuce());
+			astuceRetour.setAuteur(astuce.getAuteur());
+			astuceRetour.setListObjet(objets);
+			astuceRetour.setTitre(astuce.getTitre());
+			
+			session.save(astuceRetour);
+
+			session.getTransaction().commit();
+			session.close();
+			
+			
+			ModelAndView modelAndView = affichePanneauAdminAstuces(httpSession);
+			modelAndView.addObject("Succes","La modification de l'astuce a ete faite avec succes.");
+	    	
+	   
+			modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
+			modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
+			
+			return modelAndView;
+	 }
+	 
+	 @RequestMapping("/astuce/{idAstuce}/supprimerAstuce")
+	 public ModelAndView suppressionAstuce(@PathVariable("idAstuce") int idAstuce,HttpSession httpSession){
+		
+		 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			
+			
+			Astuce astuceRetour = session.get(Astuce.class,idAstuce);
+			
+			session.delete(astuceRetour);
+
+			session.getTransaction().commit();
+			session.close();
+			
+			
+			ModelAndView modelAndView = affichePanneauAdminAstuces(httpSession);
+			modelAndView.addObject("Succes","Suppression de l'astuce avec succes.");
+	    	
+	   
+			modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
+			modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
+			
+			return modelAndView;
+	 }
 	 
 }

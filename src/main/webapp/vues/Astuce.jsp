@@ -22,7 +22,7 @@
 			</li>
 		
 			<li class="list-group-item">
-			<span class="label label-default">Catégorie</span>
+			<span class="label label-default">Chat</span>
 				${Astuce.categorie.nomCategorie }
 				//
 				<c:if test="${not empty Astuce.chat}">

@@ -330,5 +330,23 @@ modelAndView.addObject("listInscrit", inscrits);
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/membre/{idCompte}/bannir")
+	public ModelAndView bannir(@PathVariable("idCompte") int idCompte,HttpSession httpSession){
+		
+		   
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		CompteInscrit compteRetour;
+		compteRetour = session.get(CompteInscrit.class,idCompte);
+		compteRetour.setBanned(true);
+		session.save(compteRetour);
+		session.getTransaction().commit();
+		ModelAndView modelAndView = affichePanneauAdminMembres(httpSession);
+        return modelAndView;
+	}
+	
+	 
+	
 	
 }

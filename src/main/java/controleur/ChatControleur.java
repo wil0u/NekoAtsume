@@ -57,19 +57,20 @@ public class ChatControleur {
 		Criteria criteria = session.createCriteria(Chat.class);
 		List<Chat> chats = null ;
 		 
-	    switch (tri) {
-        case "UP": chats = session.createCriteria(Chat.class).addOrder(Order.asc("nomChat")).list();
-                 break;
-        case "DOWN": chats = session.createCriteria(Chat.class).addOrder(Order.desc("nomChat")).list();
-                 break;
-        case "LVLUP":  chats = session.createCriteria(Chat.class).addOrder(Order.asc("lvlChat")).list();
-                 break;
-        case "LVLDOWN":  chats = session.createCriteria(Chat.class).addOrder(Order.desc("lvlChat")).list();
-                 break;
-        default: 
-		chats = (List<Chat>)criteria.list();
-        break;
-        }
+	    
+	    if(tri.equals("UP"))
+	    	chats = session.createCriteria(Chat.class).addOrder(Order.asc("nomChat")).list();
+	    else if (tri.equals("DOWN"))
+	    	chats = session.createCriteria(Chat.class).addOrder(Order.desc("nomChat")).list();
+	    else if (tri.equals("LVLUP"))
+	    	chats = session.createCriteria(Chat.class).addOrder(Order.asc("lvlChat")).list();
+	    else if (tri.equals("LVLDOWN"))      
+	    	chats = session.createCriteria(Chat.class).addOrder(Order.desc("lvlChat")).list();
+                 
+	    else
+	    	chats = (List<Chat>)criteria.list();
+        
+      
     System.out.println("COUCOU");
 			
 		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
@@ -332,7 +333,7 @@ public class ChatControleur {
 	   /**
 	    Obtenir la page d'ajout de chat de l'admin
 	    @param httpSession La session HTTP
-	    @return La page associ�e
+	    @return La page associée
 	*/
 	   @RequestMapping("/AdminAjoutChat")
 		public ModelAndView AdminAjoutChat(HttpSession httpSession){
@@ -399,6 +400,6 @@ public class ChatControleur {
 			
 			
 		}
-	
+	  
 	
 }

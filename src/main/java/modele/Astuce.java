@@ -34,7 +34,7 @@ public class Astuce {
 	String titre;
 	@Transient
 	List<Integer> listObjetId = new ArrayList<Integer>();
-	
+
 	public List<Integer> getListObjetId() {
 		return listObjetId;
 	}

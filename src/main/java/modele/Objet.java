@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Objet {
@@ -21,6 +22,17 @@ public class Objet {
 	@ManyToOne
 	CategorieObjet categorieObjet;
 	
+	@Transient
+	String isChecked = "F";
+	
+	
+	
+	public String getIsChecked() {
+		return isChecked;
+	}
+	public void setIsChecked(String isChecked) {
+		this.isChecked = isChecked;
+	}
 	public int getPrix() {
 		return prix;
 	}
