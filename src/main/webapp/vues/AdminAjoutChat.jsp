@@ -37,7 +37,7 @@ ${error5} </div>
 			</li>
 				<li class="list-group-item">
 			<span class="label label-default">Lv. chat</span>
-				<input type="text" name="lvlChat" />
+				<input type="text" name="levelChat" />
 			</li>
 			<li class="list-group-item">
 			<span class="label label-default">Momento</span>

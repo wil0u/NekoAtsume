@@ -32,6 +32,8 @@ public class Astuce {
 	@ManyToOne
 	Chat chat;
 	String titre;
+	boolean publie;
+	
 	@Transient
 	List<Integer> listObjetId = new ArrayList<Integer>();
 

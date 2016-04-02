@@ -182,7 +182,6 @@ public class AstuceControleur {
 			ModelAndView model1 = new ModelAndView("AjoutAstuceForm");
 			return model1;
 		}
-		
 		if(astuce.getTitre().equals("")||astuce.getAstuce().equals("")){
 			ModelAndView model1 = new ModelAndView("Redirection");
 			model1.addObject("error","Erreur : Le corps ou le titre de l'astuce est vide !!");
@@ -232,7 +231,11 @@ public class AstuceControleur {
 	
 	 @RequestMapping("/AdminAstuces")
 	 public ModelAndView affichePanneauAdminAstuces(HttpSession httpSession){
-		
+		 if(httpSession.getAttribute("Admin")==null){
+				ModelAndView model1 = new ModelAndView("ConnexionForm");
+				model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+				return model1;
+			}
 		 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
@@ -250,6 +253,11 @@ public class AstuceControleur {
 	 
 	 @RequestMapping("/astuce/{idAstuce}/moderer")
 		public ModelAndView AdminModererAstuce(@PathVariable("idAstuce") int idAstuce, HttpSession httpSession){
+		 if(httpSession.getAttribute("Admin")==null){
+				ModelAndView model1 = new ModelAndView("ConnexionForm");
+				model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+				return model1;
+			}
 			ModelAndView modelAndView = new ModelAndView("AdminAstucesModeration");
 			Astuce astuce = new Astuce();
 		 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -416,7 +424,11 @@ public class AstuceControleur {
 	 
 	 @RequestMapping("/modifierAstuce")
 	 public ModelAndView modificationAstuce(@ModelAttribute("astuce") Astuce astuce, BindingResult result,HttpSession httpSession){
-		
+		 if(httpSession.getAttribute("Admin")==null){
+				ModelAndView model1 = new ModelAndView("ConnexionForm");
+				model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+				return model1;
+			}
 		 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
@@ -451,7 +463,11 @@ public class AstuceControleur {
 	 
 	 @RequestMapping("/astuce/{idAstuce}/supprimerAstuce")
 	 public ModelAndView suppressionAstuce(@PathVariable("idAstuce") int idAstuce,HttpSession httpSession){
-		
+		 if(httpSession.getAttribute("Admin")==null){
+				ModelAndView model1 = new ModelAndView("ConnexionForm");
+				model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+				return model1;
+			}
 		 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();

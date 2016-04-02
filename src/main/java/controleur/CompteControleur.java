@@ -225,12 +225,25 @@ public class CompteControleur {
 		Query query= sessionHibernate.getNamedQuery("findCompteByEmail")
 				.setString("email", compte.getEmail());
 		compteRetour = (CompteInscrit) query.uniqueResult();
-		if(compteRetour.isBanned()){
+		if(compteRetour == null){
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
-			model1.addObject("error","Erreur : Le compte : "+compte.getEmail()+" est banni, veuillez vous adresser à un admin.");
+			model1.addObject("error","Erreur : Email ou mot de passe incorrect.");
+			return model1;
+		}else if(!compte.getMdp().equals(compteRetour.getMdp())){
+			ModelAndView model1 = new ModelAndView("ConnexionForm");
+			model1.addObject("error","Erreur : Le mot de passe est incorrect.");
 			return model1;
 		}
-		if(compteRetour != null && compte.getMdp().equals(compteRetour.getMdp()) ){
+			else if(compteRetour.isBanned()){
+				ModelAndView model1 = new ModelAndView("ConnexionForm");
+				model1.addObject("error","Erreur : Le compte : "+compte.getEmail()+" est banni, veuillez vous adresser à un admin.");
+				return model1;
+				
+				
+				
+			}	
+			
+		else if(compteRetour != null && compte.getMdp().equals(compteRetour.getMdp()) && !compteRetour.isBanned()){
 			if(compteRetour instanceof CompteAdmin){
 				httpSession.setAttribute("Admin", "Admin");
 				System.out.println("je suis un admin");
@@ -238,11 +251,9 @@ public class CompteControleur {
 			System.out.println("le user existe  et son mdp coincide!");
 			httpSession.setAttribute("emailUser", compte.getEmail());
 			
-		}else{
-			ModelAndView model1 = new ModelAndView("ConnexionForm");
-			model1.addObject("error","Erreur : Email ou mot de passe incorrect.");
-			return model1;
 		}
+	
+		
 		
 		return modelAndView;
 	}
@@ -295,6 +306,11 @@ public class CompteControleur {
 	
 	@RequestMapping(value="/AdminPanneau")
 	public ModelAndView affichePanneauAdmin(HttpSession httpSession){
+		if(httpSession.getAttribute("Admin")==null){
+			ModelAndView model1 = new ModelAndView("ConnexionForm");
+			model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+			return model1;
+		}
 ModelAndView modelAndView = new ModelAndView("AdminPanneau");
 		
 		return modelAndView;
@@ -303,6 +319,11 @@ ModelAndView modelAndView = new ModelAndView("AdminPanneau");
 	
 	@RequestMapping(value="/AdminMembres")
 	public ModelAndView affichePanneauAdminMembres(HttpSession httpSession){
+		if(httpSession.getAttribute("Admin")==null){
+			ModelAndView model1 = new ModelAndView("ConnexionForm");
+			model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+			return model1;
+		}
 ModelAndView modelAndView = new ModelAndView("AdminMembres");
 
 
@@ -340,7 +361,11 @@ modelAndView.addObject("listInscrit", inscrits);
 	
 	@RequestMapping(value="/membre/{idCompte}/bannir")
 	public ModelAndView bannir(@PathVariable("idCompte") int idCompte,HttpSession httpSession){
-		
+		if(httpSession.getAttribute("Admin")==null){
+			ModelAndView model1 = new ModelAndView("ConnexionForm");
+			model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+			return model1;
+		}
 		   
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -356,7 +381,11 @@ modelAndView.addObject("listInscrit", inscrits);
 	@RequestMapping(value="/membre/{idCompte}/debannir")
 	public ModelAndView debannir(@PathVariable("idCompte") int idCompte,HttpSession httpSession){
 		
-		   
+		if(httpSession.getAttribute("Admin")==null){
+			ModelAndView model1 = new ModelAndView("ConnexionForm");
+			model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+			return model1;
+		}
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();

@@ -176,6 +176,11 @@ public class ChatControleur {
 */
      @RequestMapping("/AdminChats")
      public ModelAndView affichePanneauAdminChats(HttpSession httpSession){
+    	 if(httpSession.getAttribute("Admin")==null){
+				ModelAndView model1 = new ModelAndView("ConnexionForm");
+				model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+				return model1;
+			}
          ModelAndView modelAndView = listeChat(httpSession, "-","admin");
           return modelAndView;
      }
@@ -187,6 +192,11 @@ public class ChatControleur {
 */
      @RequestMapping("/AdminChatsNomUP")
      public ModelAndView affichePanneauAdminChatsUP(HttpSession httpSession){
+    	 if(httpSession.getAttribute("Admin")==null){
+				ModelAndView model1 = new ModelAndView("ConnexionForm");
+				model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+				return model1;
+			}
          ModelAndView modelAndView = listeChat(httpSession, "UP","admin");
           return modelAndView;
      }
@@ -197,6 +207,11 @@ public class ChatControleur {
 */
      @RequestMapping("/AdminChatsNomDOWN")
      public ModelAndView affichePanneauAdminChatsDOWN(HttpSession httpSession){
+    	 if(httpSession.getAttribute("Admin")==null){
+				ModelAndView model1 = new ModelAndView("ConnexionForm");
+				model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+				return model1;
+			}
          ModelAndView modelAndView = listeChat(httpSession, "DOWN","admin");
           return modelAndView;
      }
@@ -208,6 +223,11 @@ public class ChatControleur {
 */
      @RequestMapping("/AdminChatsLvlUP")
      public ModelAndView affichePanneauAdminChatsLVLUP(HttpSession httpSession){
+    	 if(httpSession.getAttribute("Admin")==null){
+				ModelAndView model1 = new ModelAndView("ConnexionForm");
+				model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+				return model1;
+			}
          ModelAndView modelAndView = listeChat(httpSession, "LVLUP","admin");
           return modelAndView;
      }
@@ -219,6 +239,11 @@ public class ChatControleur {
 */
      @RequestMapping("/AdminChatsLvlDOWN")
      public ModelAndView affichePanneauAdminChatsLVLDOWN(HttpSession httpSession){
+    	 if(httpSession.getAttribute("Admin")==null){
+				ModelAndView model1 = new ModelAndView("ConnexionForm");
+				model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+				return model1;
+			}
          ModelAndView modelAndView = listeChat(httpSession, "LVLDOWN","admin");
           return modelAndView;
      }
@@ -324,6 +349,11 @@ public class ChatControleur {
 /**POSSIBILITE DE FAIRE MIEUX */
        @RequestMapping("/chat/{idChat}/moderer")
         public ModelAndView AdminModererChat(@PathVariable("idChat") int idChat,HttpSession httpSession){
+    	   if(httpSession.getAttribute("Admin")==null){
+				ModelAndView model1 = new ModelAndView("ConnexionForm");
+				model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+				return model1;
+			}
             ModelAndView modelAndView = new ModelAndView("AdminChatsModeration");
             Chat chat = new Chat();
             SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -348,6 +378,11 @@ public class ChatControleur {
         }
 	   @RequestMapping("/AdminAjoutChat")
 		public ModelAndView AdminAjoutChat(HttpSession httpSession){
+		   if(httpSession.getAttribute("Admin")==null){
+				ModelAndView model1 = new ModelAndView("ConnexionForm");
+				model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+				return model1;
+			}
 			ModelAndView modelAndView = new ModelAndView("AdminAjoutChat");
 		
 			return modelAndView;
@@ -357,6 +392,11 @@ public class ChatControleur {
 	
 	   @RequestMapping("/modifierChat")
 		public ModelAndView AdminModifierChat(@ModelAttribute("chat") Chat chat, BindingResult result,HttpSession httpSession){
+		   if(httpSession.getAttribute("Admin")==null){
+				ModelAndView model1 = new ModelAndView("ConnexionForm");
+				model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+				return model1;
+			}
 			ModelAndView modelAndView;
 			if(result.hasErrors()){
 				ModelAndView model1;
@@ -390,6 +430,11 @@ public class ChatControleur {
 		}
 	   @RequestMapping("/supprimerChat")
 		public ModelAndView AdminSupprimerChat(@ModelAttribute("chat") Chat chat, BindingResult result,HttpSession httpSession){
+		   if(httpSession.getAttribute("Admin")==null){
+				ModelAndView model1 = new ModelAndView("ConnexionForm");
+				model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+				return model1;
+			}
 			ModelAndView modelAndView;
 			if(result.hasErrors()){
 				ModelAndView model1 = new ModelAndView("AdminChatsModeration");
@@ -415,23 +460,38 @@ public class ChatControleur {
 		}
 	   
 	    @RequestMapping(value="/chat/AdminAjoutChat",method = RequestMethod.POST)
-	       public ModelAndView AdminAjoutChat(@ModelAttribute("chat") Chat chat, HttpSession httpSession,BindingResult result){
+	       public ModelAndView AdminAjoutChat(@ModelAttribute("chat") Chat chat, HttpSession httpSession,BindingResult result,HttpServletRequest request){
+	    	int lvlChat;
+	    	if(httpSession.getAttribute("Admin")==null){
+				ModelAndView model1 = new ModelAndView("ConnexionForm");
+				model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
+				return model1;
+			}
 	    	 ModelAndView modelAndView;
 			if(result.hasErrors()){
 				ModelAndView model1;
 				model1 = affichePanneauAdminChats(httpSession);
 				model1.addObject("Error","L'ajout a échoué. (Le lv chat. ne doit contenir que des chiffres)");
 				return model1;
-			}	
-			 
+			}
+		    try {
+		      lvlChat = Integer.parseInt(request.getParameter("levelChat"));
+		     } catch (NumberFormatException ex) {
+		    	 ModelAndView model1;
+					model1 = affichePanneauAdminChats(httpSession);
+					model1.addObject("Error","L'ajout a échoué. (Le lv chat. ne doit contenir que des chiffres)");
+					return model1;
+		     }
+		
 	       
 	    	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
+			chat.setLvlChat(lvlChat);
 	        session.save(chat);
 			session.getTransaction().commit();
 			modelAndView = affichePanneauAdminChats(httpSession);
-			modelAndView.addObject("Succes","La modification du chat a été fait avec succès.");
+			modelAndView.addObject("Succes","L'ajout du chat a été fait avec succès.");
 			return modelAndView;
 	       
 	    }
