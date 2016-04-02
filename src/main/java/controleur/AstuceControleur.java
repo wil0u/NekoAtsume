@@ -420,7 +420,7 @@ public ModelAndView AstucesAssocieesAuChatNORMAL(int idChat,HttpSession httpSess
 		ModelAndView modelAndView = listeAstuce(httpSession) ;
 		modelAndView.addObject("email",compte);
 		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
-		modelAndView.addObject("Succes","Vous avez insï¿½rï¿½ une astuce !");
+		modelAndView.addObject("Succes","Votre astuce a été envoyée aux modérateurs afin qu'ils puissent la valider !");
 		return modelAndView;
 		
 		

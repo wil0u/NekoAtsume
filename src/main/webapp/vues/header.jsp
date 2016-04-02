@@ -79,7 +79,7 @@
 					<div class="col-md-2"></div>
 					<div class="col-md-2">
 						<a href="http://localhost:8080/NekoAtsume/monProfil"
-							class="btn  navbar-btn btn-danger navbar-right" role="button">Mon
+							class="btn  navbar-btn btn-primary navbar-right" role="button">Mon
 							profil</a>
 					</div>
 					<div class="col-md-2">

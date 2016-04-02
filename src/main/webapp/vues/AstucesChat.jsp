@@ -7,8 +7,8 @@
    <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
 
-<a href="http://localhost:8080/NekoAtsume/astuces"><button class="btn btn-default">Revenir à l'affichage des astuces</button></a>
-<br>
+<a href="http://localhost:8080/NekoAtsume/astuces"><button class="btn btn-primary">Revenir à l'affichage des astuces</button></a>
+<br></br>
 <table class="table table-hover">
 
   <tr>

@@ -20,15 +20,15 @@
 	<form method="post" action="/NekoAtsume/chat/AdminChatsRech">
 		Chercher un chat par son nom ou par son niveau <input type="text"
 			name="RechChat" value="" />
-		<button type="submit" class="btn btn-default" id="bouton2">Rechercher
+		<button type="submit" class="btn btn-primary" id="bouton2">Rechercher
 			le chat</button>
 	</form>
 
 
 	<a href="http://localhost:8080/NekoAtsume/AdminAjoutChat"><button
-			class="btn btn-default" id="bouton2">Ajouter un Chat</button></a>
+			class="btn btn-primary" id="bouton2">Ajouter un Chat</button></a>
 	<a href="http://localhost:8080/NekoAtsume/AdminChats"><button
-			class="btn btn-default" id="bouton1">Afficher tous les chats</button></a>
+			class="btn btn-primary" id="bouton1">Afficher tous les chats</button></a>
 	<div class="ligne"></div>
 
 	<tr>
@@ -61,7 +61,8 @@
 				</button>
 		</a>
 		</th>
-		<th></th>
+		<th>Modération</th>
+		<th>Suppression </th>
 		
 	</tr>
 	<c:forEach var="chat" items="${listChat}">
@@ -70,7 +71,11 @@
 			<td><img src="${chat.cheminPhotoChat}" class="img-rounded" /></td>
 			<td>${chat.lvlChat}</td>
 			<td><a
-				href="http://localhost:8080/NekoAtsume/chat/${chat.idChat}/moderer">Modérer</a></td>
+				href="http://localhost:8080/NekoAtsume/chat/${chat.idChat}/moderer" class="btn btn-primary" role="button">Modérer</a></td>
+				
+				<td><a href="http://localhost:8080/NekoAtsume/chat/${chat.idChat}/supprimer" class="btn btn-danger" role="button">Supprimer</a>
+					
+				</td>
 		</tr>
 	</c:forEach>
 </table>

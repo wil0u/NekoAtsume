@@ -6,7 +6,7 @@
    <jsp:param name="emailUser" value="${emailUser }" />
    <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
-<a href="http://localhost:8080/NekoAtsume/chats"><button class="btn btn-default">Revenir à l'affichage de tous les chats</button></a>
+<a href="http://localhost:8080/NekoAtsume/chats"><button class="btn btn-primary">Revenir à l'affichage de tous les chats</button></a>
 <br />
 <br>
 
@@ -47,19 +47,23 @@
 				${Chat.nomJaponnaisChat }
 			</li>			
 		</ul>
-		<div class="bouton_Showr"> <a class="btn btn-default"  href="http://localhost:8080/NekoAtsume/chat/${Chat.idChat}/astuce">Ajouter une astuce</a></div>	
+		<a class="btn btn-primary"  href="http://localhost:8080/NekoAtsume/chat/${Chat.idChat}/astuce">Ajouter une astuce</a>
 
 <c:choose>
-    <c:when test="${empty ListeAstuces}">
-         <h2>${Chat.nomChat } n'a pas d'astuce. </h2>
-    </c:when>
-    <c:otherwise>
-		<div class="bouton_Showr"> <a class="btn btn-default"  href="http://localhost:8080/NekoAtsume/chat/${Chat.idChat}/astuces">Voir astuce(s) sur ce chat</a></div>
 
-    </c:otherwise>
+	<c:when test="${empty ListeAstuces}">
+         ${Chat.nomChat } n'a pas d'astuce.
+    </c:when>
+    
+	<c:otherwise>
+		<a class="btn btn-primary" id="bouton1"
+			href="http://localhost:8080/NekoAtsume/chat/${Chat.idChat}/astuces">Voir
+			astuce(s) sur ce chat</a>
+
+	</c:otherwise>
 </c:choose>
 
 
-<%@ include file="footer.jsp" %>
+<%@ include file="footer.jsp"%>
 <!-- <a href="http://localhost:8080/NekoAtsume/chats"><button class="btn btn-default " id="bouton1">Afficher tous les chats</button></a> -->
 

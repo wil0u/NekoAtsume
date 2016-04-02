@@ -37,16 +37,10 @@ text-align:center;
 width:100x;
 height:100px;
 }
-#votesPour{
-	background-color : #33cc33 ;
 
- 
-	
-}
-#votesContre{
-	background-color :  #ff5050;
-
-  
+#boutonmilieu{
+	 display: block;
+    margin: 0 auto;
 	
 }
 span.imageGauche {
@@ -65,19 +59,6 @@ text-align:center;
 .zoom img:hover {
 width:100x;
 height:100px;
-}
-
-#votesPour{
-	background-color : #33cc33 ;
-
-  
-	
-}
-#votesContre{
-	background-color :  #ff5050;
-
-  
-	
 }
 
 

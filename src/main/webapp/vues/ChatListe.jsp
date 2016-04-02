@@ -14,13 +14,13 @@
 	<form method="post" action="/NekoAtsume/chat/chatsRech">
 		Chercher un chat par son nom ou par son niveau <input type="text"
 			name="RechChat" value="" />
-		<button type="submit" class="btn btn-default" id="bouton2">Rechercher
+		<button type="submit" class="btn btn-primary" id="bouton2">Rechercher
 			le chat</button>
 	</form>
 
 
 	<a href="http://localhost:8080/NekoAtsume/chats"><button
-			class="btn btn-default " id="bouton1">Afficher tous les
+			class="btn btn-primary " id="bouton1">Afficher tous les
 			chats</button></a>
 	<div class="ligne"></div>
 
@@ -54,19 +54,18 @@
 				</button>
 		</a>
 		</th>
-		<th></th>
-		<th></th>
+		
+		<th>Ajouter une astuce</th>
 	</tr>
 	<c:forEach var="chat" items="${listChat}">
 		<tr>
-			<td>${chat.nomChat}</td>
+			<td><a
+				href="http://localhost:8080/NekoAtsume/chat/${chat.idChat}">${chat.nomChat}</a></td>
 			<td><img src="${chat.cheminPhotoChat}" class="img-rounded" /></td>
 			<td>${chat.lvlChat}</td>
+			
 			<td><a
-				href="http://localhost:8080/NekoAtsume/chat/${chat.idChat}">Détail
-					du chat</a></td>
-			<td><a
-				href="http://localhost:8080/NekoAtsume/chat/${chat.idChat}/astuce">Ajouter
+				href="http://localhost:8080/NekoAtsume/chat/${chat.idChat}/astuce" class="btn btn-primary" role="button" >Ajouter
 					une astuce</a></td>
 		</tr>
 	</c:forEach>

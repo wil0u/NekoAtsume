@@ -6,14 +6,14 @@
    <jsp:param name="emailUser" value="${emailUser }" />
    <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
- <a href="http://localhost:8080/NekoAtsume/AdminChats" class="btn btn-default" role="button">Revenir au Panneau d'administration des Chats</a>
+ <a href="http://localhost:8080/NekoAtsume/AdminChats" class="btn btn-primary" role="button">Revenir au Panneau d'administration des Chats</a>
 <div class="text-danger">${error1}
 ${error2}
 ${error3}
 ${error4}
 ${error5} </div>
 
-<!-- A MODIFIER !!!! -->
+<br></br>
 
 <form method="post" action="/NekoAtsume/chat/AdminAjoutChat" accept-charset="ISO-8859-1">
 <form:errors path="*" />

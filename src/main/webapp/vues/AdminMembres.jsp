@@ -19,24 +19,23 @@
  <form method="post" action="/NekoAtsume/membre/membreRech">          
 Chercher un membre par son nom <input type="text" name="NomChat" value=""  />
 Chercher un membre par son email <input type="text" name="LvlChat" value="" />
-<button type="submit" class="btn btn-default">Rechercher le membre</button>
+<button type="submit" class="btn btn btn-primary">Rechercher le membre</button>
 </form>
   
-<a href="http://localhost:8080/NekoAtsume/AdminMembres"><button class="btn btn-default">Afficher tous les membres</button></a>
+<a href="http://localhost:8080/NekoAtsume/AdminMembres" class="btn btn-primary" role="button">Afficher tous les membres</a>
 
   <tr>
     <th>Nom membre</th>
     <th>Email Membre</th>
-   	<th></th>
-	
+   	<th>Etat du joueur</th>	
   </tr>
   <c:forEach var="inscrit" items="${listInscrit}">
   <tr>
     <td>${inscrit.pseudo}</td>
      <td>${inscrit.email}</td>
 
-     <c:if test="${not inscrit.banned}"><td><a href="http://localhost:8080/NekoAtsume/membre/${inscrit.compteId}/bannir">Bannir</a></td></c:if>
-    <c:if test="${inscrit.banned}"><td>Cet utilisateur est banni! </td><td><a href="http://localhost:8080/NekoAtsume/membre/${inscrit.compteId}/debannir">Debannir</a></td></c:if>
+     <c:if test="${not inscrit.banned}"><td><a href="http://localhost:8080/NekoAtsume/membre/${inscrit.compteId}/bannir" class="btn btn-primary" role="button">Non banni</a></td></c:if>
+    <c:if test="${inscrit.banned}"><td><a href="http://localhost:8080/NekoAtsume/membre/${inscrit.compteId}/debannir" class="btn btn-danger" role="button">Banni</a></td></c:if>
    		
   </tr>
   </c:forEach>

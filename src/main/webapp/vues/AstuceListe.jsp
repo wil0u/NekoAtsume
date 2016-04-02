@@ -13,18 +13,19 @@
 
  <form method="post" action="/NekoAtsume/chat/RechAstucesChat">          
 Tapper le nom d'un chat pour rechercher ses astuces<input type="text" name="RechAstucesChat" value=""  />
-<button type="submit" class="btn btn-default" id ="bouton2" >Rechercher des astuces</button>
+<button type="submit" class="btn btn-primary" id ="bouton2" >Rechercher des astuces</button>
 </form>
 <table class="table table-hover">
   <tr>
     <th>Titre</th>
     <th>Chat concerné</th>
+    <th>Lien</th>
      </tr>
   <c:forEach var="astuce" items="${ListeAstuce}">
   <tr>
-    <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}">${astuce.titre}</a></td>
+    <td>${astuce.titre}</td>
     <td><a href="http://localhost:8080/NekoAtsume/chat/${astuce.chat.idChat}">${astuce.chat.nomChat}</a></td>
-    
+    <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}" class="btn btn-primary" role="button">Lien</a></td>
   </tr>
   </c:forEach>
 </table>

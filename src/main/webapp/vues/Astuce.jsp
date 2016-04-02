@@ -6,7 +6,7 @@
    <jsp:param name="emailUser" value="${emailUser }" />
    <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
-<a href="http://localhost:8080/NekoAtsume/astuces"><button class="btn btn-default">Revenir à l'affichage des astuces</button></a>
+<a href="http://localhost:8080/NekoAtsume/astuces"><button class="btn btn-primary">Revenir à l'affichage des astuces</button></a>
 <br />
 <br>
 <c:choose>
@@ -14,17 +14,24 @@
          <div class="text-info">${Info}</div>
     </c:when>
     <c:otherwise>
-		<div class="bouton_Showr"> <a class="btn btn-default"  href="http://localhost:8080/NekoAtsume/astuce/${Astuce.idAstuce}/liker/${cas}">like</a></div>
-		<div class="bouton_Showr"> <a class="btn btn-default"  href="http://localhost:8080/NekoAtsume/astuce/${Astuce.idAstuce}/disliker/${cas}">Dislike</a></div>
-		<div class="text-info">${Info}</div>
+    <center>
+		 <a href="http://localhost:8080/NekoAtsume/astuce/${Astuce.idAstuce}/liker/${cas}"> <button type="button" class="btn btn-success">
+  <span class="btn glyphicon glyphicon-thumbs-up"  aria-hidden="true"></span>
+</button> </a> <a href="http://localhost:8080/NekoAtsume/astuce/${Astuce.idAstuce}/disliker/${cas}"><button type="button" class="btn btn-danger">
+  <span class="btn glyphicon glyphicon-thumbs-down"  aria-hidden="true"></span> 
+</button></a>
+		 
+		<div class="text-info">${Info}</div></center>
     </c:otherwise>
+    
 </c:choose>
-<div class="progress">
+
+  <div class="progress">
   <div class="progress-bar progress-bar-success" role="progressbar" style="width:${pourCentLike}%">
-    Nom de votes pour (% à renvoyer dans la barre)
+    ${pourCentLike}%
   </div>
    <div class="progress-bar progress-bar-danger" role="progressbar" style="width:${pourCentDislike}%">
-     Nom de votes contre (% à renvoyer dans la barre)
+     ${pourCentDislike}%
   </div>
 </div>
 

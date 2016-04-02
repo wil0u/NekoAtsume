@@ -401,7 +401,7 @@ public class ChatControleur {
 			if(result.hasErrors()){
 				ModelAndView model1;
 				model1 = affichePanneauAdminChats(httpSession);
-				model1.addObject("Error","La modification a Ã©chouÃ©e. (Le lv chat. ne doit contenir que des chiffres)");
+				model1.addObject("Error","La modification a échouée. (Le lv chat. ne doit contenir que des chiffres)");
 				return model1;
 			}	
 			 
@@ -428,33 +428,34 @@ public class ChatControleur {
 			
 			
 		}
-	   @RequestMapping("/supprimerChat")
-		public ModelAndView AdminSupprimerChat(@ModelAttribute("chat") Chat chat, BindingResult result,HttpSession httpSession){
+	
+	 
+	   @RequestMapping(value="/chat/{idChat}/supprimer")
+		public ModelAndView AdminSupprimerChat(@PathVariable("idChat") int idChat, HttpSession httpSession){
+		  
 		   if(httpSession.getAttribute("Admin")==null){
 				ModelAndView model1 = new ModelAndView("ConnexionForm");
 				model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
 				return model1;
 			}
+		   
 			ModelAndView modelAndView;
-			if(result.hasErrors()){
-				ModelAndView model1 = new ModelAndView("AdminChatsModeration");
-				return model1;
-			}	
-			 
-			
+				
 			Chat chatRetour;
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
-			chatRetour = session.get(Chat.class, chat.getIdChat());
+			chatRetour = session.get(Chat.class, idChat);
+			
 			session.delete(chatRetour);
 
 			session.getTransaction().commit();
 			session.close();
 			
 			modelAndView = affichePanneauAdminChats(httpSession);
-			modelAndView.addObject("Succes","La suppression du chat a Ã©tÃ© fait avec succÃ¨s.");
+			modelAndView.addObject("Succes","La suppression du chat a été fait avec succès.");
 			return modelAndView;
+		
 			
 			
 		}

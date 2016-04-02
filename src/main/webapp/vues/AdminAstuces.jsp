@@ -17,7 +17,7 @@
   <tr>
     <th>Titre</th>
     <th>Chat concerné</th>
-    <th>Lien</th>
+    <th>Modération</th>
     <th>Suppression</th>
     <th>Publication</th>
   </tr>
@@ -25,10 +25,10 @@
   <tr>
     <td>${astuce.titre}</td>  
     <td><a href="http://localhost:8080/NekoAtsume/chat/${astuce.chat.idChat}">${astuce.chat.nomChat}</a></td>
-    <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}/moderer">Modifier</a></td>
-    <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}/supprimerAstuce">Supprimer</a></td>
-   <c:if test="${astuce.publie}"><td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}/cacher">Cacher l'astuce</a></td></c:if>
-    <c:if test="${not astuce.publie}"><td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}/publier">Publier l'astuce</a></td></c:if>
+    <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}/moderer" class="btn btn-primary" role="button">Modifier</a></td>
+    <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}/supprimerAstuce" class="btn btn-danger" role="button">Supprimer</a></td>
+   <c:if test="${astuce.publie}"><td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}/cacher"class="btn btn-primary" role="button">Cacher l'astuce</a></td></c:if>
+    <c:if test="${not astuce.publie}"><td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}/publier" class="btn btn-primary" role="button">Publier l'astuce</a></td></c:if>
   </tr>
   </c:forEach>
 </table>
