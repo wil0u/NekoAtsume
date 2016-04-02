@@ -45,7 +45,7 @@ public class ChatControleur {
 */
         public ModelAndView listeChat(HttpSession httpSession, String tri, String admin){
         ModelAndView modelAndView = null;
-       
+        
         if(admin.equals("NA")){
         modelAndView = new ModelAndView("ChatListe");}
         else
@@ -314,7 +314,7 @@ public class ChatControleur {
                         {
                         modelAndView = affichePanneauAdminChats(httpSession);}
  
-                    modelAndView.addObject("error", "Il n'y a pas de chat associé à  ce nom");
+                    modelAndView.addObject("error", "Il n'y a pas de chat associï¿½ ï¿½ ce nom");
                     session.close();
                     return modelAndView;
                    

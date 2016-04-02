@@ -15,15 +15,15 @@
     </c:when>
     <c:otherwise>
 		<div class="bouton_Showr"> <a class="btn btn-default"  href="http://localhost:8080/NekoAtsume/astuce/${Astuce.idAstuce}/liker/${cas}">like</a></div>
-		<div class="bouton_Showr"> <a class="btn btn-default"  href="http://localhost:8080/NekoAtsume/astuce/${Astuce.idAstuce}/Disliker/${cas}">Dislike</a></div>
+		<div class="bouton_Showr"> <a class="btn btn-default"  href="http://localhost:8080/NekoAtsume/astuce/${Astuce.idAstuce}/disliker/${cas}">Dislike</a></div>
 		<div class="text-info">${Info}</div>
     </c:otherwise>
 </c:choose>
 <div class="progress">
-  <div class="progress-bar progress-bar-success" role="progressbar" style="width:70%">
+  <div class="progress-bar progress-bar-success" role="progressbar" style="width:${pourCentLike}%">
     Nom de votes pour (% à renvoyer dans la barre)
   </div>
-   <div class="progress-bar progress-bar-danger" role="progressbar" style="width:30%">
+   <div class="progress-bar progress-bar-danger" role="progressbar" style="width:${pourCentDislike}%">
      Nom de votes contre (% à renvoyer dans la barre)
   </div>
 </div>

@@ -21,7 +21,7 @@ public class Vote {
 	Astuce astuce;
 	@ManyToOne 
 	CompteInscrit compte;
-	boolean valeur;
+	String valeur;
 	public Astuce getAstuce() {
 		return astuce;
 	}
@@ -34,12 +34,19 @@ public class Vote {
 	public void setCompte(CompteInscrit compte) {
 		this.compte = compte;
 	}
-	public boolean isValeur() {
+	public int getIdVote() {
+		return idVote;
+	}
+	public void setIdVote(int idVote) {
+		this.idVote = idVote;
+	}
+	public String getValeur() {
 		return valeur;
 	}
-	public void setValeur(boolean valeur) {
+	public void setValeur(String valeur) {
 		this.valeur = valeur;
 	}
+
 	
 	
 }
