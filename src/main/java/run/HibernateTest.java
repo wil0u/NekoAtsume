@@ -1747,19 +1747,7 @@ public class HibernateTest {
 		compteAdmin.setPseudo("dieu");
 		session.save(compteAdmin);
 
-		
-		
-		
-		List<Objet> listObj = new ArrayList<Objet>();
-		listObj.add(objet);
-		listObj.add(objet);
-		Astuce as = new Astuce();
-		as.setListObjet(listObj);
-		as.setAstuce("ccoucoucocu ocutestsfstsdsrt");
-		as.setChat(chat);
-		session.save(as);
-		
-		
+			
 		session.getTransaction().commit();
 		session.close();
 
