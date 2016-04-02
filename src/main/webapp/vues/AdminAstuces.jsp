@@ -1,7 +1,7 @@
  <%@ include file="headerTag.jsp" %>
 
 <jsp:include page="/vues/header.jsp" >	
-   <jsp:param name="pageHeader" value="Panneau d'administration" />
+   <jsp:param name="pageHeader" value="Panneau d'administration des Astuces" />
    <jsp:param name="pageTitle" value="Panneau d'administration des Astuces" />
    <jsp:param name="emailUser" value="${emailUser }" />
    <jsp:param name="Admin" value="${Admin}" />

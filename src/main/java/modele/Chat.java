@@ -17,6 +17,7 @@ import javax.persistence.NamedQuery;
 	name = "findCatbyLvl",
 	query = "from Chat c where c.lvlChat = :lvl"
 	)
+	
 }
 		)
 

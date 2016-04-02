@@ -1,13 +1,12 @@
  <%@ include file="headerTag.jsp" %>
 
 <jsp:include page="/vues/header.jsp" >	
-   <jsp:param name="pageHeader" value="Panneau d'administration" />
+   <jsp:param name="pageHeader" value="Panneau d'administration des Membres" />
    <jsp:param name="pageTitle" value="Panneau d'administration des Chats" />
    <jsp:param name="emailUser" value="${emailUser }" />
    <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
  <table  class="table table-striped">
- <div class="ligne"></div>
 <table  class="table table-striped">
  
  <!-- Lorsqu'on a banni avec succès, retour ici avec affichage  -->
@@ -28,9 +27,8 @@ Chercher un membre par son email <input type="text" name="LvlChat" value="" />
   <tr>
     <th>Nom membre</th>
     <th>Email Membre</th>
-   
-	<th></th>
-	<th></th>
+   	<th></th>
+	
   </tr>
   <c:forEach var="inscrit" items="${listInscrit}">
   <tr>
@@ -39,8 +37,7 @@ Chercher un membre par son email <input type="text" name="LvlChat" value="" />
 
      <c:if test="${not inscrit.banned}"><td><a href="http://localhost:8080/NekoAtsume/membre/${inscrit.compteId}/bannir">Bannir</a></td></c:if>
     <c:if test="${inscrit.banned}"><td>Cet utilisateur est banni! </td><td><a href="http://localhost:8080/NekoAtsume/membre/${inscrit.compteId}/debannir">Debannir</a></td></c:if>
-    		
-
+   		
   </tr>
   </c:forEach>
 </table> 

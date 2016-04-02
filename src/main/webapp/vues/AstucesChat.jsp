@@ -1,16 +1,16 @@
 <%@ include file="headerTag.jsp" %>
 
 <jsp:include page="/vues/header.jsp" >	
-   <jsp:param name="pageHeader" value="Les astuce du chat : ${Chat.nomChat}!" />
+   <jsp:param name="pageHeader" value="Les astuces du chat : ${Chat.nomChat}" />
    <jsp:param name="pageTitle" value="Liste astuces" />
    <jsp:param name="emailUser" value="${emailUser }" />
    <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
 
-
-
+<a href="http://localhost:8080/NekoAtsume/astuces"><button class="btn btn-default">Revenir à l'affichage des astuces</button></a>
+<br>
 <table class="table table-hover">
-<caption>Astuces :</caption>
+
   <tr>
     <th>Titre</th>
     <th>Lien</th>

@@ -3,6 +3,7 @@ package controleur;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import modele.Astuce;
@@ -61,9 +62,70 @@ public class AstuceControleur {
 		
 		
 	}
+	@RequestMapping("/chat/RechAstucesChat")
+	public ModelAndView RechAstucesChat(HttpSession httpSession,HttpServletRequest request){
+		
+		// récupère le nom du chat à chercher
+		String nomChat = request.getParameter("RechAstucesChat");
+		//indique la page à retourner
+		
+		
+		//ouverture de session
+		  SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+	      Session session = sessionFactory.openSession();
+	      session.beginTransaction();
+	      
+		//trouver le chat
+		  Query query = session.getNamedQuery("findCatbyName").setString("nom", nomChat);
+          Chat chat = (Chat) query.uniqueResult();
+
+          if (chat != null) {
+        	  //Si le chat existe, on va chercher la méthode qui va chercher pour nous
+        	  System.out.println("VALEUR DU ID " +chat.getIdChat());
+        	  ModelAndView modelAndView= new ModelAndView("AstucesChat");
+              modelAndView = AstucesAssocieesAuChatNORMAL(chat.getIdChat(), httpSession);
+              session.close();
+              return modelAndView;
+          }else{
+        	  ModelAndView modelAndView= listeAstuce(httpSession);  
+		modelAndView.addObject("error", "Il n'y a pas d'astuces associées à ce chat");
+		return modelAndView;
+          }
+		
+	
+	}
+	
+public ModelAndView AstucesAssocieesAuChatNORMAL(int idChat,HttpSession httpSession){
+		
+		ModelAndView modelAndView = new ModelAndView("AstucesChat");
+		// Crée le chat en question
+		Chat chat = new Chat();
+	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		chat = session.get(Chat.class,idChat);
+		
+    	Criteria criteria = session.createCriteria(Astuce.class);
+    	criteria.add(Restrictions.eq("chat",chat));
+		List<Astuce> astuces = (List<Astuce>)criteria.list();      
+		for (int i = 1 ; i < astuces.size(); i++)
+			System.out.println("Astuce :"+astuces.get(i).getAstuce());
+		session.close();
+		modelAndView.addObject("listeAstuces",astuces);
+		modelAndView.addObject("Chat",chat);
+		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
+		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
+		return modelAndView;
+		
+		
+	}
+	
+	
 	@RequestMapping(value="/chat/{idChat}/astuces", method = RequestMethod.GET)
 	public ModelAndView AstucesAssocieesAuChat(@PathVariable("idChat") int idChat,HttpSession httpSession){
+		
 		ModelAndView modelAndView = new ModelAndView("AstucesChat");
+		// Crée le chat en question
 		Chat chat = new Chat();
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();

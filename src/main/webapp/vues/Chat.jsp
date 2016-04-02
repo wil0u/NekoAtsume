@@ -47,18 +47,18 @@
 				${Chat.nomJaponnaisChat }
 			</li>			
 		</ul>
-	<a href="http://localhost:8080/NekoAtsume/chat/${Chat.idChat}/astuce">Ajouter une astuce</a>	
+	<a href="http://localhost:8080/NekoAtsume/chat/${Chat.idChat}/astuce"><button class="btn btn-default ">Ajouter une astuce</button></a>	
 <c:choose>
     <c:when test="${empty ListeAstuces}">
          <h2>${Chat.nomChat } n'a pas d'astuce. </h2>
     </c:when>
     <c:otherwise>
-       <a href="http://localhost:8080/NekoAtsume/chat/${Chat.idChat}/astuces">Voir astuce(s) sur ce chat</a>
+       <a href="http://localhost:8080/NekoAtsume/chat/${Chat.idChat}/astuces"><button class="btn btn-default " id="bouton2">Voir astuce(s) sur ce chat</button></a>
 
     </c:otherwise>
 </c:choose>
 
 
 <%@ include file="footer.jsp" %>
-
+<!-- <a href="http://localhost:8080/NekoAtsume/chats"><button class="btn btn-default " id="bouton1">Afficher tous les chats</button></a> -->
 

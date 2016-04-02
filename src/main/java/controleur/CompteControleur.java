@@ -138,7 +138,7 @@ public class CompteControleur {
 
         } catch ( Exception e ) {
  
-        	model1.addObject("error5","Le nom d'utilisateur doit contenir au moins 3 caractï¿½res.");
+        	model1.addObject("error5","Le nom d'utilisateur doit contenir au moins 3 caractères.");
 		  }
 		
         // s'il y a une quelconque erreur
@@ -151,7 +151,7 @@ public class CompteControleur {
 		session.getTransaction().commit();
 		session.close();
 		
-	
+	    modelAndView.addObject("succes","Votre compte a été créé !");
 		return modelAndView;}
 	}
 

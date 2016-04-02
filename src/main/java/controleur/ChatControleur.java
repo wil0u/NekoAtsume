@@ -289,7 +289,7 @@ public class ChatControleur {
                         {
                         modelAndView = affichePanneauAdminChats(httpSession);}
  
-                    modelAndView.addObject("error", "Il n'y a pas de chat associÃ© Ã  ce nom");
+                    modelAndView.addObject("error", "Il n'y a pas de chat associé à  ce nom");
                     session.close();
                     return modelAndView;
                    
