@@ -2,14 +2,30 @@ package controleur;
  
 import java.util.List;
  
+
+
+
+
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
  
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import modele.Astuce;
 import modele.Chat;
 import modele.CompteInscrit;
 import modele.Objet;
  
+
+
+
+
+
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -28,6 +44,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
  
 @Controller
+@Path("/chatPost")
 public class ChatControleur {
    
     @RequestMapping("/chats")
@@ -401,7 +418,7 @@ public class ChatControleur {
 			if(result.hasErrors()){
 				ModelAndView model1;
 				model1 = affichePanneauAdminChats(httpSession);
-				model1.addObject("Error","La modification a échouée. (Le lv chat. ne doit contenir que des chiffres)");
+				model1.addObject("Error","La modification a ï¿½chouï¿½e. (Le lv chat. ne doit contenir que des chiffres)");
 				return model1;
 			}	
 			 
@@ -453,7 +470,7 @@ public class ChatControleur {
 			session.close();
 			
 			modelAndView = affichePanneauAdminChats(httpSession);
-			modelAndView.addObject("Succes","La suppression du chat a été fait avec succès.");
+			modelAndView.addObject("Succes","La suppression du chat a ï¿½tï¿½ fait avec succï¿½s.");
 			return modelAndView;
 		
 			
@@ -496,6 +513,7 @@ public class ChatControleur {
 			return modelAndView;
 	       
 	    }
-	   
+
+	  
 
 }

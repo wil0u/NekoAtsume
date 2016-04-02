@@ -1,4 +1,4 @@
- <%@ include file="headerTag.jsp" %>
+  <%@ include file="headerTag.jsp" %>
 
 <jsp:include page="/vues/header.jsp" >	
    <jsp:param name="pageHeader" value="Panneau d'administration des Astuces" />
@@ -22,7 +22,7 @@
     <th>Publication</th>
   </tr>
   <c:forEach var="astuce" items="${listAstuce}">
-  <tr>
+  <tr>  
     <td>${astuce.titre}</td>  
     <td><a href="http://localhost:8080/NekoAtsume/chat/${astuce.chat.idChat}">${astuce.chat.nomChat}</a></td>
     <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}/moderer" class="btn btn-primary" role="button">Modifier</a></td>

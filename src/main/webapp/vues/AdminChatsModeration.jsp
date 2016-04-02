@@ -1,4 +1,4 @@
-<%@ include file="headerTag.jsp"%>
+          <%@ include file="headerTag.jsp"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <jsp:include page="/vues/header.jsp">
 	<jsp:param name="pageHeader" value="Detail du chat : ${Chat.nomChat } " />

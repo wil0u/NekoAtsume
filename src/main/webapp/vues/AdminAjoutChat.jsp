@@ -1,4 +1,4 @@
-<%@ include file="headerTag.jsp" %>
+          <%@ include file="headerTag.jsp" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <jsp:include page="/vues/header.jsp" >	
    <jsp:param name="pageHeader" value="Ajouter un chat" />
@@ -15,7 +15,7 @@ ${error5} </div>
 
 <br></br>
 
-<form method="post" action="/NekoAtsume/chat/AdminAjoutChat" accept-charset="ISO-8859-1">
+<form  method="post" action="/NekoAtsume/chat/AdminAjoutChat" accept-charset="ISO-8859-1">
 <form:errors path="*" />
 
 		<ul class="list-group" >
@@ -52,7 +52,45 @@ ${error5} </div>
 		
 		<input type="submit" value="Ajouter le chat" class="btn btn-danger" />
 		</form>
+<br>
+<br>
+FORMULAIRE DU WEBSERVICE ! 
+<form enctype='application/json' method="post" action="/chatPost" accept-charset="ISO-8859-1">
+<form:errors path="*" />
 
-
+		<ul class="list-group" >
+	
+			<li class="list-group-item">
+			<span class="label label-default">Nom</span>
+				<input type="text" name="nomChat"   />
+			</li>
+	
+				<li class="list-group-item">
+				<span class="label label-default">Couleur</span>
+				<input type="text" name="couleurChat"  />
+				
+			</li >
+		
+			<li class="list-group-item">
+			<span class="label label-default">Caractère</span>
+				<input type="text" name="caractereChat" />
+			</li>
+				<li class="list-group-item">
+			<span class="label label-default">Lv. chat</span>
+				<input type="text" name="lvlChat" />
+			</li>
+			<li class="list-group-item">
+			<span class="label label-default">Momento</span>
+				<input type="text" name="memorialChat"/>
+			</li>
+			
+			<li class="list-group-item">
+			<span class="label label-default">Nom japonnais</span>
+			<input type="text" name="nomJaponnaisChat" />
+			</li>			
+		</ul>
+		
+		<input type="submit" value="Ajouter le chat" class="btn btn-danger" />
+		</form>
 
 <%@ include file="footer.jsp" %>
