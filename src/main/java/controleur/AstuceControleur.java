@@ -748,7 +748,7 @@ public ModelAndView AstucesAssocieesAuChatNORMAL(int idChat,HttpSession httpSess
 	 
 	 @RequestMapping("astuce/{idAstuce}/liker/{cas}")
 	 public ModelAndView liker(@PathVariable("idAstuce") int idAstuce,@PathVariable("cas") String cas,HttpSession httpSession){
-		 ModelAndView modelAndView = new ModelAndView("Astuce");
+		 ModelAndView modelAndView = detailChat(idAstuce,httpSession);
 		 String info="";
 		 
 		 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -767,156 +767,39 @@ public ModelAndView AstucesAssocieesAuChatNORMAL(int idChat,HttpSession httpSess
 	    			.add(Restrictions.eq("compte", compteRetour));
 	    	List<Vote> votes = (List<Vote>)criteria.list();
 	    	if(votes==null||votes.size()==0){
-	    		
+	    		modelAndView = new ModelAndView("redirect:/astuce/"+idAstuce);
 	    		Vote vote = new Vote();
 	    		vote.setAstuce(astuce);
 	    		vote.setCompte(compteRetour);
 	    		vote.setValeur("2");
 	    		session.save(vote);
 	    		session.getTransaction().commit();
-	    		
-	    		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
-	    		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
-	    		modelAndView.addObject("Astuce",astuce);
-	    		info="Vous avez liké cette astuce!";
-	    		modelAndView.addObject("Info",info);
-	    		modelAndView.addObject("cas",vote.getValeur());
-
-	        	Criteria crit = session.createCriteria(Vote.class);
-	            Criterion price = Restrictions.eq("astuce",astuce);
-	            Criterion name = Restrictions.ne("valeur","1");
-	            LogicalExpression orExp = Restrictions.and(price,name);
-	            crit.add(orExp);
-	            List<Vote> toutvotes = (List<Vote>)crit.list();
-	        	float nbVoteTotal = toutvotes.size();
-	            crit = session.createCriteria(Vote.class);
-	            price = Restrictions.eq("astuce",astuce);
-	            name = Restrictions.like("valeur","3");
-	            orExp = Restrictions.and(price,name);
-	            crit.add(orExp);
-	            List<Vote> lesDislikes = (List<Vote>)crit.list();
-	            float nbDislike = lesDislikes.size();
-		    	crit = session.createCriteria(Vote.class);
-		         price = Restrictions.eq("astuce",astuce);
-		         name = Restrictions.like("valeur","2");
-		        orExp = Restrictions.and(price,name);
-		        crit.add(orExp);
-		        List<Vote> leslikes = (List<Vote>)crit.list();
-		        float nblike = leslikes.size();
-		    	List<Float> listVal = calculerPourcentage(nbVoteTotal,nblike,nbDislike);
-		    	modelAndView.addObject("pourCentLike",listVal.get(0));
-		    	modelAndView.addObject("pourCentDislike",listVal.get(1));
 	    		return modelAndView;
 	    	}else{
 	    	Vote vote = votes.get(0);
 	    	if(vote.getValeur().equals("1")){
+	    		modelAndView = new ModelAndView("redirect:/astuce/"+idAstuce);
 	    		vote.setValeur("2");
 	    		session.save(vote); 
 	    		session.getTransaction().commit();
-	    		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
-	    		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
-	    		modelAndView.addObject("Astuce",astuce);
-	    		modelAndView.addObject("Info","Vous avez liké cette astuce !");
-	    		modelAndView.addObject("cas",vote.getValeur());
-	    		
-	        	Criteria crit = session.createCriteria(Vote.class);
-	            Criterion price = Restrictions.eq("astuce",astuce);
-	            Criterion name = Restrictions.ne("valeur","1");
-	            LogicalExpression orExp = Restrictions.and(price,name);
-	            crit.add(orExp);
-	            List<Vote> toutvotes = (List<Vote>)crit.list();
-	        	float nbVoteTotal = toutvotes.size();
-	            crit = session.createCriteria(Vote.class);
-	            price = Restrictions.eq("astuce",astuce);
-	            name = Restrictions.like("valeur","3");
-	            orExp = Restrictions.and(price,name);
-	            crit.add(orExp);
-	            List<Vote> lesDislikes = (List<Vote>)crit.list();
-	            float nbDislike = lesDislikes.size();
-		    	crit = session.createCriteria(Vote.class);
-		         price = Restrictions.eq("astuce",astuce);
-		         name = Restrictions.like("valeur","2");
-		        orExp = Restrictions.and(price,name);
-		        crit.add(orExp);
-		        List<Vote> leslikes = (List<Vote>)crit.list();
-		        float nblike = leslikes.size();
-		    	List<Float> listVal = calculerPourcentage(nbVoteTotal,nblike,nbDislike);
-		    	modelAndView.addObject("pourCentLike",listVal.get(0));
-		    	modelAndView.addObject("pourCentDislike",listVal.get(1));
+
 		    	
 	    		return modelAndView;
 	    	}
 	    	if(vote.getValeur().equals("2")){
+	    		modelAndView = new ModelAndView("redirect:/astuce/"+idAstuce);
 	    		vote.setValeur("1");
 	    		session.save(vote); 
 	    		session.getTransaction().commit();
-	    		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
-	    		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
-	    		modelAndView.addObject("Astuce",astuce);
-	    		modelAndView.addObject("Info","Vous ne likez plus cette astuce !");
-	    		modelAndView.addObject("cas",vote.getValeur());
 	    		
-	        	Criteria crit = session.createCriteria(Vote.class);
-	            Criterion price = Restrictions.eq("astuce",astuce);
-	            Criterion name = Restrictions.ne("valeur","1");
-	            LogicalExpression orExp = Restrictions.and(price,name);
-	            crit.add(orExp);
-	            List<Vote> toutvotes = (List<Vote>)crit.list();
-	        	float nbVoteTotal = toutvotes.size();
-	            crit = session.createCriteria(Vote.class);
-	            price = Restrictions.eq("astuce",astuce);
-	            name = Restrictions.like("valeur","3");
-	            orExp = Restrictions.and(price,name);
-	            crit.add(orExp);
-	            List<Vote> lesDislikes = (List<Vote>)crit.list();
-	            float nbDislike = lesDislikes.size();
-		    	crit = session.createCriteria(Vote.class);
-		         price = Restrictions.eq("astuce",astuce);
-		         name = Restrictions.like("valeur","2");
-		        orExp = Restrictions.and(price,name);
-		        crit.add(orExp);
-		        List<Vote> leslikes = (List<Vote>)crit.list();
-		        float nblike = leslikes.size();
-		    	List<Float> listVal = calculerPourcentage(nbVoteTotal,nblike,nbDislike);
-		    	modelAndView.addObject("pourCentLike",listVal.get(0));
-		    	modelAndView.addObject("pourCentDislike",listVal.get(1));
-		    	
 	    		return modelAndView;
 	    	}
 	    	if(vote.getValeur().equals("3")){
+	    		modelAndView = new ModelAndView("redirect:/astuce/"+idAstuce);
 	    		vote.setValeur("2");
 	    		session.save(vote);
 	    		session.getTransaction().commit();
-	    		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
-	    		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
-	    		modelAndView.addObject("Astuce",astuce);
-	    		modelAndView.addObject("Info","Vous avez likez cette astuce");
-	    		modelAndView.addObject("cas",vote.getValeur());
-	    		
-	        	Criteria crit = session.createCriteria(Vote.class);
-	            Criterion price = Restrictions.eq("astuce",astuce);
-	            Criterion name = Restrictions.ne("valeur","1");
-	            LogicalExpression orExp = Restrictions.and(price,name);
-	            crit.add(orExp);
-	            List<Vote> toutvotes = (List<Vote>)crit.list();
-	        	float nbVoteTotal = toutvotes.size();
-	            crit = session.createCriteria(Vote.class);
-	            price = Restrictions.eq("astuce",astuce);
-	            name = Restrictions.like("valeur","3");
-	            orExp = Restrictions.and(price,name);
-	            crit.add(orExp);
-	            List<Vote> lesDislikes = (List<Vote>)crit.list();
-	            float nbDislike = lesDislikes.size();
-		    	crit = session.createCriteria(Vote.class);
-		         price = Restrictions.eq("astuce",astuce);
-		         name = Restrictions.like("valeur","2");
-		        orExp = Restrictions.and(price,name);
-		        crit.add(orExp);
-		        List<Vote> leslikes = (List<Vote>)crit.list();
-		        float nblike = leslikes.size();
-		    	List<Float> listVal = calculerPourcentage(nbVoteTotal,nblike,nbDislike);
-		    	modelAndView.addObject("pourCentLike",listVal.get(0));
-		    	modelAndView.addObject("pourCentDislike",listVal.get(1));
+	    		modelAndView = new ModelAndView("redirect:/astuce/"+idAstuce);
 		    	
 	    		return modelAndView;
 	    	}
@@ -925,7 +808,8 @@ public ModelAndView AstucesAssocieesAuChatNORMAL(int idChat,HttpSession httpSess
 	 }
 	 @RequestMapping("astuce/{idAstuce}/disliker/{cas}")
 	 public ModelAndView disliker(@PathVariable("idAstuce") int idAstuce,@PathVariable("cas") String cas,HttpSession httpSession){
-		 ModelAndView modelAndView = new ModelAndView("Astuce");
+		 
+		 ModelAndView modelAndView = detailChat(idAstuce,httpSession);
 		 String info="";
 		 
 		 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -945,7 +829,7 @@ public ModelAndView AstucesAssocieesAuChatNORMAL(int idChat,HttpSession httpSess
 	    			.add(Restrictions.eq("compte", compteRetour));
 	    	List<Vote> votes = (List<Vote>)criteria.list();
 	    	if(votes==null||votes.size()==0){
-	    		
+	    		modelAndView = new ModelAndView("redirect:/astuce/"+idAstuce);
 	    		Vote vote = new Vote();
 	    		vote.setAstuce(astuce);
 	    		vote.setCompte(compteRetour);
@@ -953,149 +837,32 @@ public ModelAndView AstucesAssocieesAuChatNORMAL(int idChat,HttpSession httpSess
 	    		session.save(vote);
 	    		session.getTransaction().commit();
 	    		
-	    		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
-	    		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
-	    		modelAndView.addObject("Astuce",astuce);
-	    		info="Vous avez disliké cette astuce!";
-	    		modelAndView.addObject("Info",info);
-	    		modelAndView.addObject("cas",vote.getValeur());
-	    		
-	        	Criteria crit = session.createCriteria(Vote.class);
-	            Criterion price = Restrictions.eq("astuce",astuce);
-	            Criterion name = Restrictions.ne("valeur","1");
-	            LogicalExpression orExp = Restrictions.and(price,name);
-	            crit.add(orExp);
-	            List<Vote> toutvotes = (List<Vote>)crit.list();
-	        	float nbVoteTotal = toutvotes.size();
-	            crit = session.createCriteria(Vote.class);
-	            price = Restrictions.eq("astuce",astuce);
-	            name = Restrictions.like("valeur","3");
-	            orExp = Restrictions.and(price,name);
-	            crit.add(orExp);
-	            List<Vote> lesDislikes = (List<Vote>)crit.list();
-	            float nbDislike = lesDislikes.size();
-		    	crit = session.createCriteria(Vote.class);
-		         price = Restrictions.eq("astuce",astuce);
-		         name = Restrictions.like("valeur","2");
-		        orExp = Restrictions.and(price,name);
-		        crit.add(orExp);
-		        List<Vote> leslikes = (List<Vote>)crit.list();
-		        float nblike = leslikes.size();
-		    	List<Float> listVal = calculerPourcentage(nbVoteTotal,nblike,nbDislike);
-		    	modelAndView.addObject("pourCentLike",listVal.get(0));
-		    	modelAndView.addObject("pourCentDislike",listVal.get(1));
-	    		
 	    		return modelAndView;
 	    	}else{
 	    	Vote vote = votes.get(0);
 	    	if(vote.getValeur().equals("1")){
+	    		modelAndView = new ModelAndView("redirect:/astuce/"+idAstuce);
 	    		vote.setValeur("3");
 	    		session.save(vote); 
 	    		session.getTransaction().commit();
-	    		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
-	    		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
-	    		modelAndView.addObject("Astuce",astuce);
-	    		modelAndView.addObject("Info","Vous avez disliké cette astuce !");
-	    		modelAndView.addObject("cas",vote.getValeur());
 	    		
-	        	Criteria crit = session.createCriteria(Vote.class);
-	            Criterion price = Restrictions.eq("astuce",astuce);
-	            Criterion name = Restrictions.ne("valeur","1");
-	            LogicalExpression orExp = Restrictions.and(price,name);
-	            crit.add(orExp);
-	            List<Vote> toutvotes = (List<Vote>)crit.list();
-	        	float nbVoteTotal = toutvotes.size();
-	            crit = session.createCriteria(Vote.class);
-	            price = Restrictions.eq("astuce",astuce);
-	            name = Restrictions.like("valeur","3");
-	            orExp = Restrictions.and(price,name);
-	            crit.add(orExp);
-	            List<Vote> lesDislikes = (List<Vote>)crit.list();
-	            float nbDislike = lesDislikes.size();
-		    	crit = session.createCriteria(Vote.class);
-		         price = Restrictions.eq("astuce",astuce);
-		         name = Restrictions.like("valeur","2");
-		        orExp = Restrictions.and(price,name);
-		        crit.add(orExp);
-		        List<Vote> leslikes = (List<Vote>)crit.list();
-		        float nblike = leslikes.size();
-		    	List<Float> listVal = calculerPourcentage(nbVoteTotal,nblike,nbDislike);
-		    	modelAndView.addObject("pourCentLike",listVal.get(0));
-		    	modelAndView.addObject("pourCentDislike",listVal.get(1));
 	    		
 	    		return modelAndView;
 	    	}
 	    	if(vote.getValeur().equals("2")){
+	    		modelAndView = new ModelAndView("redirect:/astuce/"+idAstuce);
 	    		vote.setValeur("3");
 	    		session.save(vote); 
 	    		session.getTransaction().commit();
-	    		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
-	    		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
-	    		modelAndView.addObject("Astuce",astuce);
-	    		modelAndView.addObject("Info","Vous avez disliké cette astuce !");
-	    		modelAndView.addObject("cas",vote.getValeur());
-	    		
-	        	Criteria crit = session.createCriteria(Vote.class);
-	            Criterion price = Restrictions.eq("astuce",astuce);
-	            Criterion name = Restrictions.ne("valeur","1");
-	            LogicalExpression orExp = Restrictions.and(price,name);
-	            crit.add(orExp);
-	            List<Vote> toutvotes = (List<Vote>)crit.list();
-	        	float nbVoteTotal = toutvotes.size();
-	            crit = session.createCriteria(Vote.class);
-	            price = Restrictions.eq("astuce",astuce);
-	            name = Restrictions.like("valeur","3");
-	            orExp = Restrictions.and(price,name);
-	            crit.add(orExp);
-	            List<Vote> lesDislikes = (List<Vote>)crit.list();
-	            float nbDislike = lesDislikes.size();
-		    	crit = session.createCriteria(Vote.class);
-		         price = Restrictions.eq("astuce",astuce);
-		         name = Restrictions.like("valeur","2");
-		        orExp = Restrictions.and(price,name);
-		        crit.add(orExp);
-		        List<Vote> leslikes = (List<Vote>)crit.list();
-		        float nblike = leslikes.size();
-		    	List<Float> listVal = calculerPourcentage(nbVoteTotal,nblike,nbDislike);
-		    	modelAndView.addObject("pourCentLike",listVal.get(0));
-		    	modelAndView.addObject("pourCentDislike",listVal.get(1));
+	    	
 	    		
 	    		return modelAndView;
 	    	}
 	    	if(vote.getValeur().equals("3")){
+	    		modelAndView = new ModelAndView("redirect:/astuce/"+idAstuce);
 	    		vote.setValeur("1");
 	    		session.save(vote);
 	    		session.getTransaction().commit();
-	    		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
-	    		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
-	    		modelAndView.addObject("Astuce",astuce);
-	    		modelAndView.addObject("Info","Vous ne  dislikez plus cette astuce");
-	    		modelAndView.addObject("cas",vote.getValeur());
-	    		
-	        	Criteria crit = session.createCriteria(Vote.class);
-	            Criterion price = Restrictions.eq("astuce",astuce);
-	            Criterion name = Restrictions.ne("valeur","1");
-	            LogicalExpression orExp = Restrictions.and(price,name);
-	            crit.add(orExp);
-	            List<Vote> toutvotes = (List<Vote>)crit.list();
-	        	float nbVoteTotal = toutvotes.size();
-	            crit = session.createCriteria(Vote.class);
-	            price = Restrictions.eq("astuce",astuce);
-	            name = Restrictions.like("valeur","3");
-	            orExp = Restrictions.and(price,name);
-	            crit.add(orExp);
-	            List<Vote> lesDislikes = (List<Vote>)crit.list();
-	            float nbDislike = lesDislikes.size();
-		    	crit = session.createCriteria(Vote.class);
-		         price = Restrictions.eq("astuce",astuce);
-		         name = Restrictions.like("valeur","2");
-		        orExp = Restrictions.and(price,name);
-		        crit.add(orExp);
-		        List<Vote> leslikes = (List<Vote>)crit.list();
-		        float nblike = leslikes.size();
-		    	List<Float> listVal = calculerPourcentage(nbVoteTotal,nblike,nbDislike);
-		    	modelAndView.addObject("pourCentLike",listVal.get(0));
-		    	modelAndView.addObject("pourCentDislike",listVal.get(1));
 	    		
 	    		return modelAndView;
 	    	}
