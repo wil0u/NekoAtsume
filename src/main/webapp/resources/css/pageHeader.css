@@ -1,0 +1,184 @@
+@CHARSET "ISO-8859-1";
+
+body {
+
+	background-image:url(http://localhost:8080/NekoAtsume/resources/imagesFond/Try3.jpg);
+	background-image:repeat;
+}
+
+
+img {
+    display: block;
+    margin: 0 auto;
+}
+
+#imageHeader{
+	 display: block;
+    margin: 0 auto;
+
+}
+
+#imageIndex{
+	 display: block;
+     float : right ;
+
+}
+
+}
+
+.zoom {
+height:100px;
+}
+.zoom p {
+text-align:center;
+}
+
+.zoom img:hover {
+width:100x;
+height:100px;
+}
+#votesPour{
+	background-color : #33cc33 ;
+
+ 
+	
+}
+#votesContre{
+	background-color :  #ff5050;
+
+  
+	
+}
+span.imageGauche {
+	float : right ;
+}
+
+
+
+.zoom {
+height:100px;
+}
+.zoom p {
+text-align:center;
+}
+
+.zoom img:hover {
+width:100x;
+height:100px;
+}
+
+#votesPour{
+	background-color : #33cc33 ;
+
+  
+	
+}
+#votesContre{
+	background-color :  #ff5050;
+
+  
+	
+}
+
+
+th {
+	background-color : #ffcc99 ; 
+	
+}
+
+.jumbotron{
+background-color : #ffe6cc;
+}
+
+
+
+.ligne{
+	border-bottom:1px solid white;
+	margin-bottom : 20px;
+	margin-top : 20px;
+}
+
+#container{
+	background-color:#ff9999;
+
+}
+
+#container-fluid{
+	background-color:#ffcc99;
+}
+
+#text-danger{
+	color :red ;
+}
+#bs-example-navbar-collapse-1{
+	background-color:#ffe6cc;
+	
+}
+td {
+	background-color : #ffe6cc ; 
+	 opacity: 0.90;
+	
+}
+
+h1 {
+	
+	 font-family: Segoe Script;
+        color : white;
+	
+}
+
+.footer{	
+
+border-top:1px solid white;
+	margin-top:25px;
+	background-color:#ff9999;
+    text-align : center ;
+	
+	
+}
+#Bouton1{
+	margin-left : 50px;
+	float : right ;
+	display: block;
+}
+
+#Bouton2{
+		margin-left : 50px;
+
+	
+}
+
+.bouton_Supprimer{
+	float: right;
+	
+}
+
+caption {
+		background-color : #ffcc99 ; 
+		 font-size: 40px; /* Paragraphes de 14 pixels */
+         color = black ;
+	
+}
+form .erreur {
+
+    color: #900;
+
+}
+
+@font-face {
+  font-family: Constantia;
+  src: local("Constantia"),
+   url(Constantia.ttf);
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Segoe Script;
+  src: local("Segoe Script"),
+   url(Segoe Script.ttf);
+  font-weight: bold;
+}
+
+
+
+
