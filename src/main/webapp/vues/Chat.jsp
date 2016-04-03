@@ -8,7 +8,7 @@
 </jsp:include>
 <a href="http://localhost:8080/NekoAtsume/chats"><button class="btn btn-primary">Revenir à l'affichage de tous les chats</button></a>
 <br />
-<br>
+<br><!--  affiche les infos d'un chat -->
 
 		<ul class="list-group" >
 		

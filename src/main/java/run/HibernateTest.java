@@ -1746,8 +1746,45 @@ public class HibernateTest {
 		compteAdmin.setMdp("dieu");
 		compteAdmin.setPseudo("dieu");
 		session.save(compteAdmin);
+		
+		CompteInscrit compteInscrit = new CompteInscrit();
+		compteInscrit.setEmail("maisCestWillem@free.fr");
+		compteInscrit.setMdp("willem");
+		compteInscrit.setPseudo("willem");
+		session.save(compteAdmin);
+		
+		compteInscrit = new CompteInscrit();
+		compteInscrit.setEmail("maisCestPierre@.free.fr");
+		compteInscrit.setMdp("pierre");
+		compteInscrit.setPseudo("pierre");
+		session.save(compteAdmin);
+		
+		compteInscrit = new CompteInscrit();
+		compteInscrit.setEmail("maisCestOphelie@.free.fr");
+		compteInscrit.setMdp("Ophelie");
+		compteInscrit.setPseudo("Ophelie");
+		session.save(compteAdmin);
+		
+		CategorieAstuce categorie = new CategorieAstuce();
+		categorie.setNomCategorieAstuce("Général");
+		categorie.setDescriptionCategorieAstuce("Concerne les astuces générales sur le jeu");
+		session.save(categorie);		
+		
+		categorie = new CategorieAstuce();
+		categorie.setNomCategorieAstuce("Collection Chat");
+		categorie.setDescriptionCategorieAstuce("Concerne les astuces pour obtenir les chats");
+		session.save(categorie);
+		
+		categorie = new CategorieAstuce();
+		categorie.setNomCategorieAstuce("Collection Mementos");
+		categorie.setDescriptionCategorieAstuce("Concerne les astuces pour obtenir les mementos");
+		session.save(categorie);
+		
+		categorie = new CategorieAstuce();
+		categorie.setNomCategorieAstuce("Objectif poissons");
+		categorie.setDescriptionCategorieAstuce("Concerne les astuces pour gagner des poissons");
+		session.save(categorie);
 
-			
 		session.getTransaction().commit();
 		session.close();
 

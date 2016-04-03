@@ -9,6 +9,7 @@
 <c:if test="${not empty Succes}">
 <div class="alert alert-success">${Succes}</div>
  </c:if>
+ <!-- affichage du profil -->
 
 		<ul class="list-group" >
 		
@@ -23,5 +24,5 @@
 			</li>
 			
 		</ul>
-<a href="http://localhost:8080/NekoAtsume/changerMotPass" class="btn btn-default" role="button">Changer de mot de passe</a>
+<a href="http://localhost:8080/NekoAtsume/changerMotPass" class="btn btn-primary" role="button">Changer de mot de passe</a>
 <%@ include file="footer.jsp" %>

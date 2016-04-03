@@ -1,5 +1,6 @@
 package modele;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -26,6 +27,7 @@ public class Chat {
 	// CLASSE DE CHAT 
 	@Id @GeneratedValue
 	int idChat;
+	@Column(unique=true)
 	String nomChat;
 	String cheminPhotoChat;
 	String couleurChat;

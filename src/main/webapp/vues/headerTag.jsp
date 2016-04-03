@@ -4,3 +4,4 @@
  <div class = "head">
 <img id = "imageHeader" class="img-thumbnail img-responsive" width="1170" src="http://localhost:8080/NekoAtsume/resources/imagesFond/nekoA.jpg" alt="ImageEntête">
 </div>
+<!-- image header -->

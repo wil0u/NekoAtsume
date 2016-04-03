@@ -15,6 +15,8 @@ ${error5} </div>
 
 <br></br>
 
+
+<!-- affichage de la liste des chats avec options de modération -->
 <form  method="post" action="/NekoAtsume/chat/AdminAjoutChat" accept-charset="ISO-8859-1">
 <form:errors path="*" />
 

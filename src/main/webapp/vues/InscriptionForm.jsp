@@ -12,6 +12,7 @@ ${error3}
 ${error4}
 ${error5} </div>
 <br>
+<!--  formulaire d'inscription -->
 <form:errors path="compte.*"/>
 
 	<form method="post" action="/NekoAtsume/compte">

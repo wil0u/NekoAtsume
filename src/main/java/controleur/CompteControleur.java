@@ -35,86 +35,114 @@ import org.springframework.web.servlet.ModelAndView;
 public class CompteControleur {
 
 	
-	
+	/** Retourne la page pour s'inscrire
+	 * */
 	@RequestMapping(value="/compte", method = RequestMethod.GET)
 	public ModelAndView Inscription(){
 		
-		 
+		 //création modele
 		ModelAndView modelAndView = new ModelAndView("InscriptionForm");
 		
 		return modelAndView;
 	}
 	
-	
+	/**
+	 * Permet 
+	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @return modelAndView page
+	 */
 	@RequestMapping(value="/monProfil", method = RequestMethod.GET)
-	public ModelAndView voirProfile(HttpSession sessionHttp){
+	public ModelAndView voirProfil(HttpSession httpSession){
 		
-		 
+		 //creation modele
 		ModelAndView modelAndView = new ModelAndView("CompteProfil");
+		
+		//ouverture session
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		String email = (String)sessionHttp.getAttribute("emailUser");
+		
+		//rechercher d'un compte par son email
+		String email = (String)httpSession.getAttribute("emailUser");
 		Query query= session.getNamedQuery("findCompteByEmail")
 				.setString("email", email);
 		CompteInscrit compte= (CompteInscrit) query.uniqueResult();
+		
+		//mise du compte et de ses infos dans le modele
 		modelAndView.addObject("compte",compte);
-		modelAndView.addObject("Admin",sessionHttp.getAttribute("Admin"));
+		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
 		return modelAndView;
 	}
 	
-	
+	/**
+	 * Permet d'ajouter une personne aux comptes
+	 * @param compte compte créé par modelAttribute
+	 * @param result gère les éventuelles erreurs de modelAttribute
+	 * @param request requête http
+	 * @param response réponse http
+	 * @return modelAndView la page
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value="/compte", method = RequestMethod.POST)
 	public ModelAndView AjoutCompte(@ModelAttribute("compte") CompteInscrit compte, BindingResult result, HttpServletRequest request, HttpServletResponse response ) 
 			throws ServletException, IOException {
 		   
-
+		ModelAndView model1 = new ModelAndView("InscriptionForm");
         String resultat;
 
         Map<String, String> erreurs = new HashMap<String, String>();
 		
 		/* Rï¿½cupï¿½ration des champs du formulaire. */
 
-		ModelAndView modelAndView = new ModelAndView("index");
+        // s'il y a des erreurs dans la création du modelattribute, on renvoie à l'inscription
 		if(result.hasErrors()){
-			ModelAndView model1 = new ModelAndView("InscriptionForm");
+			
+			model1.addObject("error", "Erreur dans le formulaire, veuillez contacter un admin");
 			return model1;
 		}
 		
-		
+		// informations du formulaire récupéré par l'objet compte
 		String pseudo = compte.getPseudo() ;
-		String email =compte.getEmail() ;
+		String email = compte.getEmail() ;
 		String motDePasse = compte.getMdp();
 		String confirmation = request.getParameter("confirmation");
 		
 		CompteInscrit compteRetour;
+		
+		// ouverture session
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
+		
+		//regarder si ya pas déjà un email existant
 		Criteria criteria = session.createCriteria(CompteInscrit.class);  
 		criteria.add( Restrictions.like("email", compte.getEmail()));
 		List<CompteInscrit> comptesEmail = criteria.list();
-		
-		ModelAndView model1=null;
-				
+					
 		if(comptesEmail.size()>0){
-			model1 = new ModelAndView("InscriptionForm");
+		
 			model1.addObject("error1","Cet email est deja utilisï¿½ !");
 			
 		}
 		
+		//regarder si ya pas un pseudo existant
 		criteria = session.createCriteria(CompteInscrit.class);  
 		criteria.add( Restrictions.like("pseudo", compte.getPseudo()));
 		List<CompteInscrit> comptesPseudo = criteria.list();
 		
+		boolean erreur = false ;
 		if(comptesPseudo.size()>0){
-			model1 = new ModelAndView("InscriptionForm");
+			
 			model1.addObject("error2","Ce pseudo est dï¿½ja utilisï¿½ !");
+			erreur = true ;
 		}
 		
+		//vérifie les champs
 		if(compte.getEmail().equals("")||compte.getPseudo().equals("")||compte.getMdp().equals("") ){
-			model1 = new ModelAndView("InscriptionForm");
+			
 			model1.addObject("error3","Un ou plusieurs champs sont vides !");
+			erreur = true ;
 		}
 		
 		     /* Validation des champs mot de passe et confirmation. */
@@ -125,7 +153,8 @@ public class CompteControleur {
 
         } catch ( Exception e ) {
           erreurs.put( "motdepasse", e.getMessage() );
-          	model1 = new ModelAndView("InscriptionForm");
+          erreur = true ;
+          
         	model1.addObject("error4","Votre mot de passe n'est pas identique ou trop court.");
 	  }
 
@@ -137,12 +166,13 @@ public class CompteControleur {
             validationNom( pseudo );
 
         } catch ( Exception e ) {
+        	erreur = true ;
  
         	model1.addObject("error5","Le nom d'utilisateur doit contenir au moins 3 caractï¿½res.");
 		  }
 		
         // s'il y a une quelconque erreur
-    	if (model1 != null){
+    	if (erreur == true){
 			return model1;
 		}
 		else{
@@ -150,20 +180,21 @@ public class CompteControleur {
 		session.save(compte);
 		session.getTransaction().commit();
 		session.close();
-		
-	    modelAndView.addObject("succes","Votre compte a ï¿½tï¿½ crï¿½ï¿½ !");
+		ModelAndView modelAndView = new ModelAndView("index");
+	    modelAndView.addObject("succes","Votre compte a été créé !");
 		return modelAndView;}
 	}
 
 
-	/**
-	 * 
-	 * Valide les mots de passe saisis.
-	 * 
-	 */
-
+/**
+ * Valide les mots de passe saisis	
+ * @param motDePasse 
+ * @param confirmation
+ * @throws Exception
+ */
 	private void validationMotsDePasse(String motDePasse, String confirmation) throws Exception {
-
+		
+		// vérifie si mdp non null et si lui et sa confirmations ne sont pas différents
 		if (motDePasse != null && motDePasse.trim().length() != 0 && confirmation != null
 				&& confirmation.trim().length() != 0) {
 
@@ -185,12 +216,12 @@ public class CompteControleur {
 
 	}
 
-	/**
-	 * 
-	 * Valide le nom d'utilisateur saisi.
-	 * 
-	 */
 
+/**
+ * Vérifie que le nom n'est pas null et supérieur à 3 carac
+ * @param nom nom à  tester
+ * @throws Exception
+ */
 	private void validationNom(String nom) throws Exception {
 
 		if (nom != null && nom.trim().length() < 3) {
@@ -203,38 +234,58 @@ public class CompteControleur {
 	
 	
 	
-	
+	/**
+	 * Renvoie le formulaire de connection
+	 * @return modelAndView la page
+	 */
 	@RequestMapping(value="/connexion", method = RequestMethod.GET)
 	public ModelAndView ConnexionForm(){
 		ModelAndView modelAndView = new ModelAndView("ConnexionForm");		
 		return modelAndView;
 	}
-	
+	/**
+	 * Permet de se connecter
+	 * @param compte Créé par modelAttribute à partir des infos saisies
+	 * @param result gère les erreurs eventuelles de modelattribute
+	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @return
+	 */
 	@RequestMapping(value="/connexion", method = RequestMethod.POST)
 	public ModelAndView Connexion(@ModelAttribute("compte") CompteInscrit compte, BindingResult result,HttpSession httpSession){
+		
+		//création du modele
 		ModelAndView modelAndView = new ModelAndView("index");
+		
+		// s'il y a une rreur dans la creation du compteinscrit, bye bye
 		if(result.hasErrors()){
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
 			return model1;
 		}	
+		
+		//ouverture session
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session sessionHibernate = sessionFactory.openSession();
 		sessionHibernate.beginTransaction();
 		CompteInscrit compteRetour = null;
 		
+		// chercher un compte par son email
 		Query query= sessionHibernate.getNamedQuery("findCompteByEmail")
 				.setString("email", compte.getEmail());
 		compteRetour = (CompteInscrit) query.uniqueResult();
+		
+		//Si c'est vide, le compte n'existe pas
 		if(compteRetour == null){
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
 			model1.addObject("error","Erreur : Email ou mot de passe incorrect.");
 			return model1;
-		}else if(!compte.getMdp().equals(compteRetour.getMdp())){
+		}else if(!compte.getMdp().equals(compteRetour.getMdp())){ // je vais te tuer t'as fait des elseif
+			// si le mdp fourni est différent du mdp BDD, l'authentification n'est pas bonne
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
 			model1.addObject("error","Erreur : Le mot de passe est incorrect.");
 			return model1;
 		}
 			else if(compteRetour.isBanned()){
+				// Si on est banni ben c'est mort.
 				ModelAndView model1 = new ModelAndView("ConnexionForm");
 				model1.addObject("error","Erreur : Le compte : "+compte.getEmail()+" est banni, veuillez vous adresser Ã  un admin.");
 				return model1;
@@ -242,7 +293,7 @@ public class CompteControleur {
 				
 				
 			}	
-			
+			//test si Admin
 		else if(compteRetour != null && compte.getMdp().equals(compteRetour.getMdp()) && !compteRetour.isBanned()){
 			if(compteRetour instanceof CompteAdmin){
 				httpSession.setAttribute("Admin", "Admin");
@@ -257,6 +308,12 @@ public class CompteControleur {
 		
 		return modelAndView;
 	}
+	
+	/**
+	 * Permet de se deconnecter
+	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @return
+	 */
 	@RequestMapping(value="/deconnexion")
 	public ModelAndView Deconnexion(HttpSession httpSession){
 		ModelAndView modelAndView = new ModelAndView("index");
@@ -264,9 +321,17 @@ public class CompteControleur {
            return modelAndView;
 	}
 	
+	/**
+	 * Permet de changer le mot de passe
+	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @param pass1 
+	 * @param pass2 en comparaison avec pass1, permet de vérifier
+	 * @return
+	 */
 	@RequestMapping(value="/submitMotPass", method = RequestMethod.POST)
 	public ModelAndView ChangerMdpSubmit(HttpSession httpSession,@RequestParam("pass1") String pass1,@RequestParam("pass2") String pass2){
 		
+		// il faut que le 2 mdp soient identiques
 		if(!pass1.equals(pass2)){	
 		ModelAndView model1 = new ModelAndView("ChangerDeMotDePassForm");
 		model1.addObject("error","Error : Les mots de passes ne sont pas identiques");
@@ -277,26 +342,38 @@ public class CompteControleur {
 			model1.addObject("error","Attention un ou plusieurs champ(s) de saisie(s) sont vides.");
 			return model1;
 			}
+		
+		//ouverture session
 	 	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session sessionHibernate = sessionFactory.openSession();
 		sessionHibernate.beginTransaction();
 		CompteInscrit compteRetour = null;
+		
+		// chercher compte par email
 		String email = (String)httpSession.getAttribute("emailUser");
 		Query query= sessionHibernate.getNamedQuery("findCompteByEmail")
 				.setString("email",email);
 		compteRetour = (CompteInscrit) query.uniqueResult();
+		
+		// set le mdp 
 		System.out.println(compteRetour.getMdp());
 		compteRetour.setMdp(pass1);
 		System.out.println(compteRetour.getMdp());
 		sessionHibernate.save(compteRetour);
 		sessionHibernate.getTransaction().commit();
+		// sauvegarde les changements
 		
-		ModelAndView modelAndView = voirProfile(httpSession);
+		ModelAndView modelAndView = voirProfil(httpSession);
 		
 		modelAndView.addObject("Succes","Changement de mot de passe effectuï¿½ avec succï¿½s.");
         return modelAndView;
 	}
 	
+	/**
+	 * Affiche la page pour changer de mot de passe
+	 * @param httpSession
+	 * @return modelAndView, la page
+	 */
 	@RequestMapping(value="/changerMotPass")
 	public ModelAndView changerMdp(HttpSession httpSession){
 		ModelAndView modelAndView = new ModelAndView("ChangerDeMotDePassForm");
@@ -304,21 +381,17 @@ public class CompteControleur {
         return modelAndView;
 	}
 	
-	@RequestMapping(value="/AdminPanneau")
-	public ModelAndView affichePanneauAdmin(HttpSession httpSession){
-		if(httpSession.getAttribute("Admin")==null){
-			ModelAndView model1 = new ModelAndView("ConnexionForm");
-			model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
-			return model1;
-		}
-ModelAndView modelAndView = new ModelAndView("AdminPanneau");
-		
-		return modelAndView;
-	}
 
-	
+
+	/**
+	 * Affiche le panneau admin des membres
+	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @return modelAndViewla page
+	 */
 	@RequestMapping(value="/AdminMembres")
 	public ModelAndView affichePanneauAdminMembres(HttpSession httpSession){
+		
+		// si on est pas un admin, on ne peut pas accéder à la page
 		if(httpSession.getAttribute("Admin")==null){
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
 			model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
@@ -326,12 +399,12 @@ ModelAndView modelAndView = new ModelAndView("AdminPanneau");
 		}
 ModelAndView modelAndView = new ModelAndView("AdminMembres");
 
-
+//ouverture de session
 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 Session session = sessionFactory.openSession();
 session.beginTransaction();
 
-
+// rechercher criteria par email
 Criteria criteria = session.createCriteria(CompteInscrit.class);
 List<CompteInscrit> inscrits = (List<CompteInscrit>) criteria.list();
 modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
@@ -342,58 +415,65 @@ modelAndView.addObject("listInscrit", inscrits);
 //modelAndView.addObject("listInscrit", indicateurBanned);
 // 
 
-
-//List results = session.createCriteria(Cat.class)
-//.setProjection( Projections.alias( Projections.groupProperty("color"), "colr" ) )
-//.addOrder( Order.asc("colr") )
-//.list();
-//
-//Example example = Example.create(cat)
-//.excludeZeroes()           //exclude zero valued properties
-//.excludeProperty("color")  //exclude the property named "color"
-//.ignoreCase()              //perform case insensitive string comparisons
-//.enableLike();             //use like for string comparisons
-//List results = session.createCriteria(Cat.class)
-//.add(example)
-//.list();
 		return modelAndView;
 	}
 	
+	/**
+	 * Permet de bannir un compte
+	 * @param idCompte compte concerné
+	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @return la page
+	 */
 	@RequestMapping(value="/membre/{idCompte}/bannir")
 	public ModelAndView bannir(@PathVariable("idCompte") int idCompte,HttpSession httpSession){
+		
+		// si on est pas admin, on ne peut pas accéder à la page
 		if(httpSession.getAttribute("Admin")==null){
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
 			model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
 			return model1;
 		}
-		   
+		
+		//ouverture session
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
+		
 		CompteInscrit compteRetour;
 		compteRetour = session.get(CompteInscrit.class,idCompte);
+		
+		// changer la personne en "banni"
 		compteRetour.setBanned(true);
 		session.save(compteRetour);
 		session.getTransaction().commit();
+		// sauvegarde des changements
+		
 		ModelAndView modelAndView = affichePanneauAdminMembres(httpSession);
         return modelAndView;
 	}
 	@RequestMapping(value="/membre/{idCompte}/debannir")
 	public ModelAndView debannir(@PathVariable("idCompte") int idCompte,HttpSession httpSession){
 		
+		// fonction accessibles qu'aux admins
 		if(httpSession.getAttribute("Admin")==null){
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
 			model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
 			return model1;
 		}
+		
+		// ouverture session
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		CompteInscrit compteRetour;
+		
+		// changement de la personne en "debanni" ou normal
 		compteRetour = session.get(CompteInscrit.class,idCompte);
 		compteRetour.setBanned(false);
 		session.save(compteRetour);
 		session.getTransaction().commit();
+		// sauvegarde des changements 
+		
 		ModelAndView modelAndView = affichePanneauAdminMembres(httpSession);
         return modelAndView;
 	}

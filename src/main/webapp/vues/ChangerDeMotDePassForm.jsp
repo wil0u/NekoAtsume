@@ -6,6 +6,7 @@
    <jsp:param name="emailUser" value="${emailUser }" />
   <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
+<!--  permet de changer le mot de passe -->
 <h1 class="text-danger">${error}</h1>
 <form method="POST" action="/NekoAtsume/submitMotPass" >
   <div class="form-group">
@@ -16,7 +17,7 @@
     <label for="exampleInputPassword1">Entrer de nouveau mon nouveau mot de passe</label>
     <input type="password" name="pass2" class="form-control" id="exampleInputPassword1" placeholder="Password">
   </div>
-  <button type="submit" class="btn btn-default">Submit</button>
+  <button type="submit" class="btn btn-primary">Changer le mot de passe</button>
   </form>
 
 

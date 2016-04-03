@@ -1,5 +1,6 @@
 <div class= "footer">
 <br>
+<!--  footer de chaque page -->
 <br>
 Merci à vous d'être sur ce site et surtout de prendre attention à ce footer très intéressant qui devrait contenir les liens qui ne servent à rien !
 <br>

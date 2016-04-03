@@ -1,14 +1,14 @@
 <%@ include file="headerTag.jsp" %>
 
 <jsp:include page="/vues/header.jsp" >	
-   <jsp:param name="pageHeader" value="Ajout astuce pour le chat ${Astuce.chat.nomChat }" />
+   <jsp:param name="pageHeader" value="Modification d'astuce : ${Astuce.chat.nomChat }" />
    <jsp:param name="pageTitle" value="Formulaire d'ajout d'astuce" />
    <jsp:param name="emailUser" value="${emailUser }" />
    <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
 
 
-
+<!-- affichage du detail de l'astuce avec options de moderation -->
 <h1 class="text-danger">${error}</h1>
 <form:errors path="astuce.*"/>
 <form method="post" action="/NekoAtsume/modifierAstuce"  >
@@ -17,6 +17,7 @@
 		<label  for="inputTitre">Titre</label>
 		<input type="text" id="inputTitre" name="titre" path="titre" value="${Astuce.titre }" class="form-control">
 	</div>
+	
 	<div class="form-group">
 		<label  for="inputAstuce">Description de l'astuce</label>
 		<span id="helpBlock" class="help-block">Veuillez écrire le détail de votre astuce</span>	
@@ -28,9 +29,22 @@
      	<div class="form-group" >
 			
 			<input type="hidden"  name="chat" path="chat" value="${Astuce.chat }" class="form-control">
-				${Astuce.chat.nomChat }
+			
 				
 			</div>
+			
+			<c:if test="${not empty Astuce.chat}">
+   				<li class="list-group-item">
+   				<span class="label label-default">Chat concerné</span>
+					${Astuce.chat.nomChat}</li>
+					
+					<li class="list-group-item">
+			<div class="zoom">
+			<span class="label label-default">Image</span>
+				<img src="${Astuce.chat.cheminPhotoChat}" /></div>
+			</li>
+					
+			</c:if>		
 		
 <div class="container">
 	<div class="form-group">

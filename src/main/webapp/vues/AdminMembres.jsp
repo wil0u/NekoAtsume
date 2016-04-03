@@ -10,7 +10,7 @@
 <table  class="table table-striped">
  
  <!-- Lorsqu'on a banni avec succès, retour ici avec affichage  -->
-
+<!--  affichage des membres avec options de moderation -->
 <c:if test="${not empty Succes}">
 <div class="alert alert-success">${Succes}</div>
  </c:if>
@@ -23,7 +23,7 @@ Chercher un membre par son email <input type="text" name="LvlChat" value="" />
 </form>
   
 <a href="http://localhost:8080/NekoAtsume/AdminMembres" class="btn btn-primary" role="button">Afficher tous les membres</a>
-
+<br></br>
   <tr>
     <th>Nom membre</th>
     <th>Email Membre</th>

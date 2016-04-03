@@ -11,7 +11,7 @@
 	d'administration</a>
 <br />
 <br>
-
+<!-- moderation du chat -->
 <form method="post" action="/NekoAtsume/modifierChat"
 	accept-charset="ISO-8859-1">
 	<form:errors path="*" />
@@ -59,7 +59,7 @@
 			astuce(s) sur ce chat</a>
 	</c:otherwise>
 </c:choose>
-<br><a href="http://localhost:8080/NekoAtsume/chat/${chat.idChat}/supprimer class="btn btn-primary" role="button">Supprimer</a>
+<br><a href="http://localhost:8080/NekoAtsume/chat/${chat.idChat}/supprimer" class="btn btn-danger" role="button">Supprimer</a>
 
 
 

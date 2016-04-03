@@ -6,7 +6,7 @@
    <jsp:param name="emailUser" value="${emailUser }" />
    <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
-
+<!-- donne les astuces d'un chat -->
 <a href="http://localhost:8080/NekoAtsume/astuces"><button class="btn btn-primary">Revenir à l'affichage des astuces</button></a>
 <br></br>
 <table class="table table-hover">

@@ -14,6 +14,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta http-equiv="refresh" content="10; URL=${url}">
 <title>Redirection</title>
+<!--  vieille page de redirection -->
 </head>
 <body>
 <h1 class="text-danger">${error}</h1>

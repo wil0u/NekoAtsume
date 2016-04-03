@@ -7,6 +7,7 @@
 	<jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
 <table class="table table-striped">
+<!-- affichage de la liste des chats -->
 
 	<!--  affichera l'erreur si pas trouvé de chat au nom ou au niveau associé -->
 	<div class="text-danger">${error}</div>

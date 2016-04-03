@@ -6,6 +6,8 @@
    <jsp:param name="emailUser" value="${emailUser }" />
    <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
+
+<!--  permet d'afficher l'astuce avec les likes les dislikes   -->
 <a href="http://localhost:8080/NekoAtsume/astuces"><button class="btn btn-primary">Revenir à l'affichage des astuces</button></a>
 <br />
 <br>
@@ -25,13 +27,13 @@
     </c:otherwise>
     
 </c:choose>
-
+Nombres de votes total : ${votesTotal}
   <div class="progress">
   <div class="progress-bar progress-bar-success" role="progressbar" style="width:${pourCentLike}%">
-    ${pourCentLike}%
+    ${pourCentLike}% / ${votesPour} votes
   </div>
    <div class="progress-bar progress-bar-danger" role="progressbar" style="width:${pourCentDislike}%">
-     ${pourCentDislike}%
+     ${pourCentDislike}% / ${votesContre} votes
   </div>
 </div>
 
@@ -45,17 +47,29 @@
 			<span class="label label-default">Titre</span>
 				${Astuce.titre }
 			</li>
+			<li class="list-group-item">
+			<span class="label label-default">Date de création</span>
+				${Astuce.date }
+			</li>
 		
 			<li class="list-group-item">
-			<span class="label label-default">Chat</span>
-				${Astuce.categorie.nomCategorie }
-				//
+			<span class="label label-default">Catégorie de l'Astuce</span>
+				${Astuce.categorie.nomCategorieAstuce}
+				</li>
+				
 				<c:if test="${not empty Astuce.chat}">
-   				
-					${Astuce.chat.nomChat}
+   				<li class="list-group-item">
+   				<span class="label label-default">Chat concerné</span>
+					${Astuce.chat.nomChat}</li>
+					
+					<li class="list-group-item">
+			<div class="zoom">
+			<span class="label label-default">Image</span>
+				<img src="${Astuce.chat.cheminPhotoChat}" /></div>
+			</li>
 					
 			</c:if>		
-			</li>
+			
 				<li class="list-group-item">
 			<span class="label label-default">Astuce</span>
 				${Astuce.astuce }

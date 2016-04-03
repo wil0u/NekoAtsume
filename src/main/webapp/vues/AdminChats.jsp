@@ -9,12 +9,13 @@
 </jsp:include>
 <table class="table table-striped">
 	<!-- Lorsqu'on a ajouté ou modifié avec succès, retour ici avec affichage  -->
+	<!-- affichage de la liste des chats avec options de moderation -->
 
 	<c:if test="${not empty Succes}">
 		<div class="alert alert-success">${Succes}</div>
 	</c:if>
-	<c:if test="${not empty Error}">
-		<div class="alert alert-danger">${Error}</div>
+	<c:if test="${not empty error}">
+		<div class="alert alert-danger">${error}</div>
 	</c:if>
 	
 	<form method="post" action="/NekoAtsume/chat/AdminChatsRech">

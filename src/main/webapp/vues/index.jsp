@@ -7,6 +7,7 @@
        <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
 
+<!--  donne la page d'accueil -->
 <c:if test="${not empty succes}">
 <div class="alert alert-success">${succes}</div>
  </c:if>
@@ -25,8 +26,26 @@
 Celles-ci sont notées par les membres du site !
 </div>
  </div>  
-   <br></br><br></br>
- 
+   <br>
+   </div>
+  <h2> Un coup d'oeil sur toutes les astuces postées la semaine dernière !</h1></br>
+   <table class="table table-striped">
+
+  <tr>
+    <th>Titre</th>
+    <th>Chat concerné</th>
+    <th>Date de création</th>
+    <th>Lien</th>
+     </tr>
+  <c:forEach var="astuce" items="${ListeAstuce}">
+  <tr>
+    <td>${astuce.titre}</td>
+    <td><a href="http://localhost:8080/NekoAtsume/chat/${astuce.chat.idChat}">${astuce.chat.nomChat}</a></td>
+    <td>${astuce.date}</td>
+    <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}" class="btn btn-primary" role="button">Lien</a></td>
+  </tr>
+  </c:forEach>
+</table>
 
   
 

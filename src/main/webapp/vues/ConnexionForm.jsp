@@ -10,6 +10,7 @@
 <div class="text-info">${Info}</div>
 <br>
 
+<!--  affichage du formulaire de connection -->
 <form method="post" action="/NekoAtsume/connexion">
 	<fieldset>
 		<div class="form-group">
