@@ -210,7 +210,7 @@ public class AstuceControleur {
 			List<Vote> votes = (List<Vote>) criteria.list();
 			
 			// si pas de votes et taille vote =0, il n' apas vot�
-			if (votes == null || votes.size() == 0) {
+			if (votes == null || votes.isEmpty()) {
 				info = "Vous n'avez pas encore vot� pour cette astuce";
 				cas = "1";
 				modelAndView.addObject("Admin", httpSession.getAttribute("Admin"));
@@ -229,7 +229,7 @@ public class AstuceControleur {
 			modelAndView.addObject("Astuce", astuce);
 			
 			
-			if (vote.getValeur().equals("1")) {
+			if ("1".equals(vote.getValeur())) {
 				info = "Vous n'avez pas encore voté pour cette astuce";
 				cas = vote.getValeur();
 				modelAndView.addObject("Info", info);
@@ -238,7 +238,7 @@ public class AstuceControleur {
 			}
 			
 			// si le vote =2, il a like
-			if (vote.getValeur().equals("2")) {
+			if ("2".equals(vote.getValeur())) {
 				info = "Vous avez liké cette astuce";
 				cas = vote.getValeur();
 				modelAndView.addObject("Info", info);
@@ -247,7 +247,7 @@ public class AstuceControleur {
 			}
 			
 			// si le vote =3 , il a dislike
-			if (vote.getValeur().equals("3"))
+			if ("3".equals(vote.getValeur()))
 				info = "Vous avez disliké cette astuce";
 			cas = vote.getValeur();
 			modelAndView.addObject("Info", info);
@@ -998,7 +998,7 @@ public class AstuceControleur {
 		List<Vote> votes = (List<Vote>) criteria.list();
 		
 		// si personne, permet de voter et redirige
-		if (votes == null || votes.size() == 0) {
+		if (votes == null || votes.isEmpty()) {
 			modelAndView = new ModelAndView("redirect:/astuce/" + idAstuce);
 			Vote vote = new Vote();
 			vote.setAstuce(astuce);
@@ -1012,7 +1012,7 @@ public class AstuceControleur {
 			
 			// sinon l� je comprends plus rien au code
 			Vote vote = votes.get(0);
-			if (vote.getValeur().equals("1")) {
+			if ("1".equals(vote.getValeur())) {
 				modelAndView = new ModelAndView("redirect:/astuce/" + idAstuce);
 				vote.setValeur("2");
 				session.save(vote);
@@ -1020,7 +1020,7 @@ public class AstuceControleur {
 				session.close();
 				return modelAndView;
 			}
-			if (vote.getValeur().equals("2")) {
+			if ("2".equals(vote.getValeur())) {
 				modelAndView = new ModelAndView("redirect:/astuce/" + idAstuce);
 				vote.setValeur("1");
 				session.save(vote);
@@ -1028,7 +1028,7 @@ public class AstuceControleur {
 				session.close();
 				return modelAndView;
 			}
-			if (vote.getValeur().equals("3")) {
+			if ("3".equals(vote.getValeur())) {
 				modelAndView = new ModelAndView("redirect:/astuce/" + idAstuce);
 				vote.setValeur("2");
 				session.save(vote);
@@ -1073,7 +1073,7 @@ public class AstuceControleur {
 		
 		// l� vraiment il est tr�s tard, ou plut�t tr�s t�t, 6h02 du matin
 		// plus s�rieusement, je ne comprends pas le code ci-dessous
-		if (votes == null || votes.size() == 0) {
+		if (votes == null || votes.isEmpty()) {
 			modelAndView = new ModelAndView("redirect:/astuce/" + idAstuce);
 			Vote vote = new Vote();
 			vote.setAstuce(astuce);
@@ -1085,7 +1085,7 @@ public class AstuceControleur {
 			return modelAndView;
 		} else {
 			Vote vote = votes.get(0);
-			if (vote.getValeur().equals("1")) {
+			if ("1".equals(vote.getValeur())) {
 				modelAndView = new ModelAndView("redirect:/astuce/" + idAstuce);
 				vote.setValeur("3");
 				session.save(vote);
@@ -1093,7 +1093,7 @@ public class AstuceControleur {
 				session.close();
 				return modelAndView;
 			}
-			if (vote.getValeur().equals("2")) {
+			if ("2".equals(vote.getValeur())) {
 				modelAndView = new ModelAndView("redirect:/astuce/" + idAstuce);
 				vote.setValeur("3");
 				session.save(vote);
@@ -1101,7 +1101,7 @@ public class AstuceControleur {
 				session.close();
 				return modelAndView;
 			}
-			if (vote.getValeur().equals("3")) {
+			if ("3".equals(vote.getValeur())) {
 				modelAndView = new ModelAndView("redirect:/astuce/" + idAstuce);
 				vote.setValeur("1");
 				session.save(vote);
