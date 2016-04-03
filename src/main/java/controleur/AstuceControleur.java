@@ -132,7 +132,7 @@ public class AstuceControleur {
 		// creation modele
 		ModelAndView modelAndView = new ModelAndView("Astuce");
 		
-		Astuce astuce = new Astuce();
+		Astuce astuce ;
 		String info ="";
 		String cas ;
 		
@@ -315,7 +315,7 @@ public class AstuceControleur {
 			// Si le chat existe, on va chercher la m�thode qui va chercher
 			// pour nous
 			
-			ModelAndView modelAndView = new ModelAndView("AstucesChat");
+			ModelAndView modelAndView;
 			modelAndView = AstucesAssocieesAuChatNORMAL(chat.getIdChat(), httpSession);
 			session.close();
 			return modelAndView;
@@ -335,7 +335,7 @@ public class AstuceControleur {
 
 		ModelAndView modelAndView = new ModelAndView("AstucesChat");
 		// Cr�e le chat en question
-		Chat chat = new Chat();
+		Chat chat ;
 		
 		//ouverture de session
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -368,7 +368,7 @@ public class AstuceControleur {
 
 		ModelAndView modelAndView = new ModelAndView("AstucesChat");
 		// Cr�e le chat en question
-		Chat chat = new Chat();
+		Chat chat;
 		
 		// ouverture de dession
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -408,8 +408,7 @@ public class AstuceControleur {
 			return model1;
 		}
 		ModelAndView modelAndView = new ModelAndView("AjoutAstuceForm");
-		Chat chat = new Chat();
-		
+		Chat chat;
 		// ouverture de dession
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -506,7 +505,7 @@ public class AstuceControleur {
 			model1.addObject("error", "Probl�me dans le formulaire, veuillez contacter un Admin");
 			return model1;
 		}
-		if (astuce.getTitre().equals("") || astuce.getAstuce().equals("")  || astuce.getTitre().length()>253 || astuce.getAstuce().length()>253) {
+		if ("".equals(astuce.getTitre()) || "".equals(astuce.getAstuce())   || astuce.getTitre().length()>253 || astuce.getAstuce().length()>253) {
 			ModelAndView model1 = new ModelAndView("Redirection");
 			model1.addObject("error", "Erreur : Le corps, le titre de l'astuce est vide ou trop grand (255 caractères MAXIMUM) !!");
 			model1.addObject("url", "/NekoAtsume/chat/" + idChat + "/astuce");
@@ -517,9 +516,9 @@ public class AstuceControleur {
 
 		Objet objet;
 		Chat chat;
-//		
-//		CategorieAstuce categorieAstuce = astuce.getCategorie();
-//		
+		
+
+	
 		CompteInscrit compte;
 		
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -541,7 +540,6 @@ public class AstuceControleur {
 		
 		
 
-		String emailUser = (String) httpSession.getAttribute("emailUser");
 		compte = (CompteInscrit) query.uniqueResult();
 		// Et on bind les infos � l'astuce
 		astuce.setListObjet(objets);
@@ -619,7 +617,7 @@ public class AstuceControleur {
 		
 		//creemodele and view
 		ModelAndView modelAndView = new ModelAndView("AdminAstucesModeration");
-		Astuce astuce = new Astuce();
+		Astuce astuce ;
 		
 		// ouverture de dession
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -678,7 +676,7 @@ public class AstuceControleur {
 
 		criteria = session.createCriteria(CategorieAstuce.class);
 
-		List<CategorieAstuce> listCategorieAstuces = (List<CategorieAstuce>) criteria.list();
+
 		List<Objet> objetAstuces;
 		objetAstuces = astuce.getListObjet();
 		
@@ -812,7 +810,7 @@ public class AstuceControleur {
 		session.beginTransaction();
 		
 		//liste des objets
-		Objet objet = new Objet();
+		Objet objet ;
 		List<Objet> objets = new ArrayList<Objet>();
 		for (int i = 0; i < astuce.getListObjetId().size(); i++) {
 			objet = session.get(Objet.class, astuce.getListObjetId().get(i));
@@ -865,7 +863,7 @@ public class AstuceControleur {
 		Criteria criteria = session.createCriteria(Vote.class);
         criteria.add(Restrictions.eq("astuce",astuceRetour));
         List<Vote> votes = (List<Vote>)criteria.list();
-        if (votes.size()>0){
+        if (!votes.isEmpty()){
         	for(int j=0;j<votes.size();j++){
         		Vote vote;
         		vote = session.get(Vote.class, votes.get(j).getIdVote());
@@ -972,11 +970,10 @@ public class AstuceControleur {
 	 * @param httpSession donne les info de l'utilisateur connect�
 	 * */
 	@RequestMapping("astuce/{idAstuce}/liker/{cas}")
-	public ModelAndView liker(@PathVariable("idAstuce") int idAstuce, @PathVariable("cas") String cas,
+	public ModelAndView liker(@PathVariable("idAstuce") int idAstuce, 
 			HttpSession httpSession) {
 		//cr�� modele and view
-		ModelAndView modelAndView = detailAstuce(idAstuce, httpSession);
-		String info = "";
+		ModelAndView modelAndView;
 
 		//ouverture de session
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -1029,7 +1026,6 @@ public class AstuceControleur {
 				return modelAndView;
 			}
 			if ("3".equals(vote.getValeur())) {
-				modelAndView = new ModelAndView("redirect:/astuce/" + idAstuce);
 				vote.setValeur("2");
 				session.save(vote);
 				session.getTransaction().commit();
@@ -1047,12 +1043,10 @@ public class AstuceControleur {
 	 * @param httpSession donne les info de l'utilisateur connect�
 	 * */
 	@RequestMapping("astuce/{idAstuce}/disliker/{cas}")
-	public ModelAndView disliker(@PathVariable("idAstuce") int idAstuce, @PathVariable("cas") String cas,
+	public ModelAndView disliker(@PathVariable("idAstuce") int idAstuce,
 			HttpSession httpSession) {
 
-		ModelAndView modelAndView = detailAstuce(idAstuce, httpSession);
-		String info = "";
-		
+		ModelAndView modelAndView;
 		// ouverture de session
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -1214,7 +1208,7 @@ public class AstuceControleur {
 			model1.addObject("Info", "Vous devez etre connecte!");
 			return model1;
 		}
-		if (astuce.getTitre().equals("") || astuce.getAstuce().equals("")  || astuce.getTitre().length()>253 || astuce.getAstuce().length()>253) {
+		if ( "".equals(astuce.getTitre()) || "".equals(astuce.getAstuce())  || astuce.getTitre().length()>253 || astuce.getAstuce().length()>253) {
 			ModelAndView model1 = new ModelAndView("Redirection");
 			model1.addObject("error", "Erreur : Le corps, le titre de l'astuce est vide ou trop grand (255 caractères MAXIMUM) !!");
 			model1.addObject("url", "/NekoAtsume/AjoutAstuceGenerale");
@@ -1223,9 +1217,7 @@ public class AstuceControleur {
 
 		
 		Objet objet;
-				
-//		CategorieAstuce categorieAstuce = astuce.getCategorie();
-//		System.out.println("HEEEEEEEEEEEEEEY"+categorieAstuce.getNomCategorieAstuce());
+
 		CompteInscrit compte;
 		
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -1245,7 +1237,6 @@ public class AstuceControleur {
 		
 		
 
-		String emailUser = (String) httpSession.getAttribute("emailUser");
 		compte = (CompteInscrit) query.uniqueResult();
 		// Et on bind les infos � l'astuce
 		astuce.setListObjet(objets);
