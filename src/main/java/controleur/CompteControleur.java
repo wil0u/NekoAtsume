@@ -154,7 +154,7 @@ public class CompteControleur {
         } catch ( Exception e ) {
           erreurs.put( "motdepasse", e.getMessage() );
           erreur = true ;
-          
+          e.printStackTrace();
         	model1.addObject("error4","Votre mot de passe n'est pas identique ou trop court.");
 	  }
 
@@ -167,7 +167,7 @@ public class CompteControleur {
 
         } catch ( Exception e ) {
         	erreur = true ;
- 
+        	e.printStackTrace();
         	model1.addObject("error5","Le nom d'utilisateur doit contenir au moins 3 caract�res.");
 		  }
 		
@@ -200,17 +200,17 @@ public class CompteControleur {
 
 			if (!motDePasse.equals(confirmation)) {
 
-				throw new Exception("Les mots de passe entr�s sont diff�rents, merci de les saisir � nouveau.");
+				throw new IllegalArgumentException("Les mots de passe entr�s sont diff�rents, merci de les saisir � nouveau.");
 
 			} else if (motDePasse.trim().length() < 3) {
 
-				throw new Exception("Les mots de passe doivent contenir au moins 3 caract�res.");
+				throw new IllegalArgumentException("Les mots de passe doivent contenir au moins 3 caract�res.");
 
 			}
 
 		} else {
 
-			throw new Exception("Merci de saisir et confirmer votre mot de passe.");
+			throw new IllegalArgumentException("Merci de saisir et confirmer votre mot de passe.");
 
 		}
 
@@ -226,7 +226,7 @@ public class CompteControleur {
 
 		if (nom != null && nom.trim().length() < 3) {
 
-			throw new Exception("Le nom d'utilisateur doit contenir au moins 3 caract�res.");
+			throw new IllegalArgumentException("Le nom d'utilisateur doit contenir au moins 3 caract�res.");
 
 		}
 

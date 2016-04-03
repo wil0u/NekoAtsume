@@ -156,7 +156,7 @@ public class AstuceControleur {
 		List<Vote> toutvotes = (List<Vote>) crit.list();
 		
 		// float car sinon la division ne fonctionne pas
-		float nbVoteTotal = toutvotes.size();
+		int nbVoteTotal = toutvotes.size();
 		crit = session.createCriteria(Vote.class);
 		price = Restrictions.eq("astuce", astuce);
 		name = Restrictions.like("valeur", "3");
@@ -268,7 +268,7 @@ public class AstuceControleur {
 	 * @param dislike
 	 *            Nombre des dislikes
 	 */
-	public List<Float> calculerPourcentage(float nbTotal, float like, float dislike) {
+	public List<Float> calculerPourcentage(int nbTotal, float like, float dislike) {
 		
 		// calcul du pourcentage
 		List<Float> vals = new ArrayList<Float>();
@@ -509,7 +509,7 @@ public class AstuceControleur {
 			model1.addObject("error", "Probl�me dans le formulaire, veuillez contacter un Admin");
 			return model1;
 		}
-		if (astuce.getTitre().equals("") || astuce.getAstuce().equals("")  || astuce.getTitre().length()>253 || astuce.getTitre().length()>253) {
+		if (astuce.getTitre().equals("") || astuce.getAstuce().equals("")  || astuce.getTitre().length()>253 || astuce.getAstuce().length()>253) {
 			ModelAndView model1 = new ModelAndView("Redirection");
 			model1.addObject("error", "Erreur : Le corps, le titre de l'astuce est vide ou trop grand (255 caractères MAXIMUM) !!");
 			model1.addObject("url", "/NekoAtsume/chat/" + idChat + "/astuce");
