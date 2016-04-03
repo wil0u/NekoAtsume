@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import modele.CategorieAstuce;
 import modele.CategorieObjet;
 import modele.Objet;
 

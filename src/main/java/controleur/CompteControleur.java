@@ -10,8 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import modele.Astuce;
-import modele.Chat;
 import modele.CompteAdmin;
 import modele.CompteInscrit;
 
@@ -81,12 +79,11 @@ public class CompteControleur {
 	 * @param request requ�te http
 	 * @param response r�ponse http
 	 * @return modelAndView la page
-	 * @throws ServletException
-	 * @throws IOException
+	 * @throws Exception 
 	 */
 	@RequestMapping(value="/compte", method = RequestMethod.POST)
 	public ModelAndView AjoutCompte(@ModelAttribute("compte") CompteInscrit compte, BindingResult result, HttpServletRequest request, HttpServletResponse response ) 
-			throws ServletException, IOException {
+			throws Exception {
 		   
 		ModelAndView model1 = new ModelAndView("InscriptionForm");
         String resultat;
@@ -151,7 +148,7 @@ public class CompteControleur {
 
             validationMotsDePasse( motDePasse, confirmation );
 
-        } catch ( Exception e ) {
+        } catch ( IllegalArgumentException e ) {
           erreurs.put( "motdepasse", e.getMessage() );
           erreur = true ;
           e.printStackTrace();
@@ -165,8 +162,9 @@ public class CompteControleur {
 
             validationNom( pseudo );
 
-        } catch ( Exception e ) {
+        } catch ( IllegalArgumentException e ) {
         	erreur = true ;
+        	
         	e.printStackTrace();
         	model1.addObject("error5","Le nom d'utilisateur doit contenir au moins 3 caract�res.");
 		  }
@@ -192,7 +190,7 @@ public class CompteControleur {
  * @param confirmation
  * @throws Exception
  */
-	private void validationMotsDePasse(String motDePasse, String confirmation) throws Exception {
+	private void validationMotsDePasse(String motDePasse, String confirmation) throws IllegalArgumentException {
 		
 		// v�rifie si mdp non null et si lui et sa confirmations ne sont pas diff�rents
 		if (motDePasse != null && motDePasse.trim().length() != 0 && confirmation != null

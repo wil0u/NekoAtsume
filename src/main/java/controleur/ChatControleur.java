@@ -15,14 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import modele.Astuce;
 import modele.Chat;
-import modele.CompteInscrit;
-import modele.Objet;
- 
-
-
-
-
-
 import modele.Vote;
 
 import org.hibernate.Criteria;

@@ -5,6 +5,7 @@ import java.util.List;
 import modele.Chat;
 
 
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,7 +24,7 @@ public class RestControleur {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Criteria criteria = session.createCriteria(Chat.class);
-        List<Chat> chats =  (List<Chat>)criteria.list();
+		List<Chat> chats =  (List<Chat>)criteria.list();
         session.close();
          
         if(chats.isEmpty()){
