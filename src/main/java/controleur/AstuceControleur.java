@@ -42,7 +42,7 @@ public class AstuceControleur {
 	 * Retourne la liste des astuces
 	 * 
 	 * @param httpSession
-	 *            donne les info de l'utilisateur connecté
+	 *            donne les info de l'utilisateur connectï¿½
 	 *
 	 */
 	@RequestMapping("/astuces")
@@ -74,7 +74,7 @@ public class AstuceControleur {
 
 
 	/**Retourne la page d'accueil
-	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @param httpSession donne les info de l'utilisateur connectï¿½
 	 * */
 	@RequestMapping("/index")
 	public ModelAndView listeAstuceRecent(HttpSession httpSession){
@@ -87,7 +87,7 @@ public class AstuceControleur {
 		session.beginTransaction();
 		
 		
-		//récupération de la date courante
+		//rï¿½cupï¿½ration de la date courante
 		Date dateAuj = new Date();
 		int nbDays = -7 ;
 		
@@ -101,13 +101,13 @@ public class AstuceControleur {
 	     // date d'il y a une Sem en SQL
 	     java.sql.Date dateSem = new java.sql.Date(cal.getTime().getTime());
 	     
-		//criteria qui récupère les astuces datant que d'il y a une semaine	
+		//criteria qui rï¿½cupï¿½re les astuces datant que d'il y a une semaine	
 		Criteria criteria = session.createCriteria(Astuce.class);
 		criteria.add(Restrictions.ge("date",dateSem));
 		criteria.add(Restrictions.le("date", date));
 		criteria.add(Restrictions.eq("publie", true));
 		
-		// résultats
+		// rï¿½sultats
 		List<Astuce> astuces = (List<Astuce>) criteria.list();
 		session.close();
 		
@@ -122,11 +122,11 @@ public class AstuceControleur {
 	}
 
 	/**
-	 * Retourne le détail d'une astuce
+	 * Retourne le dï¿½tail d'une astuce
 	 * 
-	 * @idAstuce récupère l'id contenu dans l'URL
+	 * @idAstuce rï¿½cupï¿½re l'id contenu dans l'URL
 	 * @param httpSession
-	 *            donne les info de l'utilisateur connecté
+	 *            donne les info de l'utilisateur connectï¿½
 	 */
 	@RequestMapping("/astuce/{idAstuce}")
 	public ModelAndView detailAstuce(@PathVariable("idAstuce") int idAstuce, HttpSession httpSession) {
@@ -174,7 +174,7 @@ public class AstuceControleur {
 
 		float nblike = leslikes.size();
 
-		// calcule le pourcentage et envoie toutes les infos à la page
+		// calcule le pourcentage et envoie toutes les infos ï¿½ la page
 		List<Float> listVal = calculerPourcentage(nbVoteTotal, nblike, nbDislike);
 		modelAndView.addObject("votesTotal", (int) nbVoteTotal);
 		modelAndView.addObject("votesPour", (int) nblike);
@@ -185,7 +185,7 @@ public class AstuceControleur {
 		
 		System.out.println("listVal de 0 :" + listVal.get(0) + "  listVal de 1 :" + listVal.get(1));
 
-		// va déterminer si la personne peut voter ou non.
+		// va dï¿½terminer si la personne peut voter ou non.
 		String email = (String) httpSession.getAttribute("emailUser");
 		System.out.println("Valeur de la variable email : " + email);
 		
@@ -193,7 +193,7 @@ public class AstuceControleur {
 		Query query = session.getNamedQuery("findCompteByEmail").setString("email", email);
 		compteRetour = (CompteInscrit) query.uniqueResult();
 		
-		// SI vide, non connecté
+		// SI vide, non connectï¿½
 		if (email == null) {
 			info = "Vous devez Ãªtre connecter pour liker une astuce";
 			cas = "0";
@@ -205,14 +205,14 @@ public class AstuceControleur {
 			return modelAndView;
 		} else {
 
-			// sinon, il peut voter tout ça.
+			// sinon, il peut voter tout ï¿½a.
 			Criteria criteria = session.createCriteria(Vote.class);
 			criteria.add(Restrictions.eq("astuce", astuce)).add(Restrictions.eq("compte", compteRetour));
 			List<Vote> votes = (List<Vote>) criteria.list();
 			
-			// si pas de votes et taille vote =0, il n' apas voté
+			// si pas de votes et taille vote =0, il n' apas votï¿½
 			if (votes == null || votes.size() == 0) {
-				info = "Vous n'avez pas encore voté pour cette astuce";
+				info = "Vous n'avez pas encore votï¿½ pour cette astuce";
 				cas = "1";
 				modelAndView.addObject("Admin", httpSession.getAttribute("Admin"));
 				modelAndView.addObject("email", httpSession.getAttribute("emailUser"));
@@ -223,7 +223,7 @@ public class AstuceControleur {
 			}
 			vote = votes.get(0);
 			
-			// si le vote egal à 1, il n' apas voté (???)
+			// si le vote egal ï¿½ 1, il n' apas votï¿½ (???)
 			
 			modelAndView.addObject("Admin", httpSession.getAttribute("Admin"));
 			modelAndView.addObject("email", httpSession.getAttribute("emailUser"));
@@ -259,7 +259,7 @@ public class AstuceControleur {
 	}
 
 	/**
-	 * Calcule le pourcentage que représentent les votes
+	 * Calcule le pourcentage que reprï¿½sentent les votes
 	 * 
 	 * @param nbTotal
 	 *            Nombre total des votes
@@ -290,11 +290,11 @@ public class AstuceControleur {
 	}
 
 	/**
-	 * Donne toutes les astuces pour un chat donné
+	 * Donne toutes les astuces pour un chat donnï¿½
 	 * 
 	 * @param httpSession
-	 *            donne les info de l'utilisateur connecté
-	 * @request Requête Http
+	 *            donne les info de l'utilisateur connectï¿½
+	 * @request Requï¿½te Http
 	 */
 	@RequestMapping("/chat/RechAstucesChat")
 	public ModelAndView RechAstucesChat(HttpSession httpSession, HttpServletRequest request) {
@@ -328,9 +328,9 @@ public class AstuceControleur {
 
 	}
 
-	/**Donne les astuces associées à un chat sans passer par un param dans l'URL {idChat}
-	 * @param idChat L'id du chat à qui chercher les astuces
-	 * @param httpSession donne les info de l'utilisateur connecté 
+	/**Donne les astuces associï¿½es ï¿½ un chat sans passer par un param dans l'URL {idChat}
+	 * @param idChat L'id du chat ï¿½ qui chercher les astuces
+	 * @param httpSession donne les info de l'utilisateur connectï¿½ 
 	 * */
 	public ModelAndView AstucesAssocieesAuChatNORMAL(int idChat, HttpSession httpSession) {
 
@@ -361,9 +361,9 @@ public class AstuceControleur {
 
 	}
 
-	/**Donne les astuces associées à un chat en passant par une variable PATH
+	/**Donne les astuces associï¿½es ï¿½ un chat en passant par une variable PATH
 	 * @param idChat Id du chat dont on cherche les astuces
-	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @param httpSession donne les info de l'utilisateur connectï¿½
 	 * */
 	@RequestMapping(value = "/chat/{idChat}/astuces", method = RequestMethod.GET)
 	public ModelAndView AstucesAssocieesAuChat(@PathVariable("idChat") int idChat, HttpSession httpSession) {
@@ -399,12 +399,12 @@ public class AstuceControleur {
 
     /** Affiche la page du formulaire d'ajout d'astuces
      * @param idChat Id du chat dont on veut rajouter une astuce
-     * @param httpSession donne les info de l'utilisateur connecté
+     * @param httpSession donne les info de l'utilisateur connectï¿½
      * */
 	@RequestMapping(value = "/chat/{idChat}/astuce", method = RequestMethod.GET)
 	public ModelAndView AfficheAjoutAstuce(@PathVariable("idChat") int idChat, HttpSession httpSession) {
 		
-		// on peut accéder que si connecté
+		// on peut accï¿½der que si connectï¿½
 		if (httpSession.getAttribute("emailUser") == null) {
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
 			model1.addObject("Info", "Vous devez ï¿½tre connectï¿½ pour ajouter une astuce.");
@@ -419,7 +419,7 @@ public class AstuceControleur {
 		session.beginTransaction();
 		chat = session.get(Chat.class, idChat);
 		
-		//récupère les objets pour les afficher, et yen a un tas.
+		//rï¿½cupï¿½re les objets pour les afficher, et yen a un tas.
 		Criteria criteriaCategorieObjet = session.createCriteria(CategorieObjet.class);
 		List<CategorieObjet> categorieObjets = (List<CategorieObjet>) criteriaCategorieObjet.list();
 
@@ -493,9 +493,9 @@ public class AstuceControleur {
 
 	}
 
-	/** Récupère les infos du form et ajoute une astuce
+	/** Rï¿½cupï¿½re les infos du form et ajoute une astuce
 	 * @param idChat IdChat auquel on rajoute une astuce
-	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @param httpSession donne les info de l'utilisateur connectï¿½
 	 * @throws ParseException 
 	 * */
 	@RequestMapping(value = "/chat/{idChat}/astuce", method = RequestMethod.POST)
@@ -506,7 +506,7 @@ public class AstuceControleur {
 		// Teste si il y ï¿½ des erreus
 		if (result.hasErrors()) {
 			ModelAndView model1 = new ModelAndView("AjoutAstuceForm");
-			model1.addObject("error", "Problème dans le formulaire, veuillez contacter un Admin");
+			model1.addObject("error", "Problï¿½me dans le formulaire, veuillez contacter un Admin");
 			return model1;
 		}
 		if (astuce.getTitre().equals("") || astuce.getAstuce().equals("")) {
@@ -563,13 +563,13 @@ public class AstuceControleur {
 		modelAndView.addObject("email", compte);
 		modelAndView.addObject("Admin", httpSession.getAttribute("Admin"));
 		modelAndView.addObject("succes",
-				"Votre astuce a été envoyée aux modérateurs afin qu'ils puissent la valider !");
+				"Votre astuce a ï¿½tï¿½ envoyï¿½e aux modï¿½rateurs afin qu'ils puissent la valider !");
 		return modelAndView;
 
 	}
 
 	/**Affiches les Astuces sur le panneau Administrateur
-	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @param httpSession donne les info de l'utilisateur connectï¿½
 	 * */
 	@RequestMapping("/AdminAstuces")
 	public ModelAndView affichePanneauAdminAstuces(HttpSession httpSession) {
@@ -586,7 +586,7 @@ public class AstuceControleur {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 
-		//criteria qui récupère toutes les astuces
+		//criteria qui rï¿½cupï¿½re toutes les astuces
 		Criteria criteria = session.createCriteria(Astuce.class);
 		List<Astuce> astuces = (List<Astuce>) criteria.list();
 		session.close();
@@ -600,14 +600,14 @@ public class AstuceControleur {
 		return modelAndView;
 	}
 
-	/** Permet à l'admin de modifier une astuce
-	 * @param idAstuce id de l'Astuce concernée par la modification
-	 * @param httpSession donne les info de l'utilisateur connecté
+	/** Permet ï¿½ l'admin de modifier une astuce
+	 * @param idAstuce id de l'Astuce concernï¿½e par la modification
+	 * @param httpSession donne les info de l'utilisateur connectï¿½
 	 * */
 	@RequestMapping("/astuce/{idAstuce}/moderer")
 	public ModelAndView AdminModererAstuce(@PathVariable("idAstuce") int idAstuce, HttpSession httpSession) {
 		
-		//accessible qu'en étant admin
+		//accessible qu'en ï¿½tant admin
 		if (httpSession.getAttribute("Admin") == null) {
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
 			model1.addObject("Info", "Vous devez etre connecte en tant qu'admin !");
@@ -625,7 +625,7 @@ public class AstuceControleur {
 		
 		astuce = session.get(Astuce.class, idAstuce);
 
-		// criteria qui récup la catégorie des objets
+		// criteria qui rï¿½cup la catï¿½gorie des objets
 		Criteria criteriaCategorieObjet = session.createCriteria(CategorieObjet.class);
 		List<CategorieObjet> categorieObjets = (List<CategorieObjet>) criteriaCategorieObjet.list();
 
@@ -679,7 +679,7 @@ public class AstuceControleur {
 		List<Objet> objetAstuces;
 		objetAstuces = astuce.getListObjet();
 		
-		// va mettre si selectionné ou pas.
+		// va mettre si selectionnï¿½ ou pas.
 
 		for (int i = 0; i < balls.size(); i++) {
 			for (int j = 0; j < objetAstuces.size(); j++) {
@@ -785,12 +785,17 @@ public class AstuceControleur {
 	}
 
 	/**Permet de valider les changements du chat par l'admin
-	 * @param astuce est l'astuce modifiée
-	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @param astuce est l'astuce modifiï¿½e
+	 * @param httpSession donne les info de l'utilisateur connectï¿½
 	 * */
-	@RequestMapping("/modifierAstuce")
-	public ModelAndView modificationAstuce(@ModelAttribute("astuce") Astuce astuce, HttpSession httpSession) {
+	@RequestMapping(value="/modifierAstuce", method = RequestMethod.POST)
+	public ModelAndView modificationAstuce(@ModelAttribute("astuce") Astuce astuce,BindingResult result, HttpSession httpSession) {
 		
+		
+		if (result.hasErrors()) {
+			ModelAndView model1 = new ModelAndView("AdminAstucesModeration");
+			return model1;
+		}
 		//accessible que si admin
 		if (httpSession.getAttribute("Admin") == null) {
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
@@ -835,8 +840,8 @@ public class AstuceControleur {
 	}
 
 	/** Supprime une astuce
-	 * @param idAstuce id de l'astuce à supprimer
-	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @param idAstuce id de l'astuce ï¿½ supprimer
+	 * @param httpSession donne les info de l'utilisateur connectï¿½
 	 * */
 	@RequestMapping("/astuce/{idAstuce}/supprimerAstuce")
 	public ModelAndView suppressionAstuce(@PathVariable("idAstuce") int idAstuce, HttpSession httpSession) {
@@ -872,9 +877,9 @@ public class AstuceControleur {
 		return modelAndView;
 	}
 	
-/**Passe une astuce en stade publié
- * @param idAstuce idAstuce concernée
- * @param httpSession donne les info de l'utilisateur connecté
+/**Passe une astuce en stade publiï¿½
+ * @param idAstuce idAstuce concernï¿½e
+ * @param httpSession donne les info de l'utilisateur connectï¿½
  * */
 	@RequestMapping("/astuce/{idAstuce}/publier")
 	public ModelAndView publicationAstuce(@PathVariable("idAstuce") int idAstuce, HttpSession httpSession) {
@@ -910,9 +915,9 @@ public class AstuceControleur {
 		return modelAndView;
 	}
 
-	/**Permet de passer une astuce au stade caché 
-	 * @param idAstuce id de l'astuce à cacher
-	 * @param httpSession donne les info de l'utilisateur connecté
+	/**Permet de passer une astuce au stade cachï¿½ 
+	 * @param idAstuce id de l'astuce ï¿½ cacher
+	 * @param httpSession donne les info de l'utilisateur connectï¿½
 	 * */
 	@RequestMapping("/astuce/{idAstuce}/cacher")
 	public ModelAndView cacherAstuce(@PathVariable("idAstuce") int idAstuce, HttpSession httpSession) {
@@ -948,15 +953,15 @@ public class AstuceControleur {
 		return modelAndView;
 	}
 
-	/** Résultat du bouton enclenché "like". Si no vote ou dislike, ajoute un like. Si déjà like, supprimer le vote
-	 * @param idAstuce astuce concernée
-	 * @param cas Cas demandé pour lel ike
-	 * @param httpSession donne les info de l'utilisateur connecté
+	/** Rï¿½sultat du bouton enclenchï¿½ "like". Si no vote ou dislike, ajoute un like. Si dï¿½jï¿½ like, supprimer le vote
+	 * @param idAstuce astuce concernï¿½e
+	 * @param cas Cas demandï¿½ pour lel ike
+	 * @param httpSession donne les info de l'utilisateur connectï¿½
 	 * */
 	@RequestMapping("astuce/{idAstuce}/liker/{cas}")
 	public ModelAndView liker(@PathVariable("idAstuce") int idAstuce, @PathVariable("cas") String cas,
 			HttpSession httpSession) {
-		//créé modele and view
+		//crï¿½ï¿½ modele and view
 		ModelAndView modelAndView = detailAstuce(idAstuce, httpSession);
 		String info = "";
 
@@ -965,10 +970,10 @@ public class AstuceControleur {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-		//récupère info de l'astuce
+		//rï¿½cupï¿½re info de l'astuce
 		Astuce astuce = session.get(Astuce.class, idAstuce);
 
-		//associe le vote à l'email
+		//associe le vote ï¿½ l'email
 		CompteInscrit compteRetour;
 		String email = (String) httpSession.getAttribute("emailUser");
 		Query query = session.getNamedQuery("findCompteByEmail").setString("email", email);
@@ -991,7 +996,7 @@ public class AstuceControleur {
 			return modelAndView;
 		} else {
 			
-			// sinon là je comprends plus rien au code
+			// sinon lï¿½ je comprends plus rien au code
 			Vote vote = votes.get(0);
 			if (vote.getValeur().equals("1")) {
 				modelAndView = new ModelAndView("redirect:/astuce/" + idAstuce);
@@ -1022,10 +1027,10 @@ public class AstuceControleur {
 		return null;
 	}
 	
-	/** Résultat du bouton enclenché "dislike". Si no vote ou like, ajoute un dislike. Si déjà dislike, supprimer le vote
-	 * @param idAstuce astuce concernée
-	 * @param cas Cas demandé pour lel ike
-	 * @param httpSession donne les info de l'utilisateur connecté
+	/** Rï¿½sultat du bouton enclenchï¿½ "dislike". Si no vote ou like, ajoute un dislike. Si dï¿½jï¿½ dislike, supprimer le vote
+	 * @param idAstuce astuce concernï¿½e
+	 * @param cas Cas demandï¿½ pour lel ike
+	 * @param httpSession donne les info de l'utilisateur connectï¿½
 	 * */
 	@RequestMapping("astuce/{idAstuce}/disliker/{cas}")
 	public ModelAndView disliker(@PathVariable("idAstuce") int idAstuce, @PathVariable("cas") String cas,
@@ -1047,13 +1052,13 @@ public class AstuceControleur {
 		Query query = session.getNamedQuery("findCompteByEmail").setString("email", email);
 		compteRetour = (CompteInscrit) query.uniqueResult();
 
-		//regarde si ya un compte associé au vote et à l'astuce
+		//regarde si ya un compte associï¿½ au vote et ï¿½ l'astuce
 		Criteria criteria = session.createCriteria(Vote.class);
 		criteria.add(Restrictions.eq("astuce", astuce)).add(Restrictions.eq("compte", compteRetour));
 		List<Vote> votes = (List<Vote>) criteria.list();
 		
-		// là vraiment il est très tard, ou plutôt très tôt, 6h02 du matin
-		// plus sérieusement, je ne comprends pas le code ci-dessous
+		// lï¿½ vraiment il est trï¿½s tard, ou plutï¿½t trï¿½s tï¿½t, 6h02 du matin
+		// plus sï¿½rieusement, je ne comprends pas le code ci-dessous
 		if (votes == null || votes.size() == 0) {
 			modelAndView = new ModelAndView("redirect:/astuce/" + idAstuce);
 			Vote vote = new Vote();

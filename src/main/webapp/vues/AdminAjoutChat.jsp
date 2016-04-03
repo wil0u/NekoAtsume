@@ -57,7 +57,7 @@ ${error5} </div>
 <br>
 <br>
 FORMULAIRE DU WEBSERVICE ! 
-<form enctype='application/json' method="post" action="/chatPost" accept-charset="ISO-8859-1">
+<form enctype='application/json' method="post" action="/api/chatPost" accept-charset="ISO-8859-1">
 <form:errors path="*" />
 
 		<ul class="list-group" >

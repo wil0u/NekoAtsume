@@ -6,7 +6,20 @@
    <jsp:param name="emailUser" value="${emailUser }" />
    <jsp:param name="Admin" value="${Admin}" />
 </jsp:include>
-
+	</div>
+			
+			<c:if test="${not empty Astuce.chat}">
+   				<li class="list-group-item">
+   				<span class="label label-default">Chat concerné</span>
+					${Astuce.chat.nomChat}</li>
+					
+					<li class="list-group-item">
+			<div class="zoom">
+			<span class="label label-default">Image</span>
+				<img src="${Astuce.chat.cheminPhotoChat}" /></div>
+			</li>
+					
+			</c:if>		
 
 <!-- affichage du detail de l'astuce avec options de moderation -->
 <h1 class="text-danger">${error}</h1>
@@ -26,25 +39,10 @@
 	</div>
 		
 		    
-     	<div class="form-group" >
-			
-			<input type="hidden"  name="chat" path="chat" value="${Astuce.chat }" class="form-control">
+
 			
 				
-			</div>
-			
-			<c:if test="${not empty Astuce.chat}">
-   				<li class="list-group-item">
-   				<span class="label label-default">Chat concerné</span>
-					${Astuce.chat.nomChat}</li>
-					
-					<li class="list-group-item">
-			<div class="zoom">
-			<span class="label label-default">Image</span>
-				<img src="${Astuce.chat.cheminPhotoChat}" /></div>
-			</li>
-					
-			</c:if>		
+		
 		
 <div class="container">
 	<div class="form-group">

@@ -62,6 +62,7 @@
 			</li>
 					
 			</c:if>		
+			<div class="text-info">Cliquer sur les flèches pour ouvrir/fermer les listes d'objets.</div>
 
 <h3>
 	Beds <a

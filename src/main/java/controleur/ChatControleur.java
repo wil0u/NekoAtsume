@@ -10,11 +10,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
  
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import modele.Astuce;
 import modele.Chat;
@@ -44,7 +39,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
  
 @Controller
-@Path("/chatPost")
 public class ChatControleur {
    
     @RequestMapping("/chats")
@@ -63,7 +57,7 @@ public class ChatControleur {
         public ModelAndView listeChat(HttpSession httpSession, String tri, String admin){
         ModelAndView modelAndView = null;
         
-        // vérifier si on demande une page admin ou pas
+        // vï¿½rifier si on demande une page admin ou pas
         if(admin.equals("NA")){
         modelAndView = new ModelAndView("ChatListe");}
         else
@@ -83,7 +77,7 @@ public class ChatControleur {
         List<Chat> chats = null ;
          
         
-        // différentes recherches par critéria en fonction de ce que l'on souhaite
+        // diffï¿½rentes recherches par critï¿½ria en fonction de ce que l'on souhaite
         if (tri.equals("UP")) 
         	chats = session.createCriteria(Chat.class).addOrder(Order.asc("nomChat")).list();
         else if (tri.equals("DOWN"))         
@@ -181,7 +175,7 @@ public class ChatControleur {
         // recherche chat
         chat = session.get(Chat.class,idChat);
        
-        // recherche par critère, recherche d'un chat par son nom
+        // recherche par critï¿½re, recherche d'un chat par son nom
         Criteria criteria = session.createCriteria(Astuce.class);
         criteria.add(Restrictions.eq("chat",chat));
         
@@ -344,7 +338,7 @@ public class ChatControleur {
                     modelAndView = detailChat(chat.getIdChat(), httpSession);
                     session.close();
                     return modelAndView;
-                }else{// sinon on renvoie la page au normal ou à l'admin
+                }else{// sinon on renvoie la page au normal ou ï¿½ l'admin
                     if(admin.equals("NA")){
                         modelAndView = listeChat(httpSession);}
                         else
@@ -378,9 +372,9 @@ public class ChatControleur {
    
     /**
      * Enclenche la recherche administrateur
-     *@param httpSession donne les info de l'utilisateur connecté
-     *@param request donne la requête http
-     *@return la page associée
+     *@param httpSession donne les info de l'utilisateur connectï¿½
+     *@param request donne la requï¿½te http
+     *@return la page associï¿½e
      * */
     @RequestMapping("chat/AdminChatsRech")
        public ModelAndView Admin_Recherche_Chat(HttpSession httpSession, HttpServletRequest request){
@@ -391,13 +385,13 @@ public class ChatControleur {
    
      /**
       * affiche la page pour modifier un Chat
-      * @param idChat id du chat concerné
-      * @param httpSession donne les info de l'utilisateur connecté
+      * @param idChat id du chat concernï¿½
+      * @param httpSession donne les info de l'utilisateur connectï¿½
       * */
        @RequestMapping("/chat/{idChat}/moderer")
         public ModelAndView AdminModererChat(@PathVariable("idChat") int idChat,HttpSession httpSession){
     	   
-    	   // ondoit être admin pour voir la page
+    	   // ondoit ï¿½tre admin pour voir la page
     	   if(httpSession.getAttribute("Admin")==null){
 				ModelAndView model1 = new ModelAndView("ConnexionForm");
 				model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
@@ -434,8 +428,8 @@ public class ChatControleur {
         }
        
        /**
-        * Permet à l'admin d'ajouter un chat
-        * @param httpSession donne les info de l'utilisateur connecté
+        * Permet ï¿½ l'admin d'ajouter un chat
+        * @param httpSession donne les info de l'utilisateur connectï¿½
         * */
 	   @RequestMapping("/AdminAjoutChat")
 		public ModelAndView AdminAjoutChat(HttpSession httpSession){
@@ -453,9 +447,9 @@ public class ChatControleur {
 	
 	   /**
 	    * Modifier un chat (admin)
-	    * @param chat Chat à modifier
-	    * @param result permet de gérer les erreurs de modelattribute
-	    * @param httpSession donne les info de l'utilisateur connecté
+	    * @param chat Chat ï¿½ modifier
+	    * @param result permet de gï¿½rer les erreurs de modelattribute
+	    * @param httpSession donne les info de l'utilisateur connectï¿½
 	    * */
 	   @RequestMapping("/modifierChat")
 		public ModelAndView AdminModifierChat(@ModelAttribute("chat") Chat chat, BindingResult result,HttpSession httpSession){
@@ -472,7 +466,7 @@ public class ChatControleur {
 			if(result.hasErrors()){
 				ModelAndView model1;
 				model1 = affichePanneauAdminChats(httpSession);
-				model1.addObject("error","La modification a échouée. (Le lv chat. ne doit contenir que des chiffres)");
+				model1.addObject("error","La modification a ï¿½chouï¿½e. (Le lv chat. ne doit contenir que des chiffres)");
 				return model1;
 			}	
 			 
@@ -509,8 +503,8 @@ public class ChatControleur {
 	
 	 
 	   /** Permet de supprimer un chat
-	    * @param idChat IdChat concerné par la suppression
-	    * @param httpSession donne les info de l'utilisateur connecté
+	    * @param idChat IdChat concernï¿½ par la suppression
+	    * @param httpSession donne les info de l'utilisateur connectï¿½
 	    * */
 	   @RequestMapping(value="/chat/{idChat}/supprimer")
 		public ModelAndView AdminSupprimerChat(@PathVariable("idChat") int idChat, HttpSession httpSession){
@@ -543,10 +537,10 @@ public class ChatControleur {
 		}
 	   
 	   /** Ajoute un chat
-	    * @param chat chat créé par modelattribue
-	    * @param httpSession donne les info de l'utilisateur connecté
-	    * @param result permet de gérer les erreurs
-	    * @param requête http
+	    * @param chat chat crï¿½ï¿½ par modelattribue
+	    * @param httpSession donne les info de l'utilisateur connectï¿½
+	    * @param result permet de gï¿½rer les erreurs
+	    * @param requï¿½te http
 	    * */
 	    @RequestMapping(value="/chat/AdminAjoutChat",method = RequestMethod.POST)
 	       public ModelAndView AdminAjoutChat(@ModelAttribute("chat") Chat chat, HttpSession httpSession,BindingResult result,HttpServletRequest request){
