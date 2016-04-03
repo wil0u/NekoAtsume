@@ -182,11 +182,11 @@ public class AstuceControleur {
 		modelAndView.addObject("pourCentDislike", listVal.get(1));
 		
 		
-		System.out.println("listVal de 0 :" + listVal.get(0) + "  listVal de 1 :" + listVal.get(1));
+		
 
 		// va d�terminer si la personne peut voter ou non.
 		String email = (String) httpSession.getAttribute("emailUser");
-		System.out.println("Valeur de la variable email : " + email);
+		
 		
 		// trouver compte par email
 		Query query = session.getNamedQuery("findCompteByEmail").setString("email", email);
@@ -314,7 +314,7 @@ public class AstuceControleur {
 		if (chat != null) {
 			// Si le chat existe, on va chercher la m�thode qui va chercher
 			// pour nous
-			System.out.println("VALEUR DU ID " + chat.getIdChat());
+			
 			ModelAndView modelAndView = new ModelAndView("AstucesChat");
 			modelAndView = AstucesAssocieesAuChatNORMAL(chat.getIdChat(), httpSession);
 			session.close();
@@ -347,8 +347,7 @@ public class AstuceControleur {
 		Criteria criteria = session.createCriteria(Astuce.class);
 		criteria.add(Restrictions.eq("chat", chat)).add(Restrictions.eq("publie", true));
 		List<Astuce> astuces = (List<Astuce>) criteria.list();
-		for (int i = 1; i < astuces.size(); i++)
-			System.out.println("Astuce :" + astuces.get(i).getAstuce());
+		
 		session.close();
 		
 		// ajoute les infos
@@ -383,8 +382,7 @@ public class AstuceControleur {
 		List<Astuce> astuces = (List<Astuce>) criteria.list();
 		
 		// les ajoute
-		for (int i = 1; i < astuces.size(); i++)
-			System.out.println("Astuce :" + astuces.get(i).getAstuce());
+		
 		session.close();
 		
 		// ajoute les infos
@@ -519,9 +517,9 @@ public class AstuceControleur {
 
 		Objet objet;
 		Chat chat;
-//		System.out.println("MAM OOORT");
+//		
 //		CategorieAstuce categorieAstuce = astuce.getCategorie();
-//		System.out.println("HEEEEEEEEEEEEEEY"+categorieAstuce.getNomCategorieAstuce());
+//		
 		CompteInscrit compte;
 		
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -1216,7 +1214,7 @@ public class AstuceControleur {
 			model1.addObject("Info", "Vous devez etre connecte!");
 			return model1;
 		}
-		if (astuce.getTitre().equals("") || astuce.getAstuce().equals("")  || astuce.getTitre().length()>253 || astuce.getTitre().length()>253) {
+		if (astuce.getTitre().equals("") || astuce.getAstuce().equals("")  || astuce.getTitre().length()>253 || astuce.getAstuce().length()>253) {
 			ModelAndView model1 = new ModelAndView("Redirection");
 			model1.addObject("error", "Erreur : Le corps, le titre de l'astuce est vide ou trop grand (255 caractères MAXIMUM) !!");
 			model1.addObject("url", "/NekoAtsume/AjoutAstuceGenerale");
@@ -1225,7 +1223,7 @@ public class AstuceControleur {
 
 		
 		Objet objet;
-//		System.out.println("MAM OOORT");
+				
 //		CategorieAstuce categorieAstuce = astuce.getCategorie();
 //		System.out.println("HEEEEEEEEEEEEEEY"+categorieAstuce.getNomCategorieAstuce());
 		CompteInscrit compte;

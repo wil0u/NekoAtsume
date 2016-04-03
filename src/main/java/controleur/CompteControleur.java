@@ -294,10 +294,8 @@ public class CompteControleur {
 			//test si Admin
 		else if(compte.getMdp().equals(compteRetour.getMdp()) && !compteRetour.isBanned()){
 			if(compteRetour instanceof CompteAdmin){
-				httpSession.setAttribute("Admin", "Admin");
-				System.out.println("je suis un admin");
+				httpSession.setAttribute("Admin", "Admin");	
 			}
-			System.out.println("le user existe  et son mdp coincide!");
 			httpSession.setAttribute("emailUser", compte.getEmail());
 			
 		}
@@ -354,9 +352,7 @@ public class CompteControleur {
 		compteRetour = (CompteInscrit) query.uniqueResult();
 		
 		// set le mdp 
-		System.out.println(compteRetour.getMdp());
 		compteRetour.setMdp(pass1);
-		System.out.println(compteRetour.getMdp());
 		sessionHibernate.save(compteRetour);
 		sessionHibernate.getTransaction().commit();
 		// sauvegarde les changements

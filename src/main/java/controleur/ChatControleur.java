@@ -178,8 +178,7 @@ public class ChatControleur {
         //liste des astuces
         List<Astuce> astuces = (List<Astuce>)criteria.list();
         
-        for (int i = 1 ; i < astuces.size(); i++){
-            System.out.println("Astuce :"+astuces.get(i).getAstuce());}
+       
         
         // ajout des infos 
         modelAndView.addObject("Chat",chat);
@@ -408,8 +407,7 @@ public class ChatControleur {
             criteria.add(Restrictions.eq("chat",chat));
             List<Astuce> astuces = (List<Astuce>)criteria.list();
             
-            for (int i = 1 ; i < astuces.size(); i++){
-                System.out.println("Astuce :"+astuces.get(i).getAstuce());}
+        
             
             // Ajout des infos
             modelAndView.addObject("Chat",chat);
@@ -527,7 +525,6 @@ public class ChatControleur {
 	            	for(int i=0;i<astuces.size();i++){
 	            		Astuce astuce;
 	            		astuce = session.get(Astuce.class, astuces.get(i).getIdAstuce());
-	            		System.out.println(astuce);
 	            		criteria = session.createCriteria(Vote.class);
 	        	        criteria.add(Restrictions.eq("astuce",astuce));
 	        	        List<Vote> votes = (List<Vote>)criteria.list();
