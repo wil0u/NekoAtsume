@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import modele.CompteAdmin;
 import modele.CompteInscrit;
 
+import org.apache.commons.logging.Log;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -31,7 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class CompteControleur {
-
+	private static final Logger log= Logger.getLogger( CompteControleur.class.getName() );
 	
 	/** Retourne la page pour s'inscrire
 	 * */
@@ -83,7 +86,7 @@ public class CompteControleur {
 	 */
 	@RequestMapping(value="/compte", method = RequestMethod.POST)
 	public ModelAndView AjoutCompte(@ModelAttribute("compte") CompteInscrit compte, BindingResult result, HttpServletRequest request, HttpServletResponse response ) 
-			throws Exception {
+			throws IllegalArgumentException {
 		   
 		ModelAndView model1 = new ModelAndView("InscriptionForm");
         String resultat;
@@ -151,7 +154,7 @@ public class CompteControleur {
         } catch ( IllegalArgumentException e ) {
           erreurs.put( "motdepasse", e.getMessage() );
           erreur = true ;
-          e.printStackTrace();
+          log.log(Level.WARNING, "Error",e );
         	model1.addObject("error4","Votre mot de passe n'est pas identique ou trop court.");
 	  }
 
@@ -165,7 +168,7 @@ public class CompteControleur {
         } catch ( IllegalArgumentException e ) {
         	erreur = true ;
         	
-        	e.printStackTrace();
+        	log.log(Level.WARNING, "Error",e );
         	model1.addObject("error5","Le nom d'utilisateur doit contenir au moins 3 caract�res.");
 		  }
 		
@@ -220,7 +223,7 @@ public class CompteControleur {
  * @param nom nom �  tester
  * @throws Exception
  */
-	private void validationNom(String nom) throws Exception {
+	private void validationNom(String nom) throws IllegalArgumentException {
 
 		if (nom != null && nom.trim().length() < 3) {
 

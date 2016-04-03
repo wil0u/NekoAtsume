@@ -133,8 +133,8 @@ public class AstuceControleur {
 		ModelAndView modelAndView = new ModelAndView("Astuce");
 		
 		Astuce astuce = new Astuce();
-		String info = "";
-		String cas = "";
+		String info ="";
+		String cas ;
 		
 		// ouverture de dession
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -813,7 +813,7 @@ public class AstuceControleur {
 		
 		//liste des objets
 		Objet objet = new Objet();
-		List<Objet> objets = new ArrayList();
+		List<Objet> objets = new ArrayList<Objet>();
 		for (int i = 0; i < astuce.getListObjetId().size(); i++) {
 			objet = session.get(Objet.class, astuce.getListObjetId().get(i));
 			objets.add(objet);
