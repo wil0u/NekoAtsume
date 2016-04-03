@@ -509,9 +509,9 @@ public class AstuceControleur {
 			model1.addObject("error", "Probl�me dans le formulaire, veuillez contacter un Admin");
 			return model1;
 		}
-		if (astuce.getTitre().equals("") || astuce.getAstuce().equals("")) {
+		if (astuce.getTitre().equals("") || astuce.getAstuce().equals("")  || astuce.getTitre().length()>253 || astuce.getTitre().length()>253) {
 			ModelAndView model1 = new ModelAndView("Redirection");
-			model1.addObject("error", "Erreur : Le corps ou le titre de l'astuce est vide !!");
+			model1.addObject("error", "Erreur : Le corps, le titre de l'astuce est vide ou trop grand (255 caractères MAXIMUM) !!");
 			model1.addObject("url", "/NekoAtsume/chat/" + idChat + "/astuce");
 			return model1;
 		}
@@ -550,7 +550,13 @@ public class AstuceControleur {
 		astuce.setListObjet(objets);
 		astuce.setAuteur(compte);
 		astuce.setChat(chat);
-//		astuce.setCategorie(categorieAstuce);
+		CategorieAstuce categorieAstuce;
+		Criteria criteriaCategorieAstuce = session.createCriteria(CategorieAstuce.class);
+		criteriaCategorieAstuce.add(Restrictions.eq("nomCategorieAstuce", "Collection chat"));
+		categorieAstuce = (CategorieAstuce) criteriaCategorieAstuce.uniqueResult();
+		
+		astuce.setCategorie(categorieAstuce);
+		
 		
 			
 		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
@@ -859,7 +865,17 @@ public class AstuceControleur {
 		session.beginTransaction();
 
 		Astuce astuceRetour = session.get(Astuce.class, idAstuce);
-
+		Criteria criteria = session.createCriteria(Vote.class);
+        criteria.add(Restrictions.eq("astuce",astuceRetour));
+        List<Vote> votes = (List<Vote>)criteria.list();
+        if (votes.size()>0){
+        	for(int j=0;j<votes.size();j++){
+        		Vote vote;
+        		vote = session.get(Vote.class, votes.get(j).getIdVote());
+        		
+        		session.delete(vote);
+        		}
+        }
 		//supprime astuce
 		session.delete(astuceRetour);
 
@@ -1098,4 +1114,165 @@ public class AstuceControleur {
 		}
 		return null;
 	}
+	
+	
+	
+	@RequestMapping(value="/AjoutAstuceGenerale", method = RequestMethod.GET)
+	public ModelAndView AjoutAstuceGenerale(HttpSession httpSession) {
+		ModelAndView modelAndView = new ModelAndView("AjoutAstuceGeneraleForm");
+		
+		//accessible que si admin
+		if (httpSession.getAttribute("emailUser") == null) {
+			ModelAndView model1 = new ModelAndView("ConnexionForm");
+			model1.addObject("Info", "Vous devez etre connecte!");
+			return model1;
+		}
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		//r�cup�re les objets pour les afficher, et yen a un tas.
+				Criteria criteriaCategorieObjet = session.createCriteria(CategorieObjet.class);
+				List<CategorieObjet> categorieObjets = (List<CategorieObjet>) criteriaCategorieObjet.list();
+
+				Criteria criteria = session.createCriteria(Objet.class);
+				criteria.add(Restrictions.eq("categorieObjet", categorieObjets.get(0)));
+				List<Objet> balls = (List<Objet>) criteria.list();
+
+				criteria = session.createCriteria(Objet.class);
+				criteria.add(Restrictions.eq("categorieObjet", categorieObjets.get(1)));
+				List<Objet> boxs = (List<Objet>) criteria.list();
+
+				criteria = session.createCriteria(Objet.class);
+				criteria.add(Restrictions.eq("categorieObjet", categorieObjets.get(2)));
+				List<Objet> beds = (List<Objet>) criteria.list();
+
+				criteria = session.createCriteria(Objet.class);
+				criteria.add(Restrictions.eq("categorieObjet", categorieObjets.get(3)));
+				List<Objet> furniture = (List<Objet>) criteria.list();
+
+				criteria = session.createCriteria(Objet.class);
+				criteria.add(Restrictions.eq("categorieObjet", categorieObjets.get(4)));
+				List<Objet> tunnels = (List<Objet>) criteria.list();
+
+				criteria = session.createCriteria(Objet.class);
+				criteria.add(Restrictions.eq("categorieObjet", categorieObjets.get(5)));
+				List<Objet> toys = (List<Objet>) criteria.list();
+
+				criteria = session.createCriteria(Objet.class);
+				criteria.add(Restrictions.eq("categorieObjet", categorieObjets.get(6)));
+				List<Objet> heating = (List<Objet>) criteria.list();
+
+				criteria = session.createCriteria(Objet.class);
+				criteria.add(Restrictions.eq("categorieObjet", categorieObjets.get(7)));
+				List<Objet> bagsHiding = (List<Objet>) criteria.list();
+
+				criteria = session.createCriteria(Objet.class);
+				criteria.add(Restrictions.eq("categorieObjet", categorieObjets.get(8)));
+				List<Objet> scratching = (List<Objet>) criteria.list();
+
+				criteria = session.createCriteria(Objet.class);
+				criteria.add(Restrictions.eq("categorieObjet", categorieObjets.get(9)));
+				List<Objet> baskets = (List<Objet>) criteria.list();
+
+				criteria = session.createCriteria(Objet.class);
+				criteria.add(Restrictions.eq("categorieObjet", categorieObjets.get(10)));
+				List<Objet> foods = (List<Objet>) criteria.list();
+
+				criteria = session.createCriteria(CategorieAstuce.class);
+				List<CategorieAstuce> categorieAstuces = (List<CategorieAstuce>) criteria.list();
+
+				session.close();
+				
+		// ajout des infos
+				modelAndView.addObject("balls", balls);
+				modelAndView.addObject("boxes", boxs);
+				modelAndView.addObject("beds", beds);
+				modelAndView.addObject("furniture", furniture);
+				modelAndView.addObject("tunnels", tunnels);
+				modelAndView.addObject("toys", toys);
+				modelAndView.addObject("heating", heating);
+				modelAndView.addObject("bagsHiding", bagsHiding);
+				modelAndView.addObject("scratching", scratching);
+				modelAndView.addObject("baskets", baskets);
+				modelAndView.addObject("foods", foods);
+				modelAndView.addObject("categorieAstuces", categorieAstuces);
+				modelAndView.addObject("email", httpSession.getAttribute("emailUser"));
+				modelAndView.addObject("Admin", httpSession.getAttribute("Admin"));
+
+		modelAndView.addObject("Admin", httpSession.getAttribute("Admin"));
+		modelAndView.addObject("email", httpSession.getAttribute("emailUser"));
+
+		return modelAndView;
+	}
+	
+
+	@RequestMapping(value="/AjoutAstuceGenerale", method = RequestMethod.POST)
+	public ModelAndView AjoutAstuceGeneraleSubmit(@ModelAttribute("astuce") Astuce astuce, BindingResult result,HttpSession httpSession) {
+		
+		
+		//accessible que si admin
+		if (httpSession.getAttribute("emailUser") == null) {
+			ModelAndView model1 = new ModelAndView("ConnexionForm");
+			model1.addObject("Info", "Vous devez etre connecte!");
+			return model1;
+		}
+		if (astuce.getTitre().equals("") || astuce.getAstuce().equals("")  || astuce.getTitre().length()>253 || astuce.getTitre().length()>253) {
+			ModelAndView model1 = new ModelAndView("Redirection");
+			model1.addObject("error", "Erreur : Le corps, le titre de l'astuce est vide ou trop grand (255 caractères MAXIMUM) !!");
+			model1.addObject("url", "/NekoAtsume/AjoutAstuceGenerale");
+			return model1;
+		}
+
+		
+		Objet objet;
+//		System.out.println("MAM OOORT");
+//		CategorieAstuce categorieAstuce = astuce.getCategorie();
+//		System.out.println("HEEEEEEEEEEEEEEY"+categorieAstuce.getNomCategorieAstuce());
+		CompteInscrit compte;
+		
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		// Liste d'objet a r�cuperer � partir des identifiants transmit par
+		// le formulaire
+		List<Objet> objets = new ArrayList<Objet>();
+		for (int i = 0; i < astuce.getListObjetId().size(); i++) {
+			objet = session.get(Objet.class, astuce.getListObjetId().get(i));
+			objets.add(objet);
+		}
+
+		Query query = session.getNamedQuery("findCompteByEmail").setString("email",
+				(String) httpSession.getAttribute("emailUser"));
+		
+		
+
+		String emailUser = (String) httpSession.getAttribute("emailUser");
+		compte = (CompteInscrit) query.uniqueResult();
+		// Et on bind les infos � l'astuce
+		astuce.setListObjet(objets);
+		astuce.setAuteur(compte);
+		
+		CategorieAstuce categorieAstuce;
+		Criteria criteriaCategorieAstuce = session.createCriteria(CategorieAstuce.class);
+		criteriaCategorieAstuce.add(Restrictions.eq("nomCategorieAstuce", "Général"));
+		categorieAstuce = (CategorieAstuce) criteriaCategorieAstuce.uniqueResult();
+		
+		astuce.setCategorie(categorieAstuce);
+		
+			
+		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+          astuce.setDate((java.sql.Date) date);
+		
+		session.save(astuce);
+		session.getTransaction().commit();
+		session.close();
+		ModelAndView modelAndView = listeAstuce(httpSession);
+		modelAndView.addObject("email", compte);
+		modelAndView.addObject("Admin", httpSession.getAttribute("Admin"));
+		modelAndView.addObject("succes",
+				"Votre astuce a �t� envoy�e aux mod�rateurs afin qu'ils puissent la valider !");
+		return modelAndView;
+	}
+	
 }

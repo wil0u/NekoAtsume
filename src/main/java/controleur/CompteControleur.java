@@ -40,7 +40,7 @@ public class CompteControleur {
 	@RequestMapping(value="/compte", method = RequestMethod.GET)
 	public ModelAndView Inscription(){
 		
-		 //création modele
+		 //crï¿½ation modele
 		ModelAndView modelAndView = new ModelAndView("InscriptionForm");
 		
 		return modelAndView;
@@ -48,7 +48,7 @@ public class CompteControleur {
 	
 	/**
 	 * Permet 
-	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @param httpSession donne les info de l'utilisateur connectï¿½
 	 * @return modelAndView page
 	 */
 	@RequestMapping(value="/monProfil", method = RequestMethod.GET)
@@ -76,10 +76,10 @@ public class CompteControleur {
 	
 	/**
 	 * Permet d'ajouter une personne aux comptes
-	 * @param compte compte créé par modelAttribute
-	 * @param result gère les éventuelles erreurs de modelAttribute
-	 * @param request requête http
-	 * @param response réponse http
+	 * @param compte compte crï¿½ï¿½ par modelAttribute
+	 * @param result gï¿½re les ï¿½ventuelles erreurs de modelAttribute
+	 * @param request requï¿½te http
+	 * @param response rï¿½ponse http
 	 * @return modelAndView la page
 	 * @throws ServletException
 	 * @throws IOException
@@ -95,14 +95,14 @@ public class CompteControleur {
 		
 		/* Rï¿½cupï¿½ration des champs du formulaire. */
 
-        // s'il y a des erreurs dans la création du modelattribute, on renvoie à l'inscription
+        // s'il y a des erreurs dans la crï¿½ation du modelattribute, on renvoie ï¿½ l'inscription
 		if(result.hasErrors()){
 			
 			model1.addObject("error", "Erreur dans le formulaire, veuillez contacter un admin");
 			return model1;
 		}
 		
-		// informations du formulaire récupéré par l'objet compte
+		// informations du formulaire rï¿½cupï¿½rï¿½ par l'objet compte
 		String pseudo = compte.getPseudo() ;
 		String email = compte.getEmail() ;
 		String motDePasse = compte.getMdp();
@@ -115,7 +115,7 @@ public class CompteControleur {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-		//regarder si ya pas déjà un email existant
+		//regarder si ya pas dï¿½jï¿½ un email existant
 		Criteria criteria = session.createCriteria(CompteInscrit.class);  
 		criteria.add( Restrictions.like("email", compte.getEmail()));
 		List<CompteInscrit> comptesEmail = criteria.list();
@@ -138,7 +138,7 @@ public class CompteControleur {
 			erreur = true ;
 		}
 		
-		//vérifie les champs
+		//vï¿½rifie les champs
 		if(compte.getEmail().equals("")||compte.getPseudo().equals("")||compte.getMdp().equals("") ){
 			
 			model1.addObject("error3","Un ou plusieurs champs sont vides !");
@@ -181,7 +181,7 @@ public class CompteControleur {
 		session.getTransaction().commit();
 		session.close();
 		ModelAndView modelAndView = new ModelAndView("index");
-	    modelAndView.addObject("succes","Votre compte a été créé !");
+	    modelAndView.addObject("succes","Votre compte a ï¿½tï¿½ crï¿½ï¿½ !");
 		return modelAndView;}
 	}
 
@@ -194,7 +194,7 @@ public class CompteControleur {
  */
 	private void validationMotsDePasse(String motDePasse, String confirmation) throws Exception {
 		
-		// vérifie si mdp non null et si lui et sa confirmations ne sont pas différents
+		// vï¿½rifie si mdp non null et si lui et sa confirmations ne sont pas diffï¿½rents
 		if (motDePasse != null && motDePasse.trim().length() != 0 && confirmation != null
 				&& confirmation.trim().length() != 0) {
 
@@ -218,8 +218,8 @@ public class CompteControleur {
 
 
 /**
- * Vérifie que le nom n'est pas null et supérieur à 3 carac
- * @param nom nom à  tester
+ * Vï¿½rifie que le nom n'est pas null et supï¿½rieur ï¿½ 3 carac
+ * @param nom nom ï¿½  tester
  * @throws Exception
  */
 	private void validationNom(String nom) throws Exception {
@@ -245,15 +245,15 @@ public class CompteControleur {
 	}
 	/**
 	 * Permet de se connecter
-	 * @param compte Créé par modelAttribute à partir des infos saisies
-	 * @param result gère les erreurs eventuelles de modelattribute
-	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @param compte Crï¿½ï¿½ par modelAttribute ï¿½ partir des infos saisies
+	 * @param result gï¿½re les erreurs eventuelles de modelattribute
+	 * @param httpSession donne les info de l'utilisateur connectï¿½
 	 * @return
 	 */
 	@RequestMapping(value="/connexion", method = RequestMethod.POST)
 	public ModelAndView Connexion(@ModelAttribute("compte") CompteInscrit compte, BindingResult result,HttpSession httpSession){
 		
-		//création du modele
+		//crï¿½ation du modele
 		ModelAndView modelAndView = new ModelAndView("index");
 		
 		// s'il y a une rreur dans la creation du compteinscrit, bye bye
@@ -279,7 +279,7 @@ public class CompteControleur {
 			model1.addObject("error","Erreur : Email ou mot de passe incorrect.");
 			return model1;
 		}else if(!compte.getMdp().equals(compteRetour.getMdp())){ // je vais te tuer t'as fait des elseif
-			// si le mdp fourni est différent du mdp BDD, l'authentification n'est pas bonne
+			// si le mdp fourni est diffï¿½rent du mdp BDD, l'authentification n'est pas bonne
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
 			model1.addObject("error","Erreur : Le mot de passe est incorrect.");
 			return model1;
@@ -294,7 +294,7 @@ public class CompteControleur {
 				
 			}	
 			//test si Admin
-		else if(compteRetour != null && compte.getMdp().equals(compteRetour.getMdp()) && !compteRetour.isBanned()){
+		else if(compte.getMdp().equals(compteRetour.getMdp()) && !compteRetour.isBanned()){
 			if(compteRetour instanceof CompteAdmin){
 				httpSession.setAttribute("Admin", "Admin");
 				System.out.println("je suis un admin");
@@ -311,7 +311,7 @@ public class CompteControleur {
 	
 	/**
 	 * Permet de se deconnecter
-	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @param httpSession donne les info de l'utilisateur connectï¿½
 	 * @return
 	 */
 	@RequestMapping(value="/deconnexion")
@@ -323,9 +323,9 @@ public class CompteControleur {
 	
 	/**
 	 * Permet de changer le mot de passe
-	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @param httpSession donne les info de l'utilisateur connectï¿½
 	 * @param pass1 
-	 * @param pass2 en comparaison avec pass1, permet de vérifier
+	 * @param pass2 en comparaison avec pass1, permet de vï¿½rifier
 	 * @return
 	 */
 	@RequestMapping(value="/submitMotPass", method = RequestMethod.POST)
@@ -385,13 +385,13 @@ public class CompteControleur {
 
 	/**
 	 * Affiche le panneau admin des membres
-	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @param httpSession donne les info de l'utilisateur connectï¿½
 	 * @return modelAndViewla page
 	 */
 	@RequestMapping(value="/AdminMembres")
 	public ModelAndView affichePanneauAdminMembres(HttpSession httpSession){
 		
-		// si on est pas un admin, on ne peut pas accéder à la page
+		// si on est pas un admin, on ne peut pas accï¿½der ï¿½ la page
 		if(httpSession.getAttribute("Admin")==null){
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
 			model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");
@@ -420,14 +420,14 @@ modelAndView.addObject("listInscrit", inscrits);
 	
 	/**
 	 * Permet de bannir un compte
-	 * @param idCompte compte concerné
-	 * @param httpSession donne les info de l'utilisateur connecté
+	 * @param idCompte compte concernï¿½
+	 * @param httpSession donne les info de l'utilisateur connectï¿½
 	 * @return la page
 	 */
 	@RequestMapping(value="/membre/{idCompte}/bannir")
 	public ModelAndView bannir(@PathVariable("idCompte") int idCompte,HttpSession httpSession){
 		
-		// si on est pas admin, on ne peut pas accéder à la page
+		// si on est pas admin, on ne peut pas accï¿½der ï¿½ la page
 		if(httpSession.getAttribute("Admin")==null){
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
 			model1.addObject("Info","Vous devez etre connecte en tant qu'admin !");

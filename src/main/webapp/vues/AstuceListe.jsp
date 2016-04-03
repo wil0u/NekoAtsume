@@ -29,7 +29,15 @@ Tapper le nom d'un chat pour rechercher ses astuces<input type="text" name="Rech
   <c:forEach var="astuce" items="${ListeAstuce}">
   <tr>
     <td>${astuce.titre}</td>
-    <td><a href="http://localhost:8080/NekoAtsume/chat/${astuce.chat.idChat}">${astuce.chat.nomChat}</a></td>
+    <c:choose>
+    <c:when test="${empty astuce.chat}">
+		<td>Aucun</td>
+    </c:when>
+    <c:otherwise>
+<td><a href="http://localhost:8080/NekoAtsume/chat/${astuce.chat.idChat}">${astuce.chat.nomChat}</a></td>
+    </c:otherwise>
+    
+</c:choose>
     <td>${astuce.categorie.nomCategorieAstuce}</td>
     <td>${astuce.date}</td>
     <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}" class="btn btn-primary" role="button">Lien</a></td>
@@ -37,5 +45,5 @@ Tapper le nom d'un chat pour rechercher ses astuces<input type="text" name="Rech
   </c:forEach>
 </table>
 
-
+<center><a href="http://localhost:8080/NekoAtsume/AjoutAstuceGenerale" class="btn btn-success" role="button">Ajouter une astuce générale !</a></center>
 <%@ include file="footer.jsp" %>

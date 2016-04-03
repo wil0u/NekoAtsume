@@ -7,9 +7,11 @@ import java.util.List;
 
 
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
  
+
 
 import modele.Astuce;
 import modele.Chat;
@@ -20,6 +22,8 @@ import modele.Objet;
 
 
 
+
+import modele.Vote;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -522,7 +526,31 @@ public class ChatControleur {
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
 			chatRetour = session.get(Chat.class, idChat);
-			
+			Criteria criteria = session.createCriteria(Astuce.class);
+	        criteria.add(Restrictions.eq("chat",chatRetour));
+	        List<Astuce> astuces = (List<Astuce>)criteria.list();
+	    	
+            	
+	            if (astuces.size()>0){
+	            	for(int i=0;i<astuces.size();i++){
+	            		Astuce astuce;
+	            		astuce = session.get(Astuce.class, astuces.get(i).getIdAstuce());
+	            		System.out.println(astuce);
+	            		criteria = session.createCriteria(Vote.class);
+	        	        criteria.add(Restrictions.eq("astuce",astuce));
+	        	        List<Vote> votes = (List<Vote>)criteria.list();
+	        	        if (votes.size()>0){
+	                    	for(int j=0;j<votes.size();j++){
+	                    		Vote vote;
+	                    		vote = session.get(Vote.class, votes.get(j).getIdVote());
+	                    		
+	                    		session.delete(vote);
+	                    		}
+	                    }
+	            		session.delete(astuce);
+	            		}
+	            }
+	      
 			session.delete(chatRetour);
 
 			session.getTransaction().commit();
@@ -554,7 +582,7 @@ public class ChatControleur {
 			if(result.hasErrors()){
 				ModelAndView model1;
 				model1 = affichePanneauAdminChats(httpSession);
-				model1.addObject("Error","L'ajout a échoué. (Le lv chat. ne doit contenir que des chiffres)");
+				model1.addObject("error","L'ajout a échoué. (Le lv chat. ne doit contenir que des chiffres)");
 				return model1;
 			}
 		    try {
@@ -562,7 +590,7 @@ public class ChatControleur {
 		     } catch (NumberFormatException ex) {
 		    	 ModelAndView model1;
 					model1 = affichePanneauAdminChats(httpSession);
-					model1.addObject("Error","L'ajout a échoué. (Le lv chat. ne doit contenir que des chiffres)");
+					model1.addObject("error","L'ajout a échoué. (Le lv chat. ne doit contenir que des chiffres)");
 					return model1;
 		     }
 		

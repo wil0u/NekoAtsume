@@ -49,7 +49,7 @@
 						href="http://localhost:8080/NekoAtsume/astuces">Astuces</a></li>
 					<li role="presentation"><a
 						href="http://localhost:8080/NekoAtsume/objets">Objets</a></li>
-
+					
 									</ul>
 				
 				
@@ -65,7 +65,7 @@
 								<li><a href="http://localhost:8080/NekoAtsume/AdminChats">Chats</a></li>
 								<li><a href="http://localhost:8080/NekoAtsume/AdminAstuces">Astuces</a></li>
 								<li><a href="http://localhost:8080/NekoAtsume/AdminMembres">Membres</a></li>
-
+			
 							</ul>
 						</div>
 					</div>

@@ -26,7 +26,15 @@
   <c:forEach var="astuce" items="${listAstuce}">
   <tr>  
     <td>${astuce.titre}</td>  
-    <td><a href="http://localhost:8080/NekoAtsume/chat/${astuce.chat.idChat}">${astuce.chat.nomChat}</a></td>
+    <c:choose>
+    <c:when test="${empty astuce.chat}">
+		<td>Aucun</td>
+    </c:when>
+    <c:otherwise>
+<td><a href="http://localhost:8080/NekoAtsume/chat/${astuce.chat.idChat}">${astuce.chat.nomChat}</a></td>
+    </c:otherwise>
+    
+</c:choose>
     <td>${astuce.date }</td>
     <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}/moderer" class="btn btn-primary" role="button">Modifier</a></td>
     <td><a href="http://localhost:8080/NekoAtsume/astuce/${astuce.idAstuce}/supprimerAstuce" class="btn btn-danger" role="button">Supprimer</a></td>

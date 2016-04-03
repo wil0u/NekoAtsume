@@ -23,7 +23,9 @@
 	<a href="http://localhost:8080/NekoAtsume/chats"><button
 			class="btn btn-primary " id="bouton1">Afficher tous les
 			chats</button></a>
+			<a href="http://localhost:8080/NekoAtsume/restChats" class="btn btn-primary " id="bouton2">Chats en json!</a>
 	<div class="ligne"></div>
+
 
 	<tr>
 		<th>Nom chat <!--     Ordonnancement des chats par ASC ou DESC -->
