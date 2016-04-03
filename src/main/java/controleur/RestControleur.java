@@ -24,11 +24,13 @@ public class RestControleur {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(Chat.class);
         List<Chat> chats =  (List<Chat>)criteria.list();
+        session.close();
          
         if(chats.isEmpty()){
             return new ResponseEntity<List<Chat>>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<Chat>>(chats, HttpStatus.OK);
+        
     }
  
 

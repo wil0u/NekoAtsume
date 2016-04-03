@@ -17,17 +17,18 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AccueilControleur {
 
-	/**Retourne la page d'accueil
- @param httpSession donne les info de l'utilisateur connect�
-	 * */
-	@RequestMapping("/index")
-	public ModelAndView listeAstuce(HttpSession httpSession){
-		ModelAndView modelAndView = new ModelAndView("index");
-		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
-		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
-		
-		return modelAndView;
 	
-		
-	}
+//	/**Retourne la page d'accueil
+//	 * @param httpSession donne les info de l'utilisateur connect�
+//	 * */
+//	@RequestMapping("/index")
+//	public ModelAndView listeAstuce(HttpSession httpSession){
+//		ModelAndView modelAndView = new ModelAndView("index");
+//		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
+//		modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
+//		
+//		return modelAndView;
+//		
+//		
+//	}
 }

@@ -28,7 +28,7 @@ public class ObjetControleur {
 	@RequestMapping("/objets")
 	public ModelAndView listeObjet(HttpSession httpSession){
 		
-		// création model
+		// crï¿½ation model
 		ModelAndView modelAndView = new ModelAndView("ObjetList");
 		
 		//ouverture session
@@ -36,11 +36,11 @@ public class ObjetControleur {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-		//requète avec criteria qui prends toutes les infos objets
+		//requï¿½te avec criteria qui prends toutes les infos objets
 		Criteria criteriaCategorieObjet = session.createCriteria(CategorieObjet.class);
 		List<CategorieObjet> categorieObjets = (List<CategorieObjet>)criteriaCategorieObjet.list();
 		
-		// tri des résultats selon catégorie		
+		// tri des rï¿½sultats selon catï¿½gorie		
     	Criteria criteria = session.createCriteria(Objet.class);
     	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(0)));
     	List<Objet> balls = (List<Objet>)criteria.list();
@@ -84,7 +84,7 @@ public class ObjetControleur {
     	criteria = session.createCriteria(Objet.class);
     	criteria.add(Restrictions.eq("categorieObjet",categorieObjets.get(10)));
     	List<Objet> foods = (List<Objet>)criteria.list();
-    	
+    	session.close();
     	//mise dans le modele
 		modelAndView.addObject("balls",balls);
 		modelAndView.addObject("boxes",boxs);

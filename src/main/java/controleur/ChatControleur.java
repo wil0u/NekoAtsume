@@ -601,6 +601,7 @@ public class ChatControleur {
 			chat.setLvlChat(lvlChat);
 	        session.save(chat);
 			session.getTransaction().commit();
+			session.close();
 			modelAndView = affichePanneauAdminChats(httpSession);
 			modelAndView.addObject("Succes","L'ajout du chat a été fait avec succès.");
 			return modelAndView;

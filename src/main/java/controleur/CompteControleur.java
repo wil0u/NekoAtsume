@@ -67,7 +67,7 @@ public class CompteControleur {
 		Query query= session.getNamedQuery("findCompteByEmail")
 				.setString("email", email);
 		CompteInscrit compte= (CompteInscrit) query.uniqueResult();
-		
+		session.close();
 		//mise du compte et de ses infos dans le modele
 		modelAndView.addObject("compte",compte);
 		modelAndView.addObject("Admin",httpSession.getAttribute("Admin"));
@@ -272,7 +272,7 @@ public class CompteControleur {
 		Query query= sessionHibernate.getNamedQuery("findCompteByEmail")
 				.setString("email", compte.getEmail());
 		compteRetour = (CompteInscrit) query.uniqueResult();
-		
+		sessionHibernate.close();
 		//Si c'est vide, le compte n'existe pas
 		if(compteRetour == null){
 			ModelAndView model1 = new ModelAndView("ConnexionForm");
@@ -362,7 +362,7 @@ public class CompteControleur {
 		sessionHibernate.save(compteRetour);
 		sessionHibernate.getTransaction().commit();
 		// sauvegarde les changements
-		
+		sessionHibernate.close();
 		ModelAndView modelAndView = voirProfil(httpSession);
 		
 		modelAndView.addObject("Succes","Changement de mot de passe effectu� avec succ�s.");
@@ -407,6 +407,7 @@ session.beginTransaction();
 // rechercher criteria par email
 Criteria criteria = session.createCriteria(CompteInscrit.class);
 List<CompteInscrit> inscrits = (List<CompteInscrit>) criteria.list();
+session.close();
 modelAndView.addObject("email",httpSession.getAttribute("emailUser"));
 modelAndView.addObject("listInscrit", inscrits);
 
@@ -447,7 +448,7 @@ modelAndView.addObject("listInscrit", inscrits);
 		session.save(compteRetour);
 		session.getTransaction().commit();
 		// sauvegarde des changements
-		
+		session.close();
 		ModelAndView modelAndView = affichePanneauAdminMembres(httpSession);
         return modelAndView;
 	}
@@ -473,7 +474,7 @@ modelAndView.addObject("listInscrit", inscrits);
 		session.save(compteRetour);
 		session.getTransaction().commit();
 		// sauvegarde des changements 
-		
+		session.close();
 		ModelAndView modelAndView = affichePanneauAdminMembres(httpSession);
         return modelAndView;
 	}

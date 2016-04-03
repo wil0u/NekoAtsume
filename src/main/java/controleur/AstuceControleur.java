@@ -1009,6 +1009,7 @@ public class AstuceControleur {
 			vote.setValeur("2");
 			session.save(vote);
 			session.getTransaction().commit();
+			session.close();
 			return modelAndView;
 		} else {
 			
@@ -1019,7 +1020,7 @@ public class AstuceControleur {
 				vote.setValeur("2");
 				session.save(vote);
 				session.getTransaction().commit();
-
+				session.close();
 				return modelAndView;
 			}
 			if (vote.getValeur().equals("2")) {
@@ -1027,7 +1028,7 @@ public class AstuceControleur {
 				vote.setValeur("1");
 				session.save(vote);
 				session.getTransaction().commit();
-
+				session.close();
 				return modelAndView;
 			}
 			if (vote.getValeur().equals("3")) {
@@ -1036,7 +1037,7 @@ public class AstuceControleur {
 				session.save(vote);
 				session.getTransaction().commit();
 				modelAndView = new ModelAndView("redirect:/astuce/" + idAstuce);
-
+				session.close();
 				return modelAndView;
 			}
 		}
@@ -1083,7 +1084,7 @@ public class AstuceControleur {
 			vote.setValeur("3");
 			session.save(vote);
 			session.getTransaction().commit();
-
+			session.close();
 			return modelAndView;
 		} else {
 			Vote vote = votes.get(0);
@@ -1092,7 +1093,7 @@ public class AstuceControleur {
 				vote.setValeur("3");
 				session.save(vote);
 				session.getTransaction().commit();
-
+				session.close();
 				return modelAndView;
 			}
 			if (vote.getValeur().equals("2")) {
@@ -1100,7 +1101,7 @@ public class AstuceControleur {
 				vote.setValeur("3");
 				session.save(vote);
 				session.getTransaction().commit();
-
+				session.close();
 				return modelAndView;
 			}
 			if (vote.getValeur().equals("3")) {
@@ -1108,7 +1109,7 @@ public class AstuceControleur {
 				vote.setValeur("1");
 				session.save(vote);
 				session.getTransaction().commit();
-
+				session.close();
 				return modelAndView;
 			}
 		}
